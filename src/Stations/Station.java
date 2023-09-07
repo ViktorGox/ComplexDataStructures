@@ -14,8 +14,8 @@ public class Station {
     private double geoLng;
 
     /** The list of countries, given by code, that are going to be saved in the city list. */
-    private static String[] allowedCountriesCodes = new String[] {"NL"};
-    private static ArrayList<Station> stations = new ArrayList<>();
+    private static final String[] allowedCountriesCodes = new String[] {"NL"};
+    private static final ArrayList<Station> stations = new ArrayList<>();
     public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) {
         setId(id);
         setCode(code);
@@ -74,7 +74,7 @@ public class Station {
     }
 
     public static void TESTING_LIST_STATIONS() {
-        for(Station s : Station.stations) {
+        for(Station s : stations) {
             System.out.println(s);
         }
     }
