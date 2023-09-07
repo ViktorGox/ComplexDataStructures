@@ -1,11 +1,11 @@
-package Stations;
+package CSVReaders;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class StationFromCSV {
-    protected StationFromCSV(String file) {
+public abstract class CSVReader {
+    public void readCSV(String file) {
         try {
             File stationsFile = new File(file);
             Scanner scannerCSVReader = new Scanner(stationsFile);
@@ -15,7 +15,7 @@ public class StationFromCSV {
 
             while (scannerCSVReader.hasNextLine()) {
                 String line = scannerCSVReader.nextLine();
-                GenerateStationFromLine(line);
+                GenerateFromLine(line);
             }
             scannerCSVReader.close();
         } catch (FileNotFoundException e) {
@@ -24,9 +24,5 @@ public class StationFromCSV {
         }
     }
 
-    private void GenerateStationFromLine(String line) {
-        //0,1,4,7,8,9,10
-        String[] lineSplit = line.split(",");
-        new Station(Short.parseShort(lineSplit[0]),lineSplit[1],lineSplit[4],lineSplit[7],lineSplit[8],Double.parseDouble(lineSplit[9]),Double.parseDouble(lineSplit[10]));
-    }
+    protected abstract void GenerateFromLine(String line);
 }

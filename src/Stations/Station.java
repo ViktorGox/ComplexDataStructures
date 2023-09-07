@@ -1,7 +1,8 @@
 package Stations;
 
+import CSVReaders.StationFromCSV;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Station {
     private short id;
@@ -31,27 +32,27 @@ public class Station {
         this.id = id;
     }
 
-    public void setCode(String code) {
+    private void setCode(String code) {
         this.code = code;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
-    public void setCountry(String country) {
+    private void setCountry(String country) {
         this.country = country;
     }
 
-    public void setType(String type) {
+    private void setType(String type) {
         this.type = type;
     }
 
-    public void setGeoLat(double geoLat) {
+    private void setGeoLat(double geoLat) {
         this.geoLat = geoLat;
     }
 
-    public void setGeoLng(double geoLng) {
+    private void setGeoLng(double geoLng) {
         this.geoLng = geoLng;
     }
 
@@ -70,5 +71,11 @@ public class Station {
                 ", geoLat=" + geoLat +
                 ", geoLng=" + geoLng +
                 "}";
+    }
+
+    public static void TESTING_LIST_STATIONS() {
+        for(Station s : Station.stations) {
+            System.out.println(s);
+        }
     }
 }
