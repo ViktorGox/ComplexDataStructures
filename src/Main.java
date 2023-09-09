@@ -12,6 +12,6 @@ public class Main {
         list.add("bongo bingo");
         list.add("the end!");
 
-        System.out.println();
+        System.out.println(list);
     }
 }
