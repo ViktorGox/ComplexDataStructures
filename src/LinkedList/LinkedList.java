@@ -2,54 +2,63 @@ package LinkedList;
 
 public class LinkedList<T> implements IList<T> {
     private Node<T> head = null; // 0 element
+    private int size;
 
     @Override
     public boolean add(T element) {
-        Node<T> node = new Node<T>(element);
-        if(head == null) {
+        Node<T> node = new Node<>(element);
+        if (head == null) {
             head = node;
-        }
-        else {
+        } else {
             Node<T> current = head;
-            while(current.next != null) {
+            while (current.next != null) {
                 current = current.next;
             }
             current.next = node;
+            if (current == head) {
+                current.next.previous = head;
+            } else {
+                current.next.previous = current;
+            }
         }
+        size++;
         return true;
     }
 
     @Override
     public void add(T element, int index) {
-//            if (element == null) throw new NullPointerException();
-//            if (index> currentSize-1) throw  new ArrayIndexOutOfBoundsException();
-//            Node<T> linkElement = new Node<>(element);
-//            currentSize++;
-//            if (index == 0) {
-//                linkElement.next = head;
-//                head = linkElement;
-//                return;
-//            }
-//            Node<T> insertAt = get(index-1);
-//            linkElement.next = insertAt.next;
-//            insertAt.next = linkElement;
+        if (element == null) throw new NullPointerException();
+        if (index > size - 1) throw new ArrayIndexOutOfBoundsException();
+        Node<T> node = new Node<>(element);
+        size++;
+        if (index == 0) {
+            node.next = head;
+            head = node;
+            head.next.previous = head;
+            return;
+        }
+        Node<T> insertAt = get(index - 1);
+        node.next = insertAt.next;
+        node.previous = insertAt;
+        node.next.previous = node;
+        insertAt.next = node;
     }
 
     @Override
     public Node<T> get(int index) {
-        if(head == null) {
+        if (head == null) {
             return null;
         }
         int count = 0;
         Node<T> current = head;
-        while(current.next != null) {
-            if(count == index) {
+        while (current.next != null) {
+            if (count == index) {
                 return current;
             }
             current = current.next;
             count++;
         }
-        if(count == index) {
+        if (count == index) {
             return current;
         }
         return null;
@@ -57,19 +66,19 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public int indexOf(T element) {
-        if(head == null) {
+        if (head == null) {
             return -1;
         }
         int count = 0;
         Node<T> current = head;
-        while(current.next != null) {
-            if(current.equals(element)) {
+        while (current.next != null) {
+            if (current.equals(element)) {
                 return count;
             }
             current = current.next;
             count++;
         }
-        if(current.equals(element)) {
+        if (current.equals(element)) {
             return count;
         }
         return -1;
@@ -87,20 +96,20 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public Node<T> remove(int index) {
-        if(head == null) {
+        if (head == null) {
             return null;
         }
 
         int count = 0;
         Node<T> current = head;
-        while(current.next != null) {
-            if(count == index-1) {
+        while (current.next != null) {
+            if (count == index - 1) {
                 current.next = null; // TODO: fix me!
             }
             current = current.next;
             count++;
         }
-        if(count == index) {
+        if (count == index) {
             return current;
         }
         return null;
@@ -123,7 +132,7 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     public Node<T> getHead() {
@@ -132,11 +141,11 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public String toString() {
-        if(head == null) return "List is empty!";
+        if (head == null) return "List is empty!";
         StringBuilder sb = new StringBuilder();
 
         Node<T> current = head;
-        while(current.next != null) {
+        while (current.next != null) {
             sb.append(current).append("\n");
             current = current.next;
         }
