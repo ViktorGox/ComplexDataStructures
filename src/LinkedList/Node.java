@@ -11,19 +11,23 @@ public class Node<T> {
 
     @Override
     public String toString() {
-        String toReturn = "Node { next = ";
-        if(next == null) {
-            toReturn += "null";
-        } else {
-            toReturn += next.element;
-        }
-        toReturn += " | element = " + element + " | previous = ";
+        String toReturn = "Node { previous = ";
         if(previous == null) {
             toReturn += "null";
         } else {
             toReturn += previous.element;
         }
+        toReturn += " | element = " + element + " | next = ";
+        if(next == null) {
+            toReturn += "null";
+        } else {
+            toReturn += next.element;
+        }
         toReturn += "}";
         return toReturn;
+    }
+
+    public T getElement() {
+        return element;
     }
 }
