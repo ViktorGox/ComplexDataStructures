@@ -27,7 +27,10 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public void add(T element, int index) {
-        if (element == null) throw new NullPointerException();
+        if(isEmpty()) {
+            add(element);
+            return;
+        }
         if (index > size - 1) throw new ArrayIndexOutOfBoundsException();
         Node<T> node = new Node<>(element);
         size++;

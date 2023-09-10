@@ -8,7 +8,7 @@ public class Main {
         Track.GenerateTrackList();
 
         LinkedList<String> list = new LinkedList<String>();
-        list.add("el1");
+        list.add("el1",0);
         list.add("el2");
         list.add("el3");
 
