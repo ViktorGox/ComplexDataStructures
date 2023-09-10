@@ -132,12 +132,16 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public String toString() {
+        if(head == null) return "List is empty!";
         StringBuilder sb = new StringBuilder();
 
         Node<T> current = head;
         while(current.next != null) {
             sb.append(current).append("\n");
+            current = current.next;
         }
+
+        sb.append(current);
 
         return sb.toString();
     }
