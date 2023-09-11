@@ -3,10 +3,10 @@ package LinkedList;
 public class Node<T> {
     protected Node<T> next;
     protected Node<T> previous;
-    private T element;
+    private T data;
 
-    protected Node(T element) {
-        this.element = element;
+    protected Node(T data) {
+        this.data = data;
     }
 
     @Override
@@ -15,19 +15,19 @@ public class Node<T> {
         if(previous == null) {
             toReturn += "null";
         } else {
-            toReturn += previous.element;
+            toReturn += previous.data;
         }
-        toReturn += " | element = " + element + " | next = ";
+        toReturn += " | data = " + data + " | next = ";
         if(next == null) {
             toReturn += "null";
         } else {
-            toReturn += next.element;
+            toReturn += next.data;
         }
         toReturn += "}";
         return toReturn;
     }
 
-    public T getElement() {
-        return element;
+    public T getData() {
+        return data;
     }
 }

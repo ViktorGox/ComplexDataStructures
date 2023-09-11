@@ -4,9 +4,14 @@ public class LinkedList<T> implements IList<T> {
     private Node<T> head = null; // 0 element
     private int size;
 
+    /**
+     * Add an element at the last index of the list.
+     * @param data the data which will be stored. Does not accept null.
+     */
     @Override
-    public boolean add(T element) {
-        Node<T> node = new Node<>(element);
+    public void add(T data) {
+        if(data == null) throw new IllegalArgumentException("Provided data must not be null!");
+        Node<T> node = new Node<>(data);
         if (head == null) {
             head = node;
         } else {
@@ -22,17 +27,21 @@ public class LinkedList<T> implements IList<T> {
             }
         }
         size++;
-        return true;
     }
 
     @Override
-    public void add(T element, int index) {
+    public void add(T data, int index) {
         if(isEmpty()) {
-            add(element);
-            return;
+            if(index == 0) {
+                add(data);
+                return;
+            }
         }
-        if (index > size - 1) throw new ArrayIndexOutOfBoundsException();
-        Node<T> node = new Node<>(element);
+
+        if(index >= size) {
+            throw new ArrayIndexOutOfBoundsException("Cannot add data at position " + index + " when size is " + size);
+        }
+        Node<T> node = new Node<>(data);
         size++;
         if (index == 0) {
             node.next = head;
@@ -68,32 +77,32 @@ public class LinkedList<T> implements IList<T> {
     }
 
     @Override
-    public int indexOf(T element) {
+    public int indexOf(T data) {
         if (head == null) {
             return -1;
         }
         int count = 0;
         Node<T> current = head;
         while (current.next != null) {
-            if (current.equals(element)) {
+            if (current.equals(data)) {
                 return count;
             }
             current = current.next;
             count++;
         }
-        if (current.equals(element)) {
+        if (current.equals(data)) {
             return count;
         }
         return -1;
     }
 
     @Override
-    public boolean contains(T element) {
+    public boolean contains(T data) {
         return false;
     }
 
     @Override
-    public boolean set(int index, T element) {
+    public boolean set(int index, T data) {
         return false;
     }
 
@@ -119,7 +128,7 @@ public class LinkedList<T> implements IList<T> {
     }
 
     @Override
-    public Node<T> remove(T element) {
+    public Node<T> remove(T data) {
         return null;
     }
 
