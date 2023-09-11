@@ -1,7 +1,7 @@
 package LinkedList;
 
 public interface IList<T> {
-    boolean add(T element);
+    void add(T element);
     void add(T element, int index);
     Node<T> get(int index);
     int indexOf(T element);
