@@ -77,19 +77,22 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public int indexOf(T data) {
+        if(data == null) {
+            throw new IllegalArgumentException("Data in list cannot be null!");
+        }
         if (head == null) {
             return -1;
         }
         int count = 0;
         Node<T> current = head;
         while (current.next != null) {
-            if (current.equals(data)) {
+            if (current.getData().equals(data)) {
                 return count;
             }
             current = current.next;
             count++;
         }
-        if (current.equals(data)) {
+        if (current.getData().equals(data)) {
             return count;
         }
         return -1;

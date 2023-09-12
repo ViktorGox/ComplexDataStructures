@@ -12,7 +12,7 @@ public class LinkedListTests {
             assertEquals(expected.get(i).getData(), actual.get(i));
     }
 
-    //region add(T element)
+    //region add(T data)
     @Test
     public void EmptyArray_AddingOneElement_ElementIsAddedSuccessfully() {
         LinkedList<String> list = new LinkedList<String>();
@@ -66,7 +66,7 @@ public class LinkedListTests {
 
     //endregion
 
-    //region add(T element, int index)
+    //region add(T data, int index)
     @Test
     public void EmptyList_AddingOneElementWithGivenIndexAtIndex0_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
@@ -218,6 +218,61 @@ public class LinkedListTests {
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
             list.get(0);
         });
+    }
+
+
+    //endregion
+
+    //region indexOf(T data)
+
+    @Test
+    public void ListWith4Elements_IndexOfElementAtIndex0_GivesCorrectData() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertEquals(0,list.indexOf("data"));
+    }
+
+    @Test
+    public void ListWith4Elements_IndexOfElementAtIndexSize_GivesCorrectData() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertEquals(3,list.indexOf("data3"));
+    }
+
+    @Test
+    public void ListWith4Elements_IndexOfElementAtIndex2_GivesCorrectData() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertEquals(2,list.indexOf("data2"));
+    }
+
+    @Test
+    public void EmptyList_IndexOfElement_ReturnsMinus1() {
+        LinkedList<String> list = new LinkedList<String>();
+        assertEquals(-1,list.indexOf("data2"));
+    }
+
+    @Test
+    public void ListWith1Element_IndexOfElementNull_ThrowsException() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("e");
+        assertThrows(IllegalArgumentException.class, () -> list.indexOf(null));
+    }
+
+    @Test
+    public void EmptyList_IndexOfElementThatDoesNotExist_ReturnsMinus1() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("1");
+        assertEquals(-1,list.indexOf("data2"));
     }
 
 
