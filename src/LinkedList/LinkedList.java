@@ -38,7 +38,7 @@ public class LinkedList<T> implements IList<T> {
             }
         }
 
-        if(index >= size) {
+        if(index > size) {
             throw new ArrayIndexOutOfBoundsException("Cannot add data at position " + index + " when size is " + size);
         }
         Node<T> node = new Node<>(data);
@@ -52,14 +52,16 @@ public class LinkedList<T> implements IList<T> {
         Node<T> insertAt = get(index - 1);
         node.next = insertAt.next;
         node.previous = insertAt;
-        node.next.previous = node;
+        if(node.next != null) {
+            node.next.previous = node;
+        }
         insertAt.next = node;
     }
 
     @Override
     public Node<T> get(int index) {
-        if (head == null) {
-            return null;
+        if (head == null || index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException("List is empty!");
         }
         int count = 0;
         Node<T> current = head;
@@ -70,10 +72,7 @@ public class LinkedList<T> implements IList<T> {
             current = current.next;
             count++;
         }
-        if (count == index) {
-            return current;
-        }
-        return null;
+        return current;
     }
 
     @Override

@@ -48,6 +48,22 @@ public class LinkedListTests {
             list.add(null);
         });
     }
+
+    @Test
+    public void EmptyList_AddingElementsWithoutGivenIndex_ListCorrectlyAddsElement() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("ElementAtIndex0");
+        list.add("ElementAtIndex1");
+        list.add("ElementAtIndex2");
+
+        ArrayList<String> expectedList = new ArrayList<>();
+        expectedList.add("ElementAtIndex0");
+        expectedList.add("ElementAtIndex1");
+        expectedList.add("ElementAtIndex2");
+
+        compare(list,expectedList);
+    }
+
     //endregion
 
     //region add(T element, int index)
@@ -74,7 +90,7 @@ public class LinkedListTests {
     }
 
     @Test
-    public void EmptyList_AddingTwoElementsWithGivenIndexAtIndex0And1_ListCorrectlyAddsElement() {
+    public void EmptyList_AddingElementAtTheSizeIndex_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
         list.add("ElementAtIndex0",0);
         list.add("ElementAtIndex1",1);
@@ -85,17 +101,24 @@ public class LinkedListTests {
         compare(list,expectedList);
     }
 
-//    @Test
-//    public void EmptyList_AddingMutlipleElements_ListCorrectlyAddsElement() {
-//        LinkedList<String> list = new LinkedList<String>();
-//        list.add("ElementAtIndex0",0);
-//        list.add("ElementAtIndex1",1);
-//        ArrayList<String> expectedList = new ArrayList<>();
-//        expectedList.add(0,"ElementAtIndex0");
-//        expectedList.add(1,"ElementAtIndex1");
-//
-//        compare(list,expectedList);
-//    }
+    @Test
+    public void EmptyList_AddingElementsInMiddle_ListCorrectlyAddsElement() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("ElementAtIndex0",0);
+        list.add("ElementAtIndex1",1);
+        list.add("ElementAtIndex2",1);
+        list.add("ElementAtIndex3",1);
+        list.add("ElementAtIndex4",1);
+
+        ArrayList<String> expectedList = new ArrayList<>();
+        expectedList.add(0,"ElementAtIndex0");
+        expectedList.add(1,"ElementAtIndex1");
+        expectedList.add(1,"ElementAtIndex2");
+        expectedList.add(1,"ElementAtIndex3");
+        expectedList.add(1,"ElementAtIndex4");
+
+        compare(list,expectedList);
+    }
 
     @Test
     public void EmptyList_AddingOneElementsWithOutOfBoundsIndex_ThrowsException() {
@@ -113,23 +136,94 @@ public class LinkedListTests {
         });
     }
 
-    //endregion
-
     @Test
-    public void EmptyList_AddingElementsWithoutGivenIndex_ListCorrectlyAddsElement() {
+    public void EmptyArray_AddingElementWithIndexBelow0_ThrowsException() {
         LinkedList<String> list = new LinkedList<String>();
-        list.add("ElementAtIndex0");
-        list.add("ElementAtIndex1");
-        list.add("ElementAtIndex2");
-
-        ArrayList<String> expectedList = new ArrayList<>();
-        expectedList.add("ElementAtIndex0");
-        expectedList.add("ElementAtIndex1");
-        expectedList.add("ElementAtIndex2");
-
-        compare(list,expectedList);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            list.add("data",-1);
+        });
     }
 
+    //endregion
+
+    //region get(int index)
+
+    @Test
+    public void ListWithOneElement_GetIndexAt0_GivesItemAt0() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        assertEquals("data",list.get(0).getData());
+    }
+
+    @Test
+    public void ListWithTwoElements_GetIndexAt0_GivesItemAt0() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        assertEquals("data",list.get(0).getData());
+    }
+
+    @Test
+    public void ListWithFourElements_GetIndexAtEnd_GivesCorrectItem() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertEquals("data3",list.get(3).getData());
+    }
+
+    @Test
+    public void ListWithFourElements_GetIndexInMiddle_GivesCorrectItem() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertEquals("data2",list.get(2).getData());
+    }
+
+    @Test
+    public void ListWithFourElements_GetIndexOutsideOfSize_ThrowsException() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            list.get(5);
+        });
+    }
+
+    @Test
+    public void ListWithFourElements_GetIndexBelow0_ThrowsException() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            list.get(-1);
+        });
+    }
+
+    @Test
+    public void EmptyList_GetIndexAt0_ThrowsException() {
+        LinkedList<String> list = new LinkedList<String>();
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            list.get(0);
+        });
+    }
+
+    @Test
+    public void ListWithOneElement_GetItemAtCorrectIndexBut_ThrowsException() {
+        LinkedList<String> list = new LinkedList<String>();
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            list.get(0);
+        });
+    }
+
+
+    //endregion
+
+    //region toString()
     @Test
     public void OneElement_CalledToString_ReceivesCorrectPreviousAndElementAndNext() {
         LinkedList<String> list = new LinkedList<String>();
@@ -161,4 +255,6 @@ public class LinkedListTests {
                         Node { previous = ThreeElements | data = FourElements | next = null}"""
                 , list.toString());
     }
+
+    //endregion
 }
