@@ -12,13 +12,13 @@ public class Node<T> {
     @Override
     public String toString() {
         String toReturn = "Node { previous = ";
-        if(previous == null) {
+        if (previous == null) {
             toReturn += "null";
         } else {
             toReturn += previous.data;
         }
         toReturn += " | data = " + data + " | next = ";
-        if(next == null) {
+        if (next == null) {
             toReturn += "null";
         } else {
             toReturn += next.data;
@@ -29,5 +29,9 @@ public class Node<T> {
 
     public T getData() {
         return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
