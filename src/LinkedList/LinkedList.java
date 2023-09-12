@@ -29,6 +29,11 @@ public class LinkedList<T> implements IList<T> {
         size++;
     }
 
+    /**
+     * Add an element to a given index. If index is on index = size, the item will be added to the end.
+     * @param data the data which will be stored. Does not accept null.
+     * @param index Index the data will be assigned to. (0 to size)
+     */
     @Override
     public void add(T data, int index) {
         if(isEmpty()) {
@@ -49,7 +54,7 @@ public class LinkedList<T> implements IList<T> {
             head.next.previous = head;
             return;
         }
-        Node<T> insertAt = get(index - 1);
+        Node<T> insertAt = getNodeAt(index - 1);
         node.next = insertAt.next;
         node.previous = insertAt;
         if(node.next != null) {
@@ -58,10 +63,17 @@ public class LinkedList<T> implements IList<T> {
         insertAt.next = node;
     }
 
-    @Override
-    public Node<T> get(int index) {
-        if (head == null || index < 0 || index >= size) {
+    /**
+     * Finds node by index and returns the node itself.
+     * @param index the index of the node (0 to size - 1)
+     * @return the node.
+     */
+    private Node<T> getNodeAt(int index) {
+        if (head == null) {
             throw new ArrayIndexOutOfBoundsException("List is empty!");
+        }
+        if(index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException(index + " is outside of the list's bounds");
         }
         int count = 0;
         Node<T> current = head;
@@ -75,6 +87,21 @@ public class LinkedList<T> implements IList<T> {
         return current;
     }
 
+    /**
+     * Finds data by index and returns the data.
+     * @param index the index of the data (0 to size - 1)
+     * @return the data.
+     */
+    @Override
+    public T get(int index) {
+        return getNodeAt(index).getData();
+    }
+
+    /**
+     * Finds the index of given data.
+     * @param data the data that will be searched for. Does not accept null.
+     * @return the index of the data, if nothing was found returns -1.
+     */
     @Override
     public int indexOf(T data) {
         if(data == null) {
@@ -98,40 +125,55 @@ public class LinkedList<T> implements IList<T> {
         return -1;
     }
 
+    /**
+     * Checks if given data is in the list.
+     * @param data the data to be searched for. Null always returns false!
+     * @return Whether it was found or not. Null always returns false!
+     */
     @Override
     public boolean contains(T data) {
-        return false;
+        if(data == null) return false;
+        return indexOf(data) >= 0;
+    }
+
+    /**
+     * Sets data to new given data if it exists.
+     * @param index the index to be changed.
+     * @param data  the data to be searched for.
+     */
+    @Override
+    public void set(int index, T data) {
+        if(data == null) return;
+        getNodeAt(index).setData(data);
     }
 
     @Override
-    public boolean set(int index, T data) {
-        return false;
-    }
-
-    @Override
-    public Node<T> remove(int index) {
-        if (head == null) {
-            return null;
+    public T remove(int index) {
+        Node<T> nodeToRemove = getNodeAt(index);
+        if(nodeToRemove == head) {
+            head = null;
         }
 
-        int count = 0;
-        Node<T> current = head;
-        while (current.next != null) {
-            if (count == index - 1) {
-                current.next = null; // TODO: fix me!
+        if(nodeToRemove.next != null) {
+            if(nodeToRemove.previous == null) {
+                head = nodeToRemove.next;
+            } else {
+                nodeToRemove.next.previous = nodeToRemove.previous;
             }
-            current = current.next;
-            count++;
         }
-        if (count == index) {
-            return current;
+        if(nodeToRemove.previous != null) {
+            if(nodeToRemove.next != null) {
+                nodeToRemove.previous.next = nodeToRemove.next;
+            }
         }
-        return null;
+        size--;
+        return nodeToRemove.getData();
     }
 
     @Override
-    public Node<T> remove(T data) {
-        return null;
+    public T remove(T data) {
+        if(!contains(data))return null;
+        return remove(indexOf(data));
     }
 
     @Override
@@ -149,8 +191,8 @@ public class LinkedList<T> implements IList<T> {
         return size;
     }
 
-    public Node<T> getHead() {
-        return head;
+    public T getHead() {
+        return head.getData();
     }
 
     @Override

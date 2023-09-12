@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkedListTests {
     private <T> void compare(LinkedList<T> expected, ArrayList<T> actual) {
-        for (int i = 0; i < expected.size(); i++)
-            assertEquals(expected.get(i).getData(), actual.get(i));
+        for (int i = 0; i < actual.size(); i++)
+            assertEquals(expected.get(i), actual.get(i));
     }
 
     //region add(T data)
@@ -21,7 +21,7 @@ public class LinkedListTests {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("test1");
 
-        compare(list,arrayList);
+        compare(list, arrayList);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class LinkedListTests {
         expectedList.add("ElementAtIndex1");
         expectedList.add("ElementAtIndex2");
 
-        compare(list,expectedList);
+        compare(list, expectedList);
     }
 
     //endregion
@@ -70,89 +70,87 @@ public class LinkedListTests {
     @Test
     public void EmptyList_AddingOneElementWithGivenIndexAtIndex0_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
-        list.add("ElementAtIndex0",0);
+        list.add("ElementAtIndex0", 0);
         ArrayList<String> expectedList = new ArrayList<>();
-        expectedList.add(0,"ElementAtIndex0");
+        expectedList.add(0, "ElementAtIndex0");
 
-        compare(list,expectedList);
+        compare(list, expectedList);
     }
 
     @Test
     public void EmptyList_AddingTwoElementsWithGivenIndexAtIndex0_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
-        list.add("ElementAtIndex0",0);
-        list.add("ElementAtIndex1",0);
+        list.add("ElementAtIndex0", 0);
+        list.add("ElementAtIndex1", 0);
         ArrayList<String> expectedList = new ArrayList<>();
-        expectedList.add(0,"ElementAtIndex0");
-        expectedList.add(0,"ElementAtIndex1");
+        expectedList.add(0, "ElementAtIndex0");
+        expectedList.add(0, "ElementAtIndex1");
 
-        compare(list,expectedList);
+        compare(list, expectedList);
     }
 
     @Test
     public void EmptyList_AddingElementAtTheSizeIndex_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
-        list.add("ElementAtIndex0",0);
-        list.add("ElementAtIndex1",1);
+        list.add("ElementAtIndex0", 0);
+        list.add("ElementAtIndex1", 1);
         ArrayList<String> expectedList = new ArrayList<>();
-        expectedList.add(0,"ElementAtIndex0");
-        expectedList.add(1,"ElementAtIndex1");
+        expectedList.add(0, "ElementAtIndex0");
+        expectedList.add(1, "ElementAtIndex1");
 
-        compare(list,expectedList);
+        compare(list, expectedList);
     }
 
     @Test
     public void EmptyList_AddingElementsInMiddle_ListCorrectlyAddsElement() {
         LinkedList<String> list = new LinkedList<String>();
-        list.add("ElementAtIndex0",0);
-        list.add("ElementAtIndex1",1);
-        list.add("ElementAtIndex2",1);
-        list.add("ElementAtIndex3",1);
-        list.add("ElementAtIndex4",1);
+        list.add("ElementAtIndex0", 0);
+        list.add("ElementAtIndex1", 1);
+        list.add("ElementAtIndex2", 1);
+        list.add("ElementAtIndex3", 1);
+        list.add("ElementAtIndex4", 1);
 
         ArrayList<String> expectedList = new ArrayList<>();
-        expectedList.add(0,"ElementAtIndex0");
-        expectedList.add(1,"ElementAtIndex1");
-        expectedList.add(1,"ElementAtIndex2");
-        expectedList.add(1,"ElementAtIndex3");
-        expectedList.add(1,"ElementAtIndex4");
+        expectedList.add(0, "ElementAtIndex0");
+        expectedList.add(1, "ElementAtIndex1");
+        expectedList.add(1, "ElementAtIndex2");
+        expectedList.add(1, "ElementAtIndex3");
+        expectedList.add(1, "ElementAtIndex4");
 
-        compare(list,expectedList);
+        compare(list, expectedList);
     }
 
     @Test
     public void EmptyList_AddingOneElementsWithOutOfBoundsIndex_ThrowsException() {
-        assertThrows(ArrayIndexOutOfBoundsException.class, ()-> {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
             LinkedList<String> list = new LinkedList<String>();
-            list.add("ElementAtIndex0",1);
+            list.add("ElementAtIndex0", 1);
         });
     }
 
     @Test
     public void EmptyArray_AddingNullElement_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, ()-> {
+        assertThrows(IllegalArgumentException.class, () -> {
             LinkedList<String> list = new LinkedList<String>();
-            list.add(null,0);
+            list.add(null, 0);
         });
     }
 
     @Test
     public void EmptyArray_AddingElementWithIndexBelow0_ThrowsException() {
         LinkedList<String> list = new LinkedList<String>();
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            list.add("data",-1);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> list.add("data", -1));
     }
 
     //endregion
 
-    //region get(int index)
+    //region get(int index) (getNodeOf(int index))
 
     @Test
     public void ListWithOneElement_GetIndexAt0_GivesItemAt0() {
         LinkedList<String> list = new LinkedList<String>();
         list.add("data");
-        assertEquals("data",list.get(0).getData());
+        assertEquals("data", list.get(0));
     }
 
     @Test
@@ -160,7 +158,7 @@ public class LinkedListTests {
         LinkedList<String> list = new LinkedList<String>();
         list.add("data");
         list.add("data1");
-        assertEquals("data",list.get(0).getData());
+        assertEquals("data", list.get(0));
     }
 
     @Test
@@ -170,7 +168,7 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertEquals("data3",list.get(3).getData());
+        assertEquals("data3", list.get(3));
     }
 
     @Test
@@ -180,7 +178,7 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertEquals("data2",list.get(2).getData());
+        assertEquals("data2", list.get(2));
     }
 
     @Test
@@ -190,38 +188,30 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            list.get(5);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> list.get(5));
     }
 
     @Test
     public void ListWithFourElements_GetIndexBelow0_ThrowsException() {
         LinkedList<String> list = new LinkedList<String>();
         list.add("data");
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            list.get(-1);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> list.get(-1));
     }
 
     @Test
     public void EmptyList_GetIndexAt0_ThrowsException() {
         LinkedList<String> list = new LinkedList<String>();
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            list.get(0);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> list.get(0));
     }
 
     @Test
     public void ListWithOneElement_GetItemAtCorrectIndexBut_ThrowsException() {
         LinkedList<String> list = new LinkedList<String>();
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            list.get(0);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> list.get(0));
     }
 
 
-    //endregion
+    //endregion)
 
     //region indexOf(T data)
 
@@ -232,7 +222,7 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertEquals(0,list.indexOf("data"));
+        assertEquals(0, list.indexOf("data"));
     }
 
     @Test
@@ -242,7 +232,7 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertEquals(3,list.indexOf("data3"));
+        assertEquals(3, list.indexOf("data3"));
     }
 
     @Test
@@ -252,13 +242,13 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
         list.add("data3");
-        assertEquals(2,list.indexOf("data2"));
+        assertEquals(2, list.indexOf("data2"));
     }
 
     @Test
     public void EmptyList_IndexOfElement_ReturnsMinus1() {
         LinkedList<String> list = new LinkedList<String>();
-        assertEquals(-1,list.indexOf("data2"));
+        assertEquals(-1, list.indexOf("data2"));
     }
 
     @Test
@@ -272,10 +262,247 @@ public class LinkedListTests {
     public void EmptyList_IndexOfElementThatDoesNotExist_ReturnsMinus1() {
         LinkedList<String> list = new LinkedList<String>();
         list.add("1");
-        assertEquals(-1,list.indexOf("data2"));
+        assertEquals(-1, list.indexOf("data2"));
+    }
+
+    //endregion
+
+    //region contains(T data)
+
+    @Test
+    public void ListWith2Elements_ContainsWithDataItHas_ReturnsTrue() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data2");
+        assertTrue(list.contains("data"));
+    }
+
+    @Test
+    public void ListWith2Elements_ContainsWithDataItDoesNotHave_ReturnsFalse() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data2");
+        assertFalse(list.contains("data3"));
+    }
+
+    @Test
+    public void ListWith2Elements_ContainsWithGivenNull_ReturnsFalse() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("data");
+        list.add("data2");
+        assertFalse(list.contains(null));
+    }
+
+    //endregion
+
+    //region set(int index, T data)
+
+    @Test
+    public void ListWithOneElement_SettingDataToNewValue_ChangedCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+
+        compare(linkedList, list);
+        linkedList.set(0, "data1");
+        list.set(0, "data1");
+
+        compare(linkedList, list);
+    }
+
+    @Test
+    public void ListWithOneElement_SettingDataToNull_NothingHappens() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+
+        compare(linkedList, list);
+
+        linkedList.set(0, null);
+
+        compare(linkedList, list);
+    }
+
+    @Test
+    public void ListWithOneElement_SettingDataToIndexMinusOne_ThrowsException() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+
+        compare(linkedList, list);
+
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> linkedList.set(-1, "newData"));
+    }
+
+    @Test
+    public void ListWithOneElement_SettingDataToIndex0_WorksCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+
+        compare(linkedList, list);
+
+        assertDoesNotThrow(() -> linkedList.set(0, "newData"));
+    }
+
+    @Test
+    public void ListWithOneElement_SettingDataToIndexEqualToSize_WorksCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+        linkedList.add("data1");
+        linkedList.add("data2");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+
+        compare(linkedList, list);
+
+        assertDoesNotThrow(() -> linkedList.set(2, "newData"));
     }
 
 
+    //endregion
+
+    //region remove(T data) && remove(int index)
+
+    @Test
+    public void ListWithFourElements_RemovingElementAtMiddleIndex_ElementIsRemovedCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+        linkedList.add("data3");
+        linkedList.add("data4");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+        list.add("data4");
+
+        compare(linkedList,list);
+
+        linkedList.remove("data2");
+        list.remove("data2");
+
+        compare(linkedList,list);
+    }
+
+    @Test
+    public void ListWithOneElement_RemovingElementAtIndex0_MakesListEmpty() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+
+        linkedList.remove("data1");
+        assertTrue(linkedList.isEmpty());
+    }
+
+    @Test
+    public void ListWithTwoElements_RemovingElementAtIndex0_ElementIsCorrectlyRemoved() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data1");
+        list.add("data2");
+
+        compare(linkedList,list);
+
+        linkedList.remove("data1");
+        list.remove("data1");
+
+        compare(linkedList,list);
+    }
+
+    @Test
+    public void ListWithThreeElements_RemovingElementAtIndexSize_CorrectlyRemovesElement() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+        linkedList.add("data3");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data1");
+        list.add("data2");
+        list.add("data3");
+
+        compare(linkedList,list);
+
+        linkedList.remove("data3");
+        list.remove("data3");
+
+        compare(linkedList,list);
+
+    }
+
+    @Test
+    public void ListWithOneElement_RemovingElementThatDoesntExist_ReturnsNull() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+
+        assertNull(linkedList.remove("data5"));
+    }
+
+    //endregion
+
+    //region clear() size() getHead()
+
+    @Test
+    public void ListWithThreeElements_ClearingTheList_MakesTheListEmpty() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+        linkedList.add("data3");
+
+        linkedList.clear();
+        assertTrue(linkedList.isEmpty());
+    }
+
+    @Test
+    public void EmptyList_AddingMultipleElementsAndRemovingMultiple_GivesCorrectSize() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+        linkedList.add("data3");
+
+        assertEquals(3,linkedList.size());
+
+        linkedList.remove("data1");
+
+        assertEquals(2,linkedList.size());
+
+        linkedList.remove(1);
+
+        assertEquals(1,linkedList.size());
+
+        linkedList.add("data4",0);
+
+        assertEquals(2,linkedList.size());
+
+        linkedList.set(0,"SomeNewData");
+
+        assertEquals(2,linkedList.size());
+    }
+
+    @Test
+    public void EmptyList_GetHead_GivesCorrectElement() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+
+        String headData = linkedList.get(0);
+
+        assertEquals(headData, linkedList.getHead());
+    }
     //endregion
 
     //region toString()
