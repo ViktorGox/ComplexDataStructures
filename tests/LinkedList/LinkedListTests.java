@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkedListTests {
-    private <T> void compare(LinkedList<T> expected, ArrayList<T> actual) {
+    private <T> void compareArrayList(LinkedList<T> expected, ArrayList<T> actual) {
         for (int i = 0; i < actual.size(); i++)
             assertEquals(expected.get(i), actual.get(i));
+    }
+
+    private <T> void compareArray(T[] expected, T[] actual) {
+        for (int i = 0; i < actual.length; i++)
+            assertEquals(expected[i], actual[i]);
     }
 
     //region add(T data)
@@ -21,7 +26,7 @@ public class LinkedListTests {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("test1");
 
-        compare(list, arrayList);
+        compareArrayList(list, arrayList);
     }
 
     @Test
@@ -38,7 +43,7 @@ public class LinkedListTests {
         arrayList.add("e3");
         arrayList.add("e4");
 
-        compare(list, arrayList);
+        compareArrayList(list, arrayList);
     }
 
     @Test
@@ -61,7 +66,7 @@ public class LinkedListTests {
         expectedList.add("ElementAtIndex1");
         expectedList.add("ElementAtIndex2");
 
-        compare(list, expectedList);
+        compareArrayList(list, expectedList);
     }
 
     //endregion
@@ -74,7 +79,7 @@ public class LinkedListTests {
         ArrayList<String> expectedList = new ArrayList<>();
         expectedList.add(0, "ElementAtIndex0");
 
-        compare(list, expectedList);
+        compareArrayList(list, expectedList);
     }
 
     @Test
@@ -86,7 +91,7 @@ public class LinkedListTests {
         expectedList.add(0, "ElementAtIndex0");
         expectedList.add(0, "ElementAtIndex1");
 
-        compare(list, expectedList);
+        compareArrayList(list, expectedList);
     }
 
     @Test
@@ -98,7 +103,7 @@ public class LinkedListTests {
         expectedList.add(0, "ElementAtIndex0");
         expectedList.add(1, "ElementAtIndex1");
 
-        compare(list, expectedList);
+        compareArrayList(list, expectedList);
     }
 
     @Test
@@ -117,7 +122,7 @@ public class LinkedListTests {
         expectedList.add(1, "ElementAtIndex3");
         expectedList.add(1, "ElementAtIndex4");
 
-        compare(list, expectedList);
+        compareArrayList(list, expectedList);
     }
 
     @Test
@@ -305,11 +310,11 @@ public class LinkedListTests {
         ArrayList<String> list = new ArrayList<>();
         list.add("data");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
         linkedList.set(0, "data1");
         list.set(0, "data1");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
     }
 
     @Test
@@ -320,11 +325,11 @@ public class LinkedListTests {
         ArrayList<String> list = new ArrayList<>();
         list.add("data");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
 
         linkedList.set(0, null);
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
     }
 
     @Test
@@ -335,7 +340,7 @@ public class LinkedListTests {
         ArrayList<String> list = new ArrayList<>();
         list.add("data");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
 
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> linkedList.set(-1, "newData"));
     }
@@ -348,7 +353,7 @@ public class LinkedListTests {
         ArrayList<String> list = new ArrayList<>();
         list.add("data");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
 
         assertDoesNotThrow(() -> linkedList.set(0, "newData"));
     }
@@ -365,7 +370,7 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
 
-        compare(linkedList, list);
+        compareArrayList(linkedList, list);
 
         assertDoesNotThrow(() -> linkedList.set(2, "newData"));
     }
@@ -389,12 +394,12 @@ public class LinkedListTests {
         list.add("data3");
         list.add("data4");
 
-        compare(linkedList,list);
+        compareArrayList(linkedList,list);
 
         linkedList.remove("data2");
         list.remove("data2");
 
-        compare(linkedList,list);
+        compareArrayList(linkedList,list);
     }
 
     @Test
@@ -416,12 +421,12 @@ public class LinkedListTests {
         list.add("data1");
         list.add("data2");
 
-        compare(linkedList,list);
+        compareArrayList(linkedList,list);
 
         linkedList.remove("data1");
         list.remove("data1");
 
-        compare(linkedList,list);
+        compareArrayList(linkedList,list);
     }
 
     @Test
@@ -436,12 +441,12 @@ public class LinkedListTests {
         list.add("data2");
         list.add("data3");
 
-        compare(linkedList,list);
+            compareArrayList(linkedList,list);
 
         linkedList.remove("data3");
         list.remove("data3");
 
-        compare(linkedList,list);
+        compareArrayList(linkedList,list);
 
     }
 
@@ -503,6 +508,50 @@ public class LinkedListTests {
 
         assertEquals(headData, linkedList.getHead());
     }
+    //endregion
+
+    //region convertToArray()
+
+    @Test
+    public void ListWithMultipleElements_CovertToArray_ConvertedCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+        linkedList.add("data3");
+        linkedList.add("data4");
+        linkedList.add("data5");
+
+        String[] linkedListConverted = new String[linkedList.size()];
+        linkedListConverted = linkedList.convertToArray(linkedListConverted);
+
+        String[] array = new String[] {"data1","data2","data3","data4","data5"};
+
+
+        compareArray(array,linkedListConverted);
+    }
+
+    @Test
+    public void EmptyList_ConvertedToArray_ThrowsException() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+
+        assertThrows(IllegalStateException.class, () -> {
+            String[] linkedListConverted = new String[linkedList.size()];
+            linkedList.convertToArray(linkedListConverted);
+        });
+    }
+
+    @Test
+    public void ListWithElements_ConvertedToArrayWithDifferentSize_ThrowsException() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data1");
+        linkedList.add("data2");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            String[] linkedListConverted = new String[linkedList.size() + 2];
+            linkedList.convertToArray(linkedListConverted);
+        });
+    }
+
     //endregion
 
     //region toString()

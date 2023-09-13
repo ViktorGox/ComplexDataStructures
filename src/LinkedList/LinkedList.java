@@ -6,11 +6,12 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Add an element at the last index of the list.
+     *
      * @param data the data which will be stored. Does not accept null.
      */
     @Override
     public void add(T data) {
-        if(data == null) throw new IllegalArgumentException("Provided data must not be null!");
+        if (data == null) throw new IllegalArgumentException("Provided data must not be null!");
         Node<T> node = new Node<>(data);
         if (head == null) {
             head = node;
@@ -31,19 +32,20 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Add an element to a given index. If index is on index = size, the item will be added to the end.
-     * @param data the data which will be stored. Does not accept null.
+     *
+     * @param data  the data which will be stored. Does not accept null.
      * @param index Index the data will be assigned to. (0 to size)
      */
     @Override
     public void add(T data, int index) {
-        if(isEmpty()) {
-            if(index == 0) {
+        if (isEmpty()) {
+            if (index == 0) {
                 add(data);
                 return;
             }
         }
 
-        if(index > size) {
+        if (index > size) {
             throw new ArrayIndexOutOfBoundsException("Cannot add data at position " + index + " when size is " + size);
         }
         Node<T> node = new Node<>(data);
@@ -57,7 +59,7 @@ public class LinkedList<T> implements IList<T> {
         Node<T> insertAt = getNodeAt(index - 1);
         node.next = insertAt.next;
         node.previous = insertAt;
-        if(node.next != null) {
+        if (node.next != null) {
             node.next.previous = node;
         }
         insertAt.next = node;
@@ -65,6 +67,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds node by index and returns the node itself.
+     *
      * @param index the index of the node (0 to size - 1)
      * @return the node.
      */
@@ -72,7 +75,7 @@ public class LinkedList<T> implements IList<T> {
         if (head == null) {
             throw new ArrayIndexOutOfBoundsException("List is empty!");
         }
-        if(index < 0 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException(index + " is outside of the list's bounds");
         }
         int count = 0;
@@ -89,6 +92,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds data by index and returns the data.
+     *
      * @param index the index of the data (0 to size - 1)
      * @return the data.
      */
@@ -99,12 +103,13 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds the index of given data.
+     *
      * @param data the data that will be searched for. Does not accept null.
      * @return the index of the data, if nothing was found returns -1.
      */
     @Override
     public int indexOf(T data) {
-        if(data == null) {
+        if (data == null) {
             throw new IllegalArgumentException("Data in list cannot be null!");
         }
         if (head == null) {
@@ -127,42 +132,44 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Checks if given data is in the list.
+     *
      * @param data the data to be searched for. Null always returns false!
      * @return Whether it was found or not. Null always returns false!
      */
     @Override
     public boolean contains(T data) {
-        if(data == null) return false;
+        if (data == null) return false;
         return indexOf(data) >= 0;
     }
 
     /**
      * Sets data to new given data if it exists.
+     *
      * @param index the index to be changed.
      * @param data  the data to be searched for.
      */
     @Override
     public void set(int index, T data) {
-        if(data == null) return;
+        if (data == null) return;
         getNodeAt(index).setData(data);
     }
 
     @Override
     public T remove(int index) {
         Node<T> nodeToRemove = getNodeAt(index);
-        if(nodeToRemove == head) {
+        if (nodeToRemove == head) {
             head = null;
         }
 
-        if(nodeToRemove.next != null) {
-            if(nodeToRemove.previous == null) {
+        if (nodeToRemove.next != null) {
+            if (nodeToRemove.previous == null) {
                 head = nodeToRemove.next;
             } else {
                 nodeToRemove.next.previous = nodeToRemove.previous;
             }
         }
-        if(nodeToRemove.previous != null) {
-            if(nodeToRemove.next != null) {
+        if (nodeToRemove.previous != null) {
+            if (nodeToRemove.next != null) {
                 nodeToRemove.previous.next = nodeToRemove.next;
             }
         }
@@ -172,7 +179,7 @@ public class LinkedList<T> implements IList<T> {
 
     @Override
     public T remove(T data) {
-        if(!contains(data))return null;
+        if (!contains(data)) return null;
         return remove(indexOf(data));
     }
 
@@ -193,6 +200,30 @@ public class LinkedList<T> implements IList<T> {
 
     public T getHead() {
         return head.getData();
+    }
+
+    public T[] convertToArray(T[] newArray) {
+        if (isEmpty()) {
+            throw new IllegalStateException("Cannot convert because array is empty");
+        }
+
+        if (newArray.length != this.size) {
+            throw new IllegalArgumentException("New array must be with the size of the current one!");
+        }
+
+        Node<T> current;
+        current = head;
+
+        int count = 0;
+        while (current.next != null) {
+            newArray[count] = current.getData();
+            current = current.next;
+            count++;
+        }
+
+        newArray[count] = current.getData();
+
+        return newArray;
     }
 
     @Override
