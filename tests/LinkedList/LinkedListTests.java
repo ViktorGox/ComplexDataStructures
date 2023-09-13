@@ -356,10 +356,14 @@ public class LinkedListTests {
         compareArrayList(linkedList, list);
 
         assertDoesNotThrow(() -> linkedList.set(0, "newData"));
+
+        list.set(0,"newData");
+
+        compareArrayList(linkedList, list);
     }
 
     @Test
-    public void ListWithOneElement_SettingDataToIndexEqualToSize_WorksCorrectly() {
+    public void ListWithThreeElement_SettingDataToIndexEqualToSize_WorksCorrectly() {
         LinkedList<String> linkedList = new LinkedList<String>();
         linkedList.add("data");
         linkedList.add("data1");
@@ -373,8 +377,33 @@ public class LinkedListTests {
         compareArrayList(linkedList, list);
 
         assertDoesNotThrow(() -> linkedList.set(2, "newData"));
+
+        list.set(2,"newData");
+
+        compareArrayList(linkedList, list);
     }
 
+    @Test
+    public void ListWithThreeElement_SettingDataToIndexEqualToMiddle_WorksCorrectly() {
+        LinkedList<String> linkedList = new LinkedList<String>();
+        linkedList.add("data");
+        linkedList.add("data1");
+        linkedList.add("data2");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("data");
+        list.add("data1");
+        list.add("data2");
+
+        compareArrayList(linkedList, list);
+
+        assertDoesNotThrow(() -> linkedList.set(1, "newData"));
+
+        list.set(1,"newData");
+
+        compareArrayList(linkedList, list);
+
+    }
 
     //endregion
 

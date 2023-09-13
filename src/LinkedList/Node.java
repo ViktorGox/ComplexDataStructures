@@ -3,7 +3,7 @@ package LinkedList;
 public class Node<T> {
     protected Node<T> next;
     protected Node<T> previous;
-    private T data;
+    private final T data;
 
     protected Node(T data) {
         this.data = data;
@@ -29,9 +29,5 @@ public class Node<T> {
 
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }

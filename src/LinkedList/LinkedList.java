@@ -6,7 +6,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Add an element at the last index of the list.
-     *
      * @param data the data which will be stored. Does not accept null.
      */
     @Override
@@ -32,7 +31,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Add an element to a given index. If index is on index = size, the item will be added to the end.
-     *
      * @param data  the data which will be stored. Does not accept null.
      * @param index Index the data will be assigned to. (0 to size)
      */
@@ -67,7 +65,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds node by index and returns the node itself.
-     *
      * @param index the index of the node (0 to size - 1)
      * @return the node.
      */
@@ -92,7 +89,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds data by index and returns the data.
-     *
      * @param index the index of the data (0 to size - 1)
      * @return the data.
      */
@@ -103,7 +99,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds the index of given data.
-     *
      * @param data the data that will be searched for. Does not accept null.
      * @return the index of the data, if nothing was found returns -1.
      */
@@ -132,7 +127,6 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Checks if given data is in the list.
-     *
      * @param data the data to be searched for. Null always returns false!
      * @return Whether it was found or not. Null always returns false!
      */
@@ -144,14 +138,28 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Sets data to new given data if it exists.
-     *
      * @param index the index to be changed.
      * @param data  the data to be searched for.
      */
     @Override
     public void set(int index, T data) {
         if (data == null) return;
-        getNodeAt(index).setData(data);
+        Node<T> oldNode = getNodeAt(index);
+        Node<T> newNode = new Node<>(data);
+
+        if(oldNode == head) {
+            head = newNode;
+            return;
+        }
+
+        if(oldNode.next != null) {
+            newNode.next = oldNode.next;
+            oldNode.next.previous = newNode;
+        }
+        if(oldNode.previous != null) {
+            newNode.previous = oldNode.previous;
+            oldNode.previous.next = newNode;
+        }
     }
 
     @Override
