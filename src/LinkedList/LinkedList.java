@@ -286,10 +286,10 @@ public class LinkedList<T> implements IList<T> {
      * @return the sorted LinkedList.
      */
     public static <E> LinkedList<E> sort(LinkedList<E> unsorted, ISortMethod<E> sortMethod, E[] temp) {
-        if (sortMethod == null) throw new IllegalArgumentException("The sorting method cannot be null!");
         if (unsorted == null) throw new IllegalArgumentException("The given unsorted array cannot be null!");
-        if (temp == null) throw new IllegalArgumentException("The given temp array cannot be null!");
         if (unsorted.isEmpty()) throw new IllegalArgumentException("The given unsorted array cannot be empty!");
+        if (sortMethod == null) throw new IllegalArgumentException("The sorting method cannot be null!");
+        if (temp == null) throw new IllegalArgumentException("The given temp array cannot be null!");
         if (temp.length != unsorted.size) throw new IllegalArgumentException("The size of the temp array must be the same as the unsorted list!");
 
         E[] unsortedTempArray = temp;

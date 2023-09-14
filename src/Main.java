@@ -1,6 +1,7 @@
 import LinkedList.LinkedList;
 import Sorting.InsertionSort;
 import Sorting.ISortMethod;
+import Sorting.QuickSort;
 import Stations.Station;
 import Tracks.Track;
 
@@ -9,7 +10,7 @@ public class Main {
         Station.GenerateStationList();
         Track.GenerateTrackList();
 
-        ISortMethod<String> sortMethod = new InsertionSort<>();
+        ISortMethod<String> sortMethod = new QuickSort<>();
         LinkedList<String> unsortedList = new LinkedList<String>();
         unsortedList.add("2");
         unsortedList.add("4");

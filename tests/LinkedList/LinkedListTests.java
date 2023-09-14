@@ -617,6 +617,10 @@ public class LinkedListTests {
 
     //endregion
 
+    //region sort()
+
+    //endregion
+
     //region toString()
     @Test
     public void OneElement_CalledToString_ReceivesCorrectPreviousAndElementAndNext() {
