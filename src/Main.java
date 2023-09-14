@@ -11,6 +11,13 @@ public class Main {
 
         ISortMethod<String> sortMethod = new InsertionSort<>();
         LinkedList<String> unsortedList = new LinkedList<String>();
-        unsortedList = LinkedList.sort(unsortedList, sortMethod, new String[unsortedList.size()]);
+        unsortedList.add("2");
+        unsortedList.add("4");
+        unsortedList.add("1");
+        unsortedList.add("3");
+
+        LinkedList<String> linkedList = LinkedList.sort(unsortedList, sortMethod, new String[unsortedList.size()]);
+
+        System.out.println(linkedList);
     }
 }

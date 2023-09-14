@@ -295,9 +295,8 @@ public class LinkedList<T> implements IList<T> {
         E[] unsortedTempArray = temp;
         unsortedTempArray = unsorted.convertToArray(temp);
 
-        E[] sortedTempArray = temp;
-        sortedTempArray = sortMethod.sort(unsortedTempArray);
+        sortMethod.sort(unsortedTempArray);
 
-        return LinkedList.convertFromArray(sortedTempArray);
+        return LinkedList.convertFromArray(unsortedTempArray);
     }
 }
