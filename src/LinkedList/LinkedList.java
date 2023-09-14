@@ -1,11 +1,15 @@
 package LinkedList;
 
+import Sorting.ISortMethod;
+
+//TODO: some code taken from last years W5 exercise. Check what exactly UwU
 public class LinkedList<T> implements IList<T> {
     private Node<T> head = null; // 0 element
     private int size;
 
     /**
      * Add an element at the last index of the list.
+     *
      * @param data the data which will be stored. Does not accept null.
      */
     @Override
@@ -31,6 +35,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Add an element to a given index. If index is on index = size, the item will be added to the end.
+     *
      * @param data  the data which will be stored. Does not accept null.
      * @param index Index the data will be assigned to. (0 to size)
      */
@@ -65,6 +70,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds node by index and returns the node itself.
+     *
      * @param index the index of the node (0 to size - 1)
      * @return the node.
      */
@@ -89,6 +95,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds data by index and returns the data.
+     *
      * @param index the index of the data (0 to size - 1)
      * @return the data.
      */
@@ -99,6 +106,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Finds the index of given data.
+     *
      * @param data the data that will be searched for. Does not accept null.
      * @return the index of the data, if nothing was found returns -1.
      */
@@ -127,6 +135,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Checks if given data is in the list.
+     *
      * @param data the data to be searched for. Null always returns false!
      * @return Whether it was found or not. Null always returns false!
      */
@@ -138,6 +147,7 @@ public class LinkedList<T> implements IList<T> {
 
     /**
      * Sets data to new given data if it exists.
+     *
      * @param index the index to be changed.
      * @param data  the data to be searched for.
      */
@@ -147,16 +157,16 @@ public class LinkedList<T> implements IList<T> {
         Node<T> oldNode = getNodeAt(index);
         Node<T> newNode = new Node<>(data);
 
-        if(oldNode == head) {
+        if (oldNode == head) {
             head = newNode;
             return;
         }
 
-        if(oldNode.next != null) {
+        if (oldNode.next != null) {
             newNode.next = oldNode.next;
             oldNode.next.previous = newNode;
         }
-        if(oldNode.previous != null) {
+        if (oldNode.previous != null) {
             newNode.previous = oldNode.previous;
             oldNode.previous.next = newNode;
         }
@@ -212,7 +222,7 @@ public class LinkedList<T> implements IList<T> {
 
     public T[] convertToArray(T[] newArray) {
         if (isEmpty()) {
-            throw new IllegalStateException("Cannot convert because array is empty");
+            throw new IllegalStateException("Cannot convert because list is empty");
         }
 
         if (newArray.length != this.size) {
@@ -234,6 +244,22 @@ public class LinkedList<T> implements IList<T> {
         return newArray;
     }
 
+    // TODO: got the static <E> from ChatGPT: how to make a static method work in generic class in java? (misunderstood me)
+    // TODO: Sorry, I meant that I want to make a static method also use the generics. https://chat.openai.com/share/fef20673-4f2e-45c5-b996-40aff725fd58
+    public static <E> LinkedList<E> convertFromArray(E[] existingArray) {
+        if (existingArray.length == 0) {
+            throw new IllegalStateException("Cannot convert because array is empty");
+        }
+
+        LinkedList<E> newList = new LinkedList<E>();
+
+        for (E e : existingArray) {
+            newList.add(e);
+        }
+
+        return newList;
+    }
+
     @Override
     public String toString() {
         if (head == null) return "List is empty!";
@@ -248,5 +274,30 @@ public class LinkedList<T> implements IList<T> {
         sb.append(current);
 
         return sb.toString();
+    }
+
+    /**
+     * Sorts a LinkedList with a given sorting method.
+     *
+     * @param unsorted   The unsorted LinkedList.
+     * @param sortMethod The method that will be used.
+     * @param temp       An array with the type of the LinkedList, because E[] cannot be instantiated. Size must be equal to the unsorted.size();.
+     * @param <E>
+     * @return the sorted LinkedList.
+     */
+    public static <E> LinkedList<E> sort(LinkedList<E> unsorted, ISortMethod<E> sortMethod, E[] temp) {
+        if (sortMethod == null) throw new IllegalArgumentException("The sorting method cannot be null!");
+        if (unsorted == null) throw new IllegalArgumentException("The given unsorted array cannot be null!");
+        if (temp == null) throw new IllegalArgumentException("The given temp array cannot be null!");
+        if (unsorted.isEmpty()) throw new IllegalArgumentException("The given unsorted array cannot be empty!");
+        if (temp.length != unsorted.size) throw new IllegalArgumentException("The size of the temp array must be the same as the unsorted list!");
+
+        E[] unsortedTempArray = temp;
+        unsortedTempArray = unsorted.convertToArray(temp);
+
+        E[] sortedTempArray = temp;
+        sortedTempArray = sortMethod.sort(unsortedTempArray);
+
+        return LinkedList.convertFromArray(sortedTempArray);
     }
 }
