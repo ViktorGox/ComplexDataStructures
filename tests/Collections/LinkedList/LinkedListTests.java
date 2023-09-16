@@ -1,6 +1,5 @@
-package LinkedList;
+package Collections.LinkedList;
 
-import Collections.LinkedList.LinkedList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

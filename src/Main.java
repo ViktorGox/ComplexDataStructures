@@ -1,5 +1,5 @@
-import LinkedList.LinkedList;
-import Sorting.InsertionSort;
+import Collections.HashTable.HashTable;
+import Collections.LinkedList.LinkedList;
 import Sorting.ISortMethod;
 import Sorting.QuickSort;
 import Stations.Station;
@@ -10,15 +10,16 @@ public class Main {
         Station.GenerateStationList();
         Track.GenerateTrackList();
 
-        ISortMethod<String> sortMethod = new QuickSort<>();
-        LinkedList<String> unsortedList = new LinkedList<String>();
-        unsortedList.add("2");
-        unsortedList.add("4");
-        unsortedList.add("1");
-        unsortedList.add("3");
+//        ISortMethod<String> sortMethod = new QuickSort<>();
+//        LinkedList<String> unsortedList = new LinkedList<String>();
+//        unsortedList.add("2");
+//        unsortedList.add("4");
+//        unsortedList.add("1");
+//        unsortedList.add("3");
+//
+//        LinkedList<String> linkedList = LinkedList.sort(unsortedList, sortMethod, new String[unsortedList.size()]);
+//
+//        System.out.println(linkedList);
 
-        LinkedList<String> linkedList = LinkedList.sort(unsortedList, sortMethod, new String[unsortedList.size()]);
-
-        System.out.println(linkedList);
     }
 }
