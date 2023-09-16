@@ -1,4 +1,4 @@
-package LinkedList;
+package Collections.LinkedList;
 
 import Sorting.ISortMethod;
 

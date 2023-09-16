@@ -1,4 +1,4 @@
-package LinkedList;
+package Collections.LinkedList;
 
 public class Node<T> {
     protected Node<T> next;

@@ -1,4 +1,4 @@
-package LinkedList;
+package Collections.LinkedList;
 
 public interface IList<T> {
     void add(T element);
