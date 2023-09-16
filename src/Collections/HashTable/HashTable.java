@@ -9,6 +9,7 @@ public class HashTable<K, V> {
 
     public HashTable() {
         entryTable = new Entry[INITIAL_CAPACITY];
+        recalculateResizeCountRequirement(INITIAL_CAPACITY);
     }
 
     public void put(K key, V value) {
@@ -64,8 +65,7 @@ public class HashTable<K, V> {
         entryTable = new Entry[newSize];
 
         entriesCount = 0;
-        resizeCountRequirement = newSize * 0.75;
-
+        recalculateResizeCountRequirement(newSize);
         for (Entry<K, V> entry : oldEntries) {
             if (entry == null) continue;
 
@@ -80,5 +80,9 @@ public class HashTable<K, V> {
 
     private int hash(K key) {
         return key.hashCode();
+    }
+
+    private void recalculateResizeCountRequirement(int size) {
+        resizeCountRequirement = size * 0.75;
     }
 }

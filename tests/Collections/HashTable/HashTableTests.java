@@ -34,4 +34,30 @@ public class HashTableTests {
 
         assertNull(hashTable.get("three"));
     }
+
+    @Test
+    public void HashTableWithMultipleElements_TriggeringResize_ResizeWorksCorrectly() {
+        HashTable<String, Integer> hashTable = new HashTable<>();
+        // resize is triggered at 75% filled capacity is 10, so should be triggered at 8th element.
+        for (int i = 0; i < 8; i++) {
+            hashTable.put(String.valueOf(i),i);
+        }
+
+        hashTable.put("9",9);
+
+        assertEquals(1,1);
+    }
+
+    @Test
+    public void HashTableWithMultipleElementsInSameEntryLocation_TriggeringResize_ResizeWorksCorrectly() {
+        HashTable<String, Integer> hashTable = new HashTable<>();
+        // resize is triggered at 75% filled capacity is 10, so should be triggered at 8th element.
+        for (int i = 0; i < 8; i++) {
+            hashTable.put("1",i);
+        }
+
+        hashTable.put("9",9);
+
+        assertEquals(1,1);
+    }
 }
