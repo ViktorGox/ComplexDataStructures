@@ -26,8 +26,8 @@ public class AStar<T extends Comparable<T>> extends PathFinding<T> {
             if (traversedT.contains(connection.getDestination().getData())) continue;
 
             Double currentConnectionToDestination = distanceToTargetMethod.apply(connection.getDestination().getData(), destination);
-            Double currentConnectionToCurrent = distanceToTargetMethod.apply(connection.getDestination().getData(), this.start);
-            double costF = currentConnectionToCurrent + currentConnectionToDestination;
+            Double currentConnectionToStart = distanceToTargetMethod.apply(connection.getDestination().getData(), this.start);
+            double costF = currentConnectionToStart + currentConnectionToDestination;
 
             toTraverseMinHeap.push(new PathFindNode<>(start.getDestination(), connection.getDestination().getData(), costF));
         }
