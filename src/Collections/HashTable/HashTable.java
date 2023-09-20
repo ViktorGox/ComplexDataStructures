@@ -74,8 +74,6 @@ public class HashTable<K, V> {
             while (current.next != null) {
                 put(current.key, current.value);
                 current = current.next;
-
-
             }
             put(current.key, current.value);
         }
