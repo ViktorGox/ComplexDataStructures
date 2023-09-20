@@ -13,6 +13,7 @@ public class HashTable<K, V> {
     }
 
     public void put(K key, V value) {
+        if(get(key) != null) return;
         int index = hash(key) % entryTable.length;
         if (entryTable[index] == null) {
             entryTable[index] = new Entry<>(key, value);
@@ -84,5 +85,9 @@ public class HashTable<K, V> {
 
     private void recalculateResizeCountRequirement(int size) {
         resizeCountRequirement = size * 0.75;
+    }
+
+    public int size() {
+        return entriesCount;
     }
 }

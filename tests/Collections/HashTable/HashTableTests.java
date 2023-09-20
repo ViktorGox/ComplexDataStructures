@@ -2,8 +2,6 @@ package Collections.HashTable;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HashTableTests {
@@ -49,15 +47,23 @@ public class HashTableTests {
     }
 
     @Test
-    public void HashTableWithMultipleElementsInSameEntryLocation_TriggeringResize_ResizeWorksCorrectly() {
+    public void EmptyHashTable_AttemptingToAddSameKey_OnlyOneInstanceIsAdded() {
         HashTable<String, Integer> hashTable = new HashTable<>();
         // resize is triggered at 75% filled capacity is 10, so should be triggered at 8th element.
         for (int i = 0; i < 8; i++) {
             hashTable.put("1",i);
         }
 
-        hashTable.put("9",9);
+        assertEquals(1,hashTable.size());
+    }
 
-        assertEquals(1,1);
+    @Test
+    public void HashTableWithMultipleElementsInSameEntryLocation_TriggeringResize_ResizeWorksCorrectly() {
+        HashTable<Integer, Integer> hashTable = new HashTable<>();
+        // resize is triggered at 75% filled capacity is 10, so should be triggered at 8th element.
+        for (int i = 0; i < 100; i++) {
+            int finalI = i;
+            assertDoesNotThrow(() -> hashTable.put(finalI,finalI));
+        }
     }
 }
