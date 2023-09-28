@@ -2,11 +2,12 @@ package Collections.Tree;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BinaryTreeTests {
     @Test
-    public void EmptyTree_AddingElements_WorksCorrectly() {
+    public void EmptyTree_AddingElements_AddedCorrectly() {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         binaryTree.add(30);
         binaryTree.add(28);
@@ -17,5 +18,178 @@ public class BinaryTreeTests {
         binaryTree.add(29);
         binaryTree.add(27);
         assertEquals("27 28 29 30 31 32 33 34", binaryTree.getInOrder());
+    }
+
+    @Test
+    public void EmptyTree_AddingAndDeletingElements_WorksCorrectly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        //25,20,30,15,22,27,35,10,17,21,23,26,28,32,40
+        binaryTree.add(25);
+        binaryTree.add(20);
+        binaryTree.add(30);
+        binaryTree.add(15);
+        binaryTree.add(22);
+        binaryTree.add(27);
+        binaryTree.add(35);
+        binaryTree.add(10);
+        binaryTree.add(17);
+        binaryTree.add(21);
+        binaryTree.add(23);
+        binaryTree.add(26);
+        binaryTree.add(28);
+        binaryTree.add(32);
+        binaryTree.add(40);
+        binaryTree.remove(25);
+        assertEquals(26, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithMultipleElements_GetThem_ReturnsCorrectDataOrNullIfNotExist() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        assertNull(binaryTree.getData(30));
+
+        binaryTree.add(30);
+        binaryTree.add(28);
+        binaryTree.add(32);
+        binaryTree.add(31);
+        binaryTree.add(33);
+        binaryTree.add(34);
+        binaryTree.add(29);
+        binaryTree.add(27);
+        assertEquals(30, binaryTree.getData(30));
+        assertEquals(28, binaryTree.getData(28));
+        assertEquals(32, binaryTree.getData(32));
+        assertEquals(31, binaryTree.getData(31));
+        assertEquals(33, binaryTree.getData(33));
+        assertEquals(34, binaryTree.getData(34));
+        assertEquals(29, binaryTree.getData(29));
+        assertEquals(27, binaryTree.getData(27));
+
+        assertNull(binaryTree.getData(0));
+        assertNull(binaryTree.getData(100));
+
+    }
+
+
+    @Test
+    public void TreeWithOneElement_RemovingTheRoot_MakesTreeEmpty() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.remove(30);
+        assertEquals("", binaryTree.getInOrder());
+    }
+
+    @Test
+    public void TreeWithTwoElementsLeftSide_RemovingTheRoot_MakesSecondElementRoot() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(28);
+        binaryTree.remove(30);
+        assertEquals("28", binaryTree.getInOrder());
+        assertEquals(28, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithTwoElementsRightSide_RemovingTheRoot_MakesSecondElementRoot() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(32);
+        binaryTree.remove(30);
+        assertEquals("32", binaryTree.getInOrder());
+        assertEquals(32, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithPerfectlyBalancedRoot_RemovingTheRoot_MakesTheBiggerElementTheRoot() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(28);
+        binaryTree.add(32);
+        binaryTree.remove(30);
+        assertEquals("28 32", binaryTree.getInOrder());
+        assertEquals(32, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithUnbalancedRootOnlyLeft_RemovingTheRoot_MakesSecondElementRoot() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(32);
+        binaryTree.add(30);
+        binaryTree.add(28);
+        binaryTree.remove(32);
+        assertEquals("28 30", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithUnbalancedRootOnlyRight_RemovingTheRoot_MakesSecondElementRoot() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(28);
+        binaryTree.add(30);
+        binaryTree.add(32);
+        binaryTree.remove(28);
+        assertEquals("30 32", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithUnbalancedRootToLeft_RemovingNonRootNonLeafNode_WorksCorrectly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(28);
+        binaryTree.add(26);
+        binaryTree.remove(28);
+        assertEquals("26 30", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithUnbalancedRootToRight_RemovingNonRootNonLeafNode_WorksCorrectly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(32);
+        binaryTree.add(34);
+        binaryTree.remove(32);
+        assertEquals("30 34", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithSomeElements_RemovingLeaf_WorksCorrectly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(32);
+        binaryTree.add(34);
+        binaryTree.remove(34);
+        assertEquals("30 32", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithOneElementToLeftAnManySubRightElements_RemoveRoot_WorksProperly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(30);
+        binaryTree.add(40);
+        binaryTree.add(39);
+        binaryTree.add(38);
+        binaryTree.add(37);
+        binaryTree.add(36);
+        binaryTree.remove(30);
+        assertEquals("36 37 38 39 40", binaryTree.getInOrder());
+        assertEquals(40, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithOneElementToRightAnManySubLeftElements_RemoveRoot_WorksProperly() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(40);
+        binaryTree.add(30);
+        binaryTree.add(36);
+        binaryTree.add(37);
+        binaryTree.add(38);
+        binaryTree.add(39);
+        binaryTree.remove(40);
+        assertEquals("30 36 37 38 39", binaryTree.getInOrder());
+        assertEquals(30, binaryTree.getRootData());
     }
 }
