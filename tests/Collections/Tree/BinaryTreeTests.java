@@ -46,7 +46,7 @@ public class BinaryTreeTests {
     @Test
     public void TreeWithMultipleElements_GetThem_ReturnsCorrectDataOrNullIfNotExist() {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        assertNull(binaryTree.getData(30));
+        assertNull(binaryTree.get(30));
 
         binaryTree.add(30);
         binaryTree.add(28);
@@ -56,17 +56,17 @@ public class BinaryTreeTests {
         binaryTree.add(34);
         binaryTree.add(29);
         binaryTree.add(27);
-        assertEquals(30, binaryTree.getData(30));
-        assertEquals(28, binaryTree.getData(28));
-        assertEquals(32, binaryTree.getData(32));
-        assertEquals(31, binaryTree.getData(31));
-        assertEquals(33, binaryTree.getData(33));
-        assertEquals(34, binaryTree.getData(34));
-        assertEquals(29, binaryTree.getData(29));
-        assertEquals(27, binaryTree.getData(27));
+        assertEquals(30, binaryTree.get(30));
+        assertEquals(28, binaryTree.get(28));
+        assertEquals(32, binaryTree.get(32));
+        assertEquals(31, binaryTree.get(31));
+        assertEquals(33, binaryTree.get(33));
+        assertEquals(34, binaryTree.get(34));
+        assertEquals(29, binaryTree.get(29));
+        assertEquals(27, binaryTree.get(27));
 
-        assertNull(binaryTree.getData(0));
-        assertNull(binaryTree.getData(100));
+        assertNull(binaryTree.get(0));
+        assertNull(binaryTree.get(100));
 
     }
 
@@ -191,5 +191,13 @@ public class BinaryTreeTests {
         binaryTree.remove(40);
         assertEquals("30 36 37 38 39", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
+    }
+
+    @Test
+    public void TreeWithOneElement_RemoveElementThatDoesNotExist_NothingHappens() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(40);
+        binaryTree.remove(23);
+        assertEquals("40", binaryTree.getInOrder());
     }
 }

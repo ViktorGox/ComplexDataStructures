@@ -1,7 +1,10 @@
 package Collections.Tree;
+
+import Collections.IArray;
+
 //https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
 //TODO: delete method
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
     private TreeNode<T> root;
 
     public void add(T data) {
@@ -40,6 +43,11 @@ public class BinaryTree<T extends Comparable<T>> {
         newNode.parent = currentNode;
     }
 
+    @Override
+    public boolean contains(T data) {
+        return false;
+    }
+
     private TreeNode<T> internalGetNode(T data) {
         if (isEmpty()) {
             return null;
@@ -64,14 +72,16 @@ public class BinaryTree<T extends Comparable<T>> {
         return currentNode;
     }
 
-    public T getData(T data) {
+    public T get(T data) {
         TreeNode<T> foundData = internalGetNode(data);
         if (foundData == null) return null;
         return foundData.getData();
     }
 
-    public void remove(T data) {
+    // TODO: make it to return the removed data. How though???
+    public T remove(T data) {
         root = internalRemove(root, data);
+        return null;
     }
 
     private TreeNode<T> internalRemove(TreeNode<T> node, T data) {
@@ -115,6 +125,11 @@ public class BinaryTree<T extends Comparable<T>> {
         return root == null;
     }
 
+    @Override
+    public int size() {
+        return 0;
+    }
+
     public String getInOrder() {
         if (isEmpty()) return "";
         return internalGetInOrder(root).trim();
@@ -136,12 +151,5 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public T getRootData() {
         return root.getData();
-    }
-
-    @Override
-    public String toString() {
-        return "BinaryTree{" +
-                "root=" + root +
-                '}';
     }
 }

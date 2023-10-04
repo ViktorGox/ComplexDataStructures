@@ -13,9 +13,6 @@ public class TreeNode<T> {
         return data;
     }
 
-    public boolean isRoot() {
-        return parent == null;
-    }
     public boolean isLeaf() {
         return left == null && right == null;
     }

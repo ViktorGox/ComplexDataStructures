@@ -28,7 +28,7 @@ public class HashTableTests {
         assertEquals(2,hashTable.get("two"));
         assertEquals(3,hashTable.get("three"));
 
-        hashTable.delete("three");
+        hashTable.remove("three");
 
         assertNull(hashTable.get("three"));
     }

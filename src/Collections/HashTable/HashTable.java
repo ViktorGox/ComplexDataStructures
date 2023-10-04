@@ -1,11 +1,14 @@
 package Collections.HashTable;
 
+import Collections.IArray;
+
 // TODO: partly chat gpt generated https://chat.openai.com/share/103bd1d9-fc0e-439e-962c-7f3b580a3410
-public class HashTable<K, V> {
+public class HashTable<K, V> implements IArray,IHashMap<K,V> {
     private static final int INITIAL_CAPACITY = 10;
     private Entry<K, V>[] entryTable;
     private double resizeCountRequirement;
-    private int entriesCount;
+    private int internalEntriesCount;
+    private int entryCount;
 
     public HashTable() {
         entryTable = new Entry[INITIAL_CAPACITY];
@@ -24,11 +27,18 @@ public class HashTable<K, V> {
             }
             current.next = new Entry<>(key, value);
         }
-        entriesCount++;
+        internalEntriesCount++;
+        entryCount++;
 
-        if (entriesCount > resizeCountRequirement) {
+        if (internalEntriesCount > resizeCountRequirement) {
             resize();
         }
+    }
+
+    @Override
+    public boolean contains(K key) {
+        V result = get(key);
+        return result != null;
     }
 
     public V get(K key) {
@@ -48,10 +58,12 @@ public class HashTable<K, V> {
         return null;
     }
 
-    public V delete(K key) {
+    @Override
+    public V remove(K key) {
         Entry<K, V> entryToDelete = getEntry(key);
         assert entryToDelete != null;
         entryToDelete.isDeleted = true;
+        entryCount--;
         return entryToDelete.value;
     }
 
@@ -65,7 +77,8 @@ public class HashTable<K, V> {
         int newSize = oldEntries.length + (oldEntries.length / 2);
         entryTable = new Entry[newSize];
 
-        entriesCount = 0;
+        internalEntriesCount = 0;
+        entryCount = 0;
         recalculateResizeCountRequirement(newSize);
         for (Entry<K, V> entry : oldEntries) {
             if (entry == null) continue;
@@ -87,7 +100,13 @@ public class HashTable<K, V> {
         resizeCountRequirement = size * 0.75;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    @Override
     public int size() {
-        return entriesCount;
+        return entryCount;
     }
 }
