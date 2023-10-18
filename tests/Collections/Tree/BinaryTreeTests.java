@@ -2,8 +2,7 @@ package Collections.Tree;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BinaryTreeTests {
     @Test
@@ -198,5 +197,47 @@ public class BinaryTreeTests {
         binaryTree.add(40);
         assertNull(binaryTree.remove(23));
         assertEquals("40", binaryTree.getInOrder());
+    }
+
+    @Test
+    public void TreeWithSomeElements_ContainsExistingNode_ReturnsTrue() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(40);
+        binaryTree.add(30);
+        binaryTree.add(36);
+        binaryTree.add(37);
+        binaryTree.add(38);
+        binaryTree.add(39);
+        assertTrue(binaryTree.contains(40));
+    }
+
+    @Test
+    public void TreeWithSomeElements_ContainsNonExistingNode_ReturnsCorrectFalse() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(40);
+        binaryTree.add(30);
+        binaryTree.add(36);
+        binaryTree.add(37);
+        binaryTree.add(38);
+        binaryTree.add(39);
+        assertFalse(binaryTree.contains(45));
+    }
+
+    @Test
+    public void TreeWithSomeElements_SizeMethod_ReturnsCorrectSize() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        binaryTree.add(40);
+        binaryTree.add(30);
+        binaryTree.add(36);
+        binaryTree.add(37);
+        binaryTree.add(38);
+        binaryTree.add(39);
+        assertEquals(6, binaryTree.size());
+    }
+
+    @Test
+    public void TreeWithZeroElements_SizeMethod_ReturnsZero() {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        assertEquals(0, binaryTree.size());
     }
 }

@@ -2,8 +2,8 @@ package Collections.Tree;
 
 import Collections.IArray;
 
-//https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
-//TODO: delete method
+//TODO: https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
+//TODO: why i made the delete they way it is.
 public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
     private TreeNode<T> root;
     private TreeNode<T> removeMethodNode;
@@ -54,7 +54,7 @@ public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
 
     @Override
     public boolean contains(T data) {
-        return false;
+        return internalGetNode(data) != null;
     }
 
     private TreeNode<T> internalGetNode(T data) {
@@ -142,7 +142,21 @@ public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
 
     @Override
     public int size() {
-        return 0;
+        return sizeRecursive(0, root);
+    }
+
+    public int sizeRecursive(int sizeR, TreeNode<T> startNode) {
+        if(root == null) return 0;
+        int size = sizeR;
+
+        if (startNode.hasLeft()) {
+            size += sizeRecursive(size, startNode.left);
+        }
+        if (startNode.hasRight()) {
+            size += sizeRecursive(size, startNode.right);
+        }
+
+        return size + 1;
     }
 
     public String getInOrder() {

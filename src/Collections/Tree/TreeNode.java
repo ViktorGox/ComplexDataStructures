@@ -12,7 +12,6 @@ public class TreeNode<T> {
     public T getData() {
         return data;
     }
-
     public boolean isLeaf() {
         return left == null && right == null;
     }
