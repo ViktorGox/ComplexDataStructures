@@ -39,7 +39,7 @@ public class BinaryTreeTests {
         binaryTree.add(28);
         binaryTree.add(32);
         binaryTree.add(40);
-        binaryTree.remove(25);
+        assertEquals(25, binaryTree.remove(25));
         assertEquals(26, binaryTree.getRootData());
     }
 
@@ -67,7 +67,6 @@ public class BinaryTreeTests {
 
         assertNull(binaryTree.get(0));
         assertNull(binaryTree.get(100));
-
     }
 
 
@@ -75,7 +74,7 @@ public class BinaryTreeTests {
     public void TreeWithOneElement_RemovingTheRoot_MakesTreeEmpty() {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         binaryTree.add(30);
-        binaryTree.remove(30);
+        assertEquals(30, binaryTree.remove(30));
         assertEquals("", binaryTree.getInOrder());
     }
 
@@ -84,7 +83,7 @@ public class BinaryTreeTests {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         binaryTree.add(30);
         binaryTree.add(28);
-        binaryTree.remove(30);
+        assertEquals(30, binaryTree.remove(30));
         assertEquals("28", binaryTree.getInOrder());
         assertEquals(28, binaryTree.getRootData());
     }
@@ -94,7 +93,7 @@ public class BinaryTreeTests {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         binaryTree.add(30);
         binaryTree.add(32);
-        binaryTree.remove(30);
+        assertEquals(30, binaryTree.remove(30));
         assertEquals("32", binaryTree.getInOrder());
         assertEquals(32, binaryTree.getRootData());
     }
@@ -105,7 +104,7 @@ public class BinaryTreeTests {
         binaryTree.add(30);
         binaryTree.add(28);
         binaryTree.add(32);
-        binaryTree.remove(30);
+        assertEquals(30, binaryTree.remove(30));
         assertEquals("28 32", binaryTree.getInOrder());
         assertEquals(32, binaryTree.getRootData());
     }
@@ -116,7 +115,7 @@ public class BinaryTreeTests {
         binaryTree.add(32);
         binaryTree.add(30);
         binaryTree.add(28);
-        binaryTree.remove(32);
+        assertEquals(32, binaryTree.remove(32));
         assertEquals("28 30", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -127,7 +126,7 @@ public class BinaryTreeTests {
         binaryTree.add(28);
         binaryTree.add(30);
         binaryTree.add(32);
-        binaryTree.remove(28);
+        assertEquals(28, binaryTree.remove(28));
         assertEquals("30 32", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -138,7 +137,7 @@ public class BinaryTreeTests {
         binaryTree.add(30);
         binaryTree.add(28);
         binaryTree.add(26);
-        binaryTree.remove(28);
+        assertEquals(28, binaryTree.remove(28));
         assertEquals("26 30", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -149,7 +148,7 @@ public class BinaryTreeTests {
         binaryTree.add(30);
         binaryTree.add(32);
         binaryTree.add(34);
-        binaryTree.remove(32);
+        assertEquals(32, binaryTree.remove(32));
         assertEquals("30 34", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -160,7 +159,7 @@ public class BinaryTreeTests {
         binaryTree.add(30);
         binaryTree.add(32);
         binaryTree.add(34);
-        binaryTree.remove(34);
+        assertEquals(34, binaryTree.remove(34));
         assertEquals("30 32", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -174,7 +173,7 @@ public class BinaryTreeTests {
         binaryTree.add(38);
         binaryTree.add(37);
         binaryTree.add(36);
-        binaryTree.remove(30);
+        assertEquals(30, binaryTree.remove(30));
         assertEquals("36 37 38 39 40", binaryTree.getInOrder());
         assertEquals(40, binaryTree.getRootData());
     }
@@ -188,7 +187,7 @@ public class BinaryTreeTests {
         binaryTree.add(37);
         binaryTree.add(38);
         binaryTree.add(39);
-        binaryTree.remove(40);
+        assertEquals(40, binaryTree.remove(40));
         assertEquals("30 36 37 38 39", binaryTree.getInOrder());
         assertEquals(30, binaryTree.getRootData());
     }
@@ -197,7 +196,7 @@ public class BinaryTreeTests {
     public void TreeWithOneElement_RemoveElementThatDoesNotExist_NothingHappens() {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         binaryTree.add(40);
-        binaryTree.remove(23);
+        assertNull(binaryTree.remove(23));
         assertEquals("40", binaryTree.getInOrder());
     }
 }

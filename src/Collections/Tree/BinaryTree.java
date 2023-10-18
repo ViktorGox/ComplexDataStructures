@@ -6,6 +6,15 @@ import Collections.IArray;
 //TODO: delete method
 public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
     private TreeNode<T> root;
+    private TreeNode<T> removeMethodNode;
+    private boolean hasRemovedNode;
+
+    private void setRemoveMethodNode(TreeNode<T> removedNode) {
+        if (!hasRemovedNode) {
+            removeMethodNode = removedNode;
+            hasRemovedNode = true;
+        }
+    }
 
     public void add(T data) {
         TreeNode<T> newNode = new TreeNode<>(data);
@@ -78,14 +87,18 @@ public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
         return foundData.getData();
     }
 
-    // TODO: make it to return the removed data. How though???
     public T remove(T data) {
         root = internalRemove(root, data);
+        hasRemovedNode = false;
+        if (removeMethodNode != null) {
+            return removeMethodNode.getData();
+        }
         return null;
     }
 
     private TreeNode<T> internalRemove(TreeNode<T> node, T data) {
         if (node == null) {
+            removeMethodNode = null;
             return null;
         }
 
@@ -98,6 +111,8 @@ public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
         } else if (compareResult > 0) {
             node.right = internalRemove(node.right, data);
         } else {
+            setRemoveMethodNode(node);
+
             if (!node.hasLeft()) {
                 return node.right;
             } else if (!node.hasRight()) {
