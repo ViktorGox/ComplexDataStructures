@@ -1,9 +1,10 @@
 package Collections.LinkedList;
 
+import Collections.IArray;
 import Sorting.ISortMethod;
 
 //TODO: some code taken from last years W5 exercise. Check what exactly UwU
-public class LinkedList<T> implements IList<T> {
+public class LinkedList<T> implements IList<T>, IArray {
     private Node<T> head = null; // 0 element
     private int size;
 

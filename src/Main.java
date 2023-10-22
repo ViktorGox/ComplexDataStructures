@@ -1,4 +1,4 @@
-import Collections.HashTable.HashTable;
+import Collections.HashTable.HashMap;
 import Collections.LinkedList.LinkedList;
 import Sorting.ISortMethod;
 import Sorting.QuickSort;
@@ -10,7 +10,7 @@ public class Main {
         Station.GenerateStationList();
         Track.GenerateTrackList();
 
-        HashTable<String, Integer> asd = null;
+        HashMap<String, Integer> asd = null;
         System.out.println(asd);
 
         ISortMethod<String> sortMethod = new QuickSort<>();

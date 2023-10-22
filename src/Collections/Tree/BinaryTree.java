@@ -1,10 +1,11 @@
 package Collections.Tree;
 
 import Collections.IArray;
+import Collections.Traversable;
 
 //TODO: https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
 //TODO: why i made the delete they way it is.
-public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
+public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T>, Traversable {
     private TreeNode<T> root;
     private TreeNode<T> removeMethodNode;
     private boolean hasRemovedNode;
@@ -162,6 +163,21 @@ public class BinaryTree<T extends Comparable<T>> implements IArray, ITree<T> {
     public String getInOrder() {
         if (isEmpty()) return "";
         return internalGetInOrder(root).trim();
+    }
+
+    @Override
+    public String getPreorder() {
+        return null;
+    }
+
+    @Override
+    public String getPostorder() {
+        return null;
+    }
+
+    @Override
+    public String graphViz() {
+        return null;
     }
 
     private String internalGetInOrder(TreeNode<T> startNode) {
