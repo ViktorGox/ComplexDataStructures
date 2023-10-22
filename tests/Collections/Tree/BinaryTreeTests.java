@@ -1,6 +1,5 @@
 package Collections.Tree;
 
-import Collections.Tree.Binary.BinaryTree;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
