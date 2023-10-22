@@ -11,6 +11,7 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
         return root == null;
     }
 
+    @Override
     public int size() {
         return sizeRecursive(0, root);
     }
@@ -29,6 +30,7 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
         return size + 1;
     }
 
+    @Override
     public String getInOrder() {
         if (isEmpty()) return "";
         return internalGetInOrder(root).trim();

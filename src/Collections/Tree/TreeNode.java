@@ -33,7 +33,7 @@ public class TreeNode<T extends Comparable<T>> {
 
     private int getHeightRecursive(TreeNode<T> node) {
         if (node == null) {
-            return -1;
+            return 0;
         }
 
         int leftHeight = getHeightRecursive(node.left);
@@ -59,4 +59,13 @@ public class TreeNode<T extends Comparable<T>> {
 //            return findDepth(node.right, data, depth + 1);
 //        }
 //    }
+
+
+    @Override
+    public String toString() {
+        return "data = " + getData() +
+                ", parent = " + ((parent != null) ? parent.getData() : null) +
+                ", left = " + ((left != null) ? left.getData() : null) +
+                ", right = " + ((right != null) ? right.getData() : null);
+    }
 }
