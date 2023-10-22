@@ -1,7 +1,8 @@
-package Collections.Tree;
+package Collections.Tree.Binary;
 
 import Collections.IArray;
 import Collections.Traversable;
+import Collections.Tree.ITree;
 
 //TODO: https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
 //TODO: why i made the delete they way it is.

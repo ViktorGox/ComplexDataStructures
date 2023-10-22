@@ -1,4 +1,4 @@
-package Collections.Tree;
+package Collections.Tree.Binary;
 
 public class TreeNode<T> {
     protected TreeNode<T> parent;

@@ -1,7 +1,8 @@
-package Collections.Tree;
+package Collections.Tree.AVL;
 
 import Collections.IArray;
 import Collections.Traversable;
+import Collections.Tree.ITree;
 
 public class AVLTree<T extends Comparable<T>> implements IArray, ITree<T>, Traversable {
 
