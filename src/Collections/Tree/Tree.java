@@ -21,10 +21,10 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
         int size = sizeR;
 
         if (startNode.hasLeft()) {
-            size += sizeRecursive(size, startNode.left);
+            size += sizeRecursive(sizeR, startNode.left);
         }
         if (startNode.hasRight()) {
-            size += sizeRecursive(size, startNode.right);
+            size += sizeRecursive(sizeR, startNode.right);
         }
 
         return size + 1;
