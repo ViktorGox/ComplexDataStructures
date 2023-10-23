@@ -6,6 +6,16 @@ import Collections.Traversable;
 public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>, Traversable {
     protected TreeNode<T> root;
 
+    protected TreeNode<T> removeMethodNode;
+    protected boolean hasRemovedNode;
+
+    protected void setRemoveMethodNode(TreeNode<T> removedNode) {
+        if (!hasRemovedNode) {
+            removeMethodNode = removedNode;
+            hasRemovedNode = true;
+        }
+    }
+
     @Override
     public boolean isEmpty() {
         return root == null;

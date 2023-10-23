@@ -3,15 +3,6 @@ package Collections.Tree;
 //TODO: https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
 //TODO: why i made the delete they way it is.
 public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
-    private TreeNode<T> removeMethodNode;
-    private boolean hasRemovedNode;
-
-    private void setRemoveMethodNode(TreeNode<T> removedNode) {
-        if (!hasRemovedNode) {
-            removeMethodNode = removedNode;
-            hasRemovedNode = true;
-        }
-    }
 
     public void add(T data) {
         TreeNode<T> newNode = new TreeNode<>(data);
