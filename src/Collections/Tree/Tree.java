@@ -62,12 +62,46 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
 
     @Override
     public String getPreorder() {
-        return null;
+        if (isEmpty()) return "";
+        return internalGetPreOrder(root).trim();
+    }
+
+    private String internalGetPreOrder(TreeNode<T> startNode) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(startNode.getData()).append(" ");
+
+        if (startNode.hasLeft()) {
+            sb.append(internalGetPreOrder(startNode.left));
+        }
+
+        if (startNode.hasRight()) {
+            sb.append(internalGetPreOrder(startNode.right));
+        }
+
+        return sb.toString();
     }
 
     @Override
     public String getPostorder() {
-        return null;
+        if (isEmpty()) return "";
+        return internalGetPostOrder(root).trim();
+    }
+
+    private String internalGetPostOrder(TreeNode<T> startNode) {
+        StringBuilder sb = new StringBuilder();
+
+        if (startNode.hasLeft()) {
+            sb.append(internalGetPostOrder(startNode.left));
+        }
+
+        if (startNode.hasRight()) {
+            sb.append(internalGetPostOrder(startNode.right));
+        }
+
+        sb.append(startNode.getData()).append(" ");
+
+        return sb.toString();
     }
 
     @Override

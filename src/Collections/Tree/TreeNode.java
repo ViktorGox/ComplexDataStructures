@@ -5,7 +5,7 @@ public class TreeNode<T extends Comparable<T>> {
     protected TreeNode<T> parent;
     protected TreeNode<T> left;
     protected TreeNode<T> right;
-    private T data;
+    private final T data;
 
     protected TreeNode(T data) {
         this.data = data;
@@ -41,25 +41,6 @@ public class TreeNode<T extends Comparable<T>> {
 
         return Math.max(leftHeight, rightHeight) + 1;
     }
-
-//    public int findDepth(int data) {
-//        return findDepth(root, data, 0);
-//    }
-//
-//    private int findDepth(Node node, int data, int depth) {
-//        if (node == null) {
-//            return -1; // Node not found
-//        }
-//
-//        if (data == node.data) {
-//            return depth;
-//        } else if (data < node.data) {
-//            return findDepth(node.left, data, depth + 1);
-//        } else {
-//            return findDepth(node.right, data, depth + 1);
-//        }
-//    }
-
 
     @Override
     public String toString() {
