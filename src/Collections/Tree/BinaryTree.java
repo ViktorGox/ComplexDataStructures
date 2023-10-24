@@ -18,7 +18,6 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
                     currentNode = currentNode.right;
                 } else {
                     currentNode.right = newNode;
-                    newNode.parent = currentNode;
                     return;
                 }
             } else {
@@ -26,7 +25,6 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
                     currentNode = currentNode.left;
                 } else {
                     currentNode.left = newNode;
-                    newNode.parent = currentNode;
                     return;
                 }
             }
@@ -37,7 +35,6 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
         } else {
             currentNode.left = newNode;
         }
-        newNode.parent = currentNode;
     }
 
     @Override

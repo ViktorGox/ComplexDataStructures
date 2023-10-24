@@ -2,7 +2,7 @@ package Collections.Tree;
 
 public class TreeNode<T extends Comparable<T>> {
 
-    protected TreeNode<T> parent;
+//    protected TreeNode<T> parent;
     protected TreeNode<T> left;
     protected TreeNode<T> right;
     private final T data;
@@ -45,7 +45,6 @@ public class TreeNode<T extends Comparable<T>> {
     @Override
     public String toString() {
         return "data = " + getData() +
-                ", parent = " + ((parent != null) ? parent.getData() : null) +
                 ", left = " + ((left != null) ? left.getData() : null) +
                 ", right = " + ((right != null) ? right.getData() : null);
     }
