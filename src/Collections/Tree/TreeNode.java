@@ -1,8 +1,6 @@
 package Collections.Tree;
 
 public class TreeNode<T extends Comparable<T>> {
-
-//    protected TreeNode<T> parent;
     protected TreeNode<T> left;
     protected TreeNode<T> right;
     private final T data;
