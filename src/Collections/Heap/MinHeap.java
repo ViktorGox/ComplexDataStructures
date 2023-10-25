@@ -13,7 +13,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     public MinHeap(Class<T> classT) {
         this.classT = classT;
-        array = (T[]) Array.newInstance(classT, 1); // Not using resize because at first it's not initialised, so it throws nullException
+        array = (T[]) Array.newInstance(classT, 3); // Not using resize because at first it's not initialised, so it throws nullException
     }
 
     @Override
@@ -34,6 +34,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
         int lastIndex = size() - 1;
         array[0] = array[lastIndex];
         array[lastIndex] = null;
+        tryDownScale();
         return top;
     }
 
@@ -44,7 +45,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
         }
     }
 
-    public void flipRecursive(int start) {
+    private void flipRecursive(int start) {
         if (array[start] == null) return;
         int leftI = leftOf(start);
         int rightI = rightOf(start);
@@ -55,13 +56,13 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
             return;
         if (array[leftI] == null) {
             toCheck = rightI;
-        } else if(array[rightI] == null) {
+        } else if (array[rightI] == null) {
             toCheck = leftI;
         } else {
             toCheck = (array[leftI].compareTo(array[rightI])) > 0 ? rightI : leftI;
         }
 
-        if(array[toCheck].compareTo(array[start]) < 0) {
+        if (array[toCheck].compareTo(array[start]) < 0) {
             T higherE = array[start];
             T lowerE = array[toCheck];
             array[start] = lowerE;
@@ -69,7 +70,6 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
             flipRecursive(toCheck);
         }
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -79,28 +79,39 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     @Override
     public int size() {
         int index;
-        for (index = 0; index < array.length; index++) {
+        for (index = 0; index < array.length; index++) { // Wanted to make this not count from 0, but from the last layer, but didn't work out :/
             if (array[index] != null) continue;
             return index;
         }
-        resize(classT, calculateNewSize(array.length));
+        resize(calculateNewSize());
         return index;
     }
 
-    public int calculateNewSize(int size) {
-        int levels = (int) (Math.log(size) / Math.log(2)) + 2;
+    private int calculateNewSize() {
+        int layers = getLayers();
         int totalSize = 0;
-        for (int i = 0; i < levels; i++) {
+        for (int i = 0; i < layers + 1; i++) {// +1 for the new layer
             totalSize += (int) Math.pow(2, i);
         }
         return totalSize;
     }
 
-    private void resize(Class<T> classT, int size) {
+    private int getLayers() {
+        return (int) (Math.log(array.length) / Math.log(2)) + 1;
+    }
+
+    private void resize(int size) {
         if (size <= 0) throw new IllegalArgumentException("Size should never be <= 0!");
         T[] oldArray = Arrays.copyOf(array, array.length);
         array = (T[]) Array.newInstance(classT, size);
         System.arraycopy(oldArray, 0, array, 0, Math.min(oldArray.length, array.length));
+    }
+
+    private void tryDownScale() {
+        int half = (int) Math.ceil((double) array.length / 2.0);
+        if (array[half] == null) {
+            resize(half - 1); // -1 for the last element, that we just checked is null. No need to keep it.
+        }
     }
 
     @Override
