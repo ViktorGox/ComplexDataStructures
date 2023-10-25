@@ -13,7 +13,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     public MinHeap(Class<T> classT) {
         this.classT = classT;
-        array = (T[]) Array.newInstance(classT, 3); // Not using resize because at first it's not initialised, so it throws nullException
+        array = (T[]) Array.newInstance(classT, 1); // Not using resize because at first it's not initialised, so it throws nullException
     }
 
     @Override
@@ -78,8 +78,8 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     @Override
     public int size() {
-        int index;
-        for (index = 0; index < array.length; index++) { // Wanted to make this not count from 0, but from the last layer, but didn't work out :/
+        int index; // Starts from the last layer instead of iterating every layer
+        for (index = getSizeUpToLayer(getLayers() - 2); index < array.length; index++) {
             if (array[index] != null) continue;
             return index;
         }
@@ -88,7 +88,10 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     }
 
     private int calculateNewSize() {
-        int layers = getLayers();
+        return getSizeUpToLayer(getLayers());
+    }
+
+    private int getSizeUpToLayer(int layers) {
         int totalSize = 0;
         for (int i = 0; i < layers + 1; i++) {// +1 for the new layer
             totalSize += (int) Math.pow(2, i);
