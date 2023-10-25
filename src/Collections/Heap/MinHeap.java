@@ -24,6 +24,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     @Override
     public T peek() {
+        buildHeap();
         return array[0];
     }
 
@@ -51,6 +52,8 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
         int rightI = rightOf(start);
 
         int toCheck;
+
+        if (leftI >= array.length) return;
 
         if (array[leftI] == null && array[rightI] == null)
             return;
@@ -80,15 +83,16 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     public int size() {
         return sizeResize(false);
     }
+
     // Separated because when building heap with all elements filled, it will resize it, which makes no sense to do so. I would have to down
     // scale it right after. So I separated them to make it just not even try to scale up.
-    public int sizeResize(boolean callResize) {
+    private int sizeResize(boolean callResize) {
         int index; // Starts from the last layer instead of iterating every layer
         for (index = getSizeUpToLayer(getLayers() - 2); index < array.length; index++) {
             if (array[index] != null) continue;
             return index;
         }
-        if(callResize) {
+        if (callResize) {
             resize(calculateNewSize());
         }
         return index;
@@ -118,9 +122,9 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     }
 
     private void tryDownScale() {
-        int half = (int) Math.ceil((double) array.length / 2.0);
-        if (array[half] == null) {
-            resize(half - 1); // -1 for the last element, that we just checked is null. No need to keep it.
+        int half = (int) Math.floor((double) array.length / 2.0);
+        if (array[half - 1] == null) {
+            resize(half); // -1 for the last element, that we just checked is null. No need to keep it.
         }
     }
 
