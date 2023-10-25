@@ -18,7 +18,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     @Override
     public void push(T value) {
-        int size = size();
+        int size = sizeResize(true);
         array[size] = value;
     }
 
@@ -78,12 +78,19 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     @Override
     public int size() {
+        return sizeResize(false);
+    }
+    // Separated because when building heap with all elements filled, it will resize it, which makes no sense to do so. I would have to down
+    // scale it right after. So I separated them to make it just not even try to scale up.
+    public int sizeResize(boolean callResize) {
         int index; // Starts from the last layer instead of iterating every layer
         for (index = getSizeUpToLayer(getLayers() - 2); index < array.length; index++) {
             if (array[index] != null) continue;
             return index;
         }
-        resize(calculateNewSize());
+        if(callResize) {
+            resize(calculateNewSize());
+        }
         return index;
     }
 
