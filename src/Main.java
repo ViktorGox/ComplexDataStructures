@@ -1,5 +1,5 @@
-import Collections.HashTable.HashMap;
-import Collections.LinkedList.LinkedList;
+import MyCollections.HashTable.HashMap;
+import MyCollections.LinkedList.LinkedList;
 import Sorting.ISortMethod;
 import Sorting.QuickSort;
 import Stations.Station;
