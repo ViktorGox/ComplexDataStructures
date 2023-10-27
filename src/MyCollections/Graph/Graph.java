@@ -1,60 +1,61 @@
 package MyCollections.Graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+//https://stackoverflow.com/questions/2419353/make-arraylist-read-only
 public class Graph<T> {
-    private final ArrayList<T> nodes;
+    private final ArrayList<GraphNode<T>> nodes;
 
     public Graph() {
         nodes = new ArrayList<>();
     }
 
-    public boolean addNode(T node) {
+    public boolean addNode(GraphNode<T> node) {
         if (node == null) return false;
         if (nodes.contains(node)) return false;
         if (!nodes.add(node)) return false;
         return true;
     }
 
-    public boolean connect(T nodeA, T nodeB, int weight) {
-        if (!nodes.contains(nodeA)) {
-            throw new IllegalArgumentException("Node: " + nodeA + " does not exist! Cannot create connection for not existing nodes!");
+    public GraphNode<T> addNode(T data) {
+        GraphNode<T> newNode = new GraphNode<>(data);
+        if (addNode(newNode)) {
+            return newNode;
         }
-        if (!nodes.contains(nodeB)) {
-            throw new IllegalArgumentException("Node: " + nodeB + " does not exist! Cannot create connection for not existing nodes!");
-
-        }
-
-        ArrayList<GraphConnection<T>> searchConnections = getConnectionsOf(nodeA, connections);
-        ArrayList<GraphConnection<T>> filteredSearch = getConnectionsOf(nodeB, searchConnections);
-
-        if (filteredSearch.size() != 0) return false;
-        return connections.add(new GraphConnection<>(nodeA, nodeB, weight));
+        return null;
     }
 
-    public ArrayList<GraphConnection<T>> getConnectionsOf(T node, ArrayList<GraphConnection<T>> connectionList) {
-        ArrayList<GraphConnection<T>> foundConnections = new ArrayList<>();
-        for (GraphConnection<T> connection : connectionList) {
-            if (connection.getNodeA() == node || connection.getNodeB() == node) {
-                foundConnections.add(connection);
-            }
-        }
-        return foundConnections;
+    public List<GraphNode<T>> getNodes() {
+        return Collections.unmodifiableList(nodes);
+    }
+
+    public GraphNode<T> getNode(T data) {
+        return nodes.get(nodes.indexOf(new GraphNode<>(data)));
+    }
+
+    public boolean contains(GraphNode<T> node) {
+        return nodes.contains(node);
+    }
+
+    public boolean contains(T data) {
+        return nodes.contains(new GraphNode<>(data));
+    }
+
+    public void connectMutual(T data1, T data2, int weight1, int weight2) {
+        connectOneWay(data1, data2, weight1);
+        connectOneWay(data2, data1, weight2);
+    }
+
+    public void connectOneWay(T start, T end, int weight) {
+        GraphNode<T> node1 = getNode(start);
+        GraphNode<T> node2 = getNode(end);
+        node1.addConnection(node2, weight);
     }
 
     @Override
     public String toString() {
-        return "Graph{" +
-                "nodes=" + nodes +
-                ", connections=" + connections +
-                '}';
-    }
-
-    public String toGraphViz() {
-        StringBuilder sb = new StringBuilder();
-        for (GraphConnection<T> connection : connections) {
-            sb.append(connection.getNodeA()).append(" -- ").append(connection.getNodeB()).append("\n");
-        }
-        return sb.toString();
+        return "Graph [" + nodes + ']';
     }
 }
