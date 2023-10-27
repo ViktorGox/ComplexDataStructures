@@ -1,16 +1,16 @@
 package MyCollections.Graph;
 
 public class GraphConnection<T> {
-    private final GraphNode<T> nodeB;
+    private final GraphNode<T> destination;
     private final int weight;
 
-    public GraphConnection(GraphNode<T> nodeB, int weight) {
-        this.nodeB = nodeB;
+    public GraphConnection(GraphNode<T> destination, int weight) {
+        this.destination = destination;
         this.weight = weight;
     }
 
-    public GraphNode<T> getNodeB() {
-        return nodeB;
+    public GraphNode<T> getDestination() {
+        return destination;
     }
 
     public int getWeight() {
@@ -19,6 +19,6 @@ public class GraphConnection<T> {
 
     @Override
     public String toString() {
-        return "{dest:" + nodeB.toStringData() + " w:" + weight + "}";
+        return "{dest:" + destination.toStringData() + " w:" + weight + "}";
     }
 }

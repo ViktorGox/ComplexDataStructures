@@ -1,13 +1,10 @@
 package MyCollections.Graph;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 //https://stackoverflow.com/questions/2419353/make-arraylist-read-only
 public class Graph<T> {
     private final ArrayList<GraphNode<T>> nodes;
-
     public Graph() {
         nodes = new ArrayList<>();
     }
@@ -27,12 +24,16 @@ public class Graph<T> {
         return null;
     }
 
-    public List<GraphNode<T>> getNodes() {
-        return Collections.unmodifiableList(nodes);
+    public GraphNode<T>[] getNodes() {
+        GraphNode<T>[] array = (GraphNode<T>[]) new GraphNode[nodes.size()];
+        return nodes.toArray(array);
     }
 
     public GraphNode<T> getNode(T data) {
-        return nodes.get(nodes.indexOf(new GraphNode<>(data)));
+        GraphNode<T> searchedNode = new GraphNode<>(data);
+        int indexOfNode = nodes.indexOf(searchedNode);
+        if(indexOfNode == -1) return null;
+        return nodes.get(indexOfNode);
     }
 
     public boolean contains(GraphNode<T> node) {
@@ -57,5 +58,9 @@ public class Graph<T> {
     @Override
     public String toString() {
         return "Graph [" + nodes + ']';
+    }
+
+    public String traverseDepth() {
+        return nodes.get(0).traverseDepth();
     }
 }
