@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GraphNode<T> {
     private final T data;
     private final ArrayList<GraphConnection<T>> connections;
+    private final ArrayList<GraphNode<T>> traversalArray = new ArrayList<>();
 
     public GraphNode(T data) {
         this.data = data;
@@ -44,29 +45,29 @@ public class GraphNode<T> {
 
     @Override
     public String toString() {
-        return "GraphNode{" +
-                "data=" + data +
-                ", connections=" + connections +
-                '}';
+        return data.toString();
+    }
+    public T getData() {
+        return data;
     }
 
     public String toStringData() {
         return data.toString();
     }
 
-    public String traverseDepth() {
-        return traverseDepthRecursive(this);
+    public GraphNode<T>[] traverseDepth() {
+        traverseDepthRecursive(this);
+        GraphNode<T>[] array = (GraphNode<T>[]) new GraphNode[traversalArray.size()];
+        return traversalArray.toArray(array);
     }
 
-    private String traverseDepthRecursive(GraphNode<T> start) {
-        if(start == null) return "";
-        StringBuilder sb = new StringBuilder();
-        sb.append(start.data).append(", ");
+    private void traverseDepthRecursive(GraphNode<T> start) {
+        if (start == null) return;
+        if (traversalArray.contains(start)) return;
+        traversalArray.add(start);
 
         for (GraphConnection<T> connection : start.connections) {
-            sb.append(traverseDepthRecursive(connection.getDestination()));
+            traverseDepthRecursive(connection.getDestination());
         }
-
-        return sb.toString();
     }
 }

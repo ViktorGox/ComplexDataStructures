@@ -3,6 +3,7 @@ package MyCollections.Graph;
 import java.util.ArrayList;
 
 //https://stackoverflow.com/questions/2419353/make-arraylist-read-only
+// SETS? INSTEAD OF ARRAYLIST?
 public class Graph<T> {
     private final ArrayList<GraphNode<T>> nodes;
     public Graph() {
@@ -60,7 +61,11 @@ public class Graph<T> {
         return "Graph [" + nodes + ']';
     }
 
-    public String traverseDepth() {
-        return nodes.get(0).traverseDepth();
+    public GraphNode<T>[] traverseDepthFrom(T data) {
+        return traverseDepthFrom(getNode(data));
+    }
+
+    public GraphNode<T>[] traverseDepthFrom(GraphNode<T> startNode) {
+        return startNode.traverseDepth();
     }
 }

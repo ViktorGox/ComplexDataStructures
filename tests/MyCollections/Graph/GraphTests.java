@@ -2,6 +2,8 @@ package MyCollections.Graph;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphTests {
@@ -131,6 +133,8 @@ public class GraphTests {
         graph.addNode("E");
         graph.addNode("F");
         graph.addNode("G");
+        graph.addNode("X");
+
 
         graph.connectMutual("A", "B", 0, 0);
         graph.connectMutual("B", "D", 0, 0);
@@ -138,7 +142,19 @@ public class GraphTests {
         graph.connectMutual("F", "E", 0, 0);
         graph.connectMutual("A", "C", 0, 0);
         graph.connectMutual("C", "G", 0, 0);
+        graph.connectMutual("A", "E", 0, 0);
 
-        System.out.println(graph.traverseDepth());
+        assertEquals("[A, B, D, F, E, C, G]", Arrays.toString(graph.traverseDepthFrom("A")));
+    }
+
+    @Test
+    public void GraphWithSomeNodes_getWeight_ReturnsCorrect() {
+        Graph<String> graph = new Graph<>();
+        graph.addNode("A");
+        graph.addNode("B");
+
+        graph.connectMutual("A", "B", 1, 2);
+        assertEquals(1, graph.getNodes()[0].getConnections()[0].getWeight());
+        assertEquals(2, graph.getNodes()[1].getConnections()[0].getWeight());
     }
 }

@@ -126,7 +126,7 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     private void tryDownScale() {
         int half = (int) Math.floor((double) array.length / 2.0);
         if (array[half - 1] == null) {
-            resize(half); // -1 for the last element, that we just checked is null. No need to keep it.
+            resize(half);
         }
     }
 
