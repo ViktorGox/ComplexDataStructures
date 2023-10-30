@@ -1,8 +1,11 @@
 package Stations;
 
 import CSVReaders.StationFromCSV;
+import Exceptions.CountryNotSupported;
+import Utilities.StringModification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Station {
     private short id;
@@ -13,10 +16,19 @@ public class Station {
     private double geoLat;
     private double geoLng;
 
-    /** The list of countries, given by code, that are going to be saved in the city list. */
-    private static final String[] allowedCountriesCodes = new String[] {"NL"};
-    private static final ArrayList<Station> stations = new ArrayList<>();
-    public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) {
+    /**
+     * The list of countries, given by code, that are going to be saved in the city list.
+     */
+    private static final String[] allowedCountriesCodes = new String[]{"NL"};
+    public static final ArrayList<Station> stations = new ArrayList<>();
+
+    public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) throws CountryNotSupported {
+        for (String allowedCountriesCode : allowedCountriesCodes) {
+            if(country.equals(allowedCountriesCode)) continue;
+            throw new CountryNotSupported("The country from the code " + country + " is not supported. Supported codes are " + Arrays.toString(allowedCountriesCodes));
+        }
+
+
         setId(id);
         setCode(code);
         setName(name);
@@ -24,8 +36,6 @@ public class Station {
         setType(type);
         setGeoLat(geoLat);
         setGeoLng(geoLng);
-
-        stations.add(this);
     }
 
     public void setId(short id) {
@@ -33,10 +43,13 @@ public class Station {
     }
 
     private void setCode(String code) {
+        if (code == null) throw new IllegalArgumentException("Station code must not be null!");
+        if (code.isBlank()) throw new IllegalArgumentException("Station code must not be empty! " + code);
         this.code = code;
     }
 
     private void setName(String name) {
+        name = StringModification.removeQuotes(name);
         this.name = name;
     }
 
@@ -60,22 +73,20 @@ public class Station {
         new StationFromCSV("resources/stations.csv");
     }
 
+    public static void addStationToList(Station station) {
+        stations.add(station);
+    }
+
     @Override
     public String toString() {
         return "Station{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", type='" + type + '\'' +
+                ", code=" + code + ' ' +
+                ", name=" + name + ' ' +
+                ", country=" + country + ' ' +
+                ", type=" + type + ' ' +
                 ", geoLat=" + geoLat +
                 ", geoLng=" + geoLng +
                 "}";
-    }
-
-    public static void TESTING_LIST_STATIONS() {
-        for(Station s : stations) {
-            System.out.println(s);
-        }
     }
 }
