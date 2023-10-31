@@ -9,6 +9,6 @@ public class TrackFromCSV extends CSVReader{
     @Override
     protected void GenerateFromLine(String line) {
         String[] lineSplit = line.split(",");
-        new Track(lineSplit[0],lineSplit[1],Short.parseShort(lineSplit[2]),Short.parseShort(lineSplit[3]),lineSplit[4]);
+        Track.addTrackToList(new Track(lineSplit[0],lineSplit[1],Short.parseShort(lineSplit[2]),Short.parseShort(lineSplit[3]),lineSplit[4]));
     }
 }

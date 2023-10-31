@@ -2,6 +2,8 @@ package Stations;
 
 import CSVReaders.StationFromCSV;
 import Exceptions.CountryNotSupported;
+import MyCollections.Graph.Graph;
+import Tracks.Track;
 import Utilities.StringModification;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Station {
      * The list of countries, given by code, that are going to be saved in the city list.
      */
     private static final String[] allowedCountriesCodes = new String[]{"NL"};
-    public static final ArrayList<Station> stations = new ArrayList<>();
+    private static final ArrayList<Station> stations = new ArrayList<>();
 
     public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) throws CountryNotSupported {
         for (String allowedCountriesCode : allowedCountriesCodes) {
@@ -77,6 +79,15 @@ public class Station {
         stations.add(station);
     }
 
+    public static Station[] getStations() {
+        Station[] array = new Station[stations.size()];
+        return stations.toArray(array);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
     @Override
     public String toString() {
         return "Station{" +
@@ -88,5 +99,22 @@ public class Station {
                 ", geoLat=" + geoLat +
                 ", geoLng=" + geoLng +
                 "}";
+    }
+
+    public static Graph<String> generateStationGraph() {
+        Station.GenerateStationList();
+        Track.GenerateTrackList();
+
+        Graph<String> stationGraph = new Graph<>();
+        Station[] stations = Station.getStations();
+        Track[] tracks = Track.getTracks();
+        for (Station station : stations) {
+            stationGraph.addNode(station.getCode());
+        }
+
+        for (Track track : tracks) {
+            stationGraph.connectOneWay(track.getStationCodeOne(), track.getStationCodeTwo(), track.getTrackLengthOne());
+        }
+        return stationGraph;
     }
 }
