@@ -153,6 +153,7 @@ public class GraphTests {
 
         assertEquals("[X, Z]", Arrays.toString(graph.traverseDepthFrom("X")));
         assertEquals("[A, B, C, D, E, F, G, Y]", Arrays.toString(graph.traverseDepthFromExcluded("X")));
+        System.out.println(graph.toGraphViz());
     }
 
     @Test
@@ -164,5 +165,49 @@ public class GraphTests {
         graph.connectMutual("A", "B", 1, 2);
         assertEquals(1, graph.getNodes()[0].getConnections()[0].getWeight());
         assertEquals(2, graph.getNodes()[1].getConnections()[0].getWeight());
+    }
+
+    @Test
+    public void GraphWithManyNodes_ToGraphViz_ReturnsCorrectly() {
+        Graph<String> graph = new Graph<>();
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+        graph.addNode("E");
+        graph.addNode("F");
+        graph.addNode("G");
+        graph.addNode("X");
+        graph.addNode("Y");
+        graph.addNode("Z");
+
+        // Some connection that is not connected to "A".
+        graph.connectMutual("X", "Z",2,2);
+
+        graph.connectMutual("A", "B", 0, 0);
+        graph.connectMutual("B", "D", 0, 0);
+        graph.connectMutual("B", "F", 0, 0);
+        graph.connectMutual("F", "E", 0, 0);
+        graph.connectMutual("A", "C", 0, 0);
+        graph.connectMutual("C", "G", 0, 0);
+        graph.connectMutual("A", "E", 0, 0);
+
+        assertEquals("A -> B [label=0]\n" +
+                "A -> C [label=0]\n" +
+                "A -> E [label=0]\n" +
+                "B -> A [label=0]\n" +
+                "B -> D [label=0]\n" +
+                "B -> F [label=0]\n" +
+                "C -> A [label=0]\n" +
+                "C -> G [label=0]\n" +
+                "D -> B [label=0]\n" +
+                "E -> F [label=0]\n" +
+                "E -> A [label=0]\n" +
+                "F -> B [label=0]\n" +
+                "F -> E [label=0]\n" +
+                "G -> C [label=0]\n" +
+                "X -> Z [label=2]\n" +
+                "Y\n" +
+                "Z -> X [label=2]\n", graph.toGraphViz());
     }
 }

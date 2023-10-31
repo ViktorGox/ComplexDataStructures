@@ -6,6 +6,7 @@ import java.util.ArrayList;
 // SETS? INSTEAD OF ARRAYLIST?
 public class Graph<T> {
     private final ArrayList<GraphNode<T>> nodes;
+
     public Graph() {
         nodes = new ArrayList<>();
     }
@@ -33,7 +34,7 @@ public class Graph<T> {
     public GraphNode<T> getNode(T data) {
         GraphNode<T> searchedNode = new GraphNode<>(data);
         int indexOfNode = nodes.indexOf(searchedNode);
-        if(indexOfNode == -1) return null;
+        if (indexOfNode == -1) return null;
         return nodes.get(indexOfNode);
     }
 
@@ -53,7 +54,7 @@ public class Graph<T> {
     public void connectOneWay(T start, T end, int weight) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(end);
-        if(node1 == null || node2 == null) return;
+        if (node1 == null || node2 == null) return;
         node1.addConnection(node2, weight);
     }
 
@@ -72,17 +73,39 @@ public class Graph<T> {
 
     public GraphNode<T>[] traverseDepthFromExcluded(T data) {
         GraphNode<T>[] traverseResult = traverseDepthFrom(data);
-
         ArrayList<GraphNode<T>> traverseExcluded = new ArrayList<>(nodes);
 
-        for (GraphNode<T> tGraphNode : traverseResult) {
-            traverseExcluded.remove(tGraphNode);
-        }
+        removeDuplicates(traverseExcluded, traverseResult);
+
         GraphNode<T>[] array = (GraphNode<T>[]) new GraphNode[traverseExcluded.size()];
         return traverseExcluded.toArray(array);
     }
-//
-//    public String toGraphViz() {
-//
-//    }
+
+    public String toGraphViz() {
+        StringBuilder sb = new StringBuilder();
+
+        for (GraphNode<T> node : nodes) {
+            GraphConnection<T>[] nodeConnections = node.getConnections();
+            if(nodeConnections.length == 0) {
+                sb.append(node.getData()).append("\n");
+            }
+            for (GraphConnection<T> connection : nodeConnections) {
+                sb.append(node.getData()).append(" -> ")
+                        .append(connection.getDestination())
+                        .append(" [label=")
+                        .append(connection.getWeight())
+                        .append("]\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private boolean removeDuplicates(ArrayList<GraphNode<T>> fullList, GraphNode<T>[] toRemove) {
+        boolean changed = false;
+        for (GraphNode<T> tGraphNode : toRemove) {
+            fullList.remove(tGraphNode);
+            changed = true;
+        }
+        return changed;
+    }
 }
