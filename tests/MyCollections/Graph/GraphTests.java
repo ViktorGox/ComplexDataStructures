@@ -134,7 +134,11 @@ public class GraphTests {
         graph.addNode("F");
         graph.addNode("G");
         graph.addNode("X");
+        graph.addNode("Y");
+        graph.addNode("Z");
 
+        // Some connection that is not connected to "A".
+        graph.connectMutual("X", "Z",2,2);
 
         graph.connectMutual("A", "B", 0, 0);
         graph.connectMutual("B", "D", 0, 0);
@@ -145,6 +149,10 @@ public class GraphTests {
         graph.connectMutual("A", "E", 0, 0);
 
         assertEquals("[A, B, D, F, E, C, G]", Arrays.toString(graph.traverseDepthFrom("A")));
+        assertEquals("[X, Y, Z]", Arrays.toString(graph.traverseDepthFromExcluded("A")));
+
+        assertEquals("[X, Z]", Arrays.toString(graph.traverseDepthFrom("X")));
+        assertEquals("[A, B, C, D, E, F, G, Y]", Arrays.toString(graph.traverseDepthFromExcluded("X")));
     }
 
     @Test

@@ -53,12 +53,13 @@ public class Graph<T> {
     public void connectOneWay(T start, T end, int weight) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(end);
+        if(node1 == null || node2 == null) return;
         node1.addConnection(node2, weight);
     }
 
     @Override
     public String toString() {
-        return "Graph [" + nodes + ']';
+        return nodes.toString();
     }
 
     public GraphNode<T>[] traverseDepthFrom(T data) {
@@ -68,4 +69,20 @@ public class Graph<T> {
     public GraphNode<T>[] traverseDepthFrom(GraphNode<T> startNode) {
         return startNode.traverseDepth();
     }
+
+    public GraphNode<T>[] traverseDepthFromExcluded(T data) {
+        GraphNode<T>[] traverseResult = traverseDepthFrom(data);
+
+        ArrayList<GraphNode<T>> traverseExcluded = new ArrayList<>(nodes);
+
+        for (GraphNode<T> tGraphNode : traverseResult) {
+            traverseExcluded.remove(tGraphNode);
+        }
+        GraphNode<T>[] array = (GraphNode<T>[]) new GraphNode[traverseExcluded.size()];
+        return traverseExcluded.toArray(array);
+    }
+//
+//    public String toGraphViz() {
+//
+//    }
 }
