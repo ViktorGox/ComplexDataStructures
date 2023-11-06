@@ -119,6 +119,7 @@ public class Station implements Comparable<Station> {
         for (Track track : tracks) {
             stationGraph.connectOneWay(track.getStationCodeOne(), track.getStationCodeTwo(), track.getTrackLengthOne());
         }
+
         return stationGraph;
     }
 

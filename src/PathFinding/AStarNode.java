@@ -5,7 +5,7 @@ public class AStarNode<T> implements Comparable<AStarNode<T>> {
     private final T origin;
     private final double costF;
 
-    public AStarNode(T destination, T origin, double costF) {
+    public AStarNode(T origin, T destination, double costF) {
         this.destination = destination;
         this.costF = costF;
         this.origin = origin;
@@ -33,5 +33,8 @@ public class AStarNode<T> implements Comparable<AStarNode<T>> {
         return 0;
     }
 
-
+    @Override
+    public String toString() {
+        return origin + " - " + destination + " for " + costF;
+    }
 }
