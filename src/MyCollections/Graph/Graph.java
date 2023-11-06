@@ -46,16 +46,28 @@ public class Graph<T> {
         return nodes.contains(new GraphNode<>(data));
     }
 
-    public void connectMutual(T data1, T data2, int weight1, int weight2) {
-        connectOneWay(data1, data2, weight1);
-        connectOneWay(data2, data1, weight2);
+    public void connectMutual(T point1, T point2, int weight1, int weight2) {
+        connectOneWay(point1, point2, weight1);
+        connectOneWay(point2, point1, weight2);
     }
 
-    public void connectOneWay(T start, T end, int weight) {
+    public void connectOneWay(T start, T destination, int weight) {
         GraphNode<T> node1 = getNode(start);
-        GraphNode<T> node2 = getNode(end);
+        GraphNode<T> node2 = getNode(destination);
         if (node1 == null || node2 == null) return;
         node1.addConnection(node2, weight);
+    }
+
+    public void disconnectMutual(T point1, T point2) {
+        disconnectOneWay(point1, point2);
+        disconnectOneWay(point2, point1);
+    }
+
+    public void disconnectOneWay(T start, T destination) {
+        GraphNode<T> node1 = getNode(start);
+        GraphNode<T> node2 = getNode(destination);
+        if (node1 == null || node2 == null) return;
+        node1.removeConnection(node2);
     }
 
     @Override
@@ -86,15 +98,15 @@ public class Graph<T> {
 
         for (GraphNode<T> node : nodes) {
             GraphConnection<T>[] nodeConnections = node.getConnections();
-            if(nodeConnections.length == 0) {
+            if (nodeConnections.length == 0) {
                 sb.append(node.getData()).append("\n");
             }
             for (GraphConnection<T> connection : nodeConnections) {
                 sb.append(node.getData()).append(" -> ")
                         .append(connection.getDestination())
-                        .append(" [label=")
-                        .append(connection.getWeight())
-                        .append("]\n");
+                        .append(" [label=") // remove this to make graphViz generate all of the connections.
+                        .append(connection.getWeight()) // and remove this
+                        .append("]\n"); // and the ]
             }
         }
         return sb.toString();

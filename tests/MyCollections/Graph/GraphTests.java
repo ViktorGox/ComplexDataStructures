@@ -210,4 +210,36 @@ public class GraphTests {
                 "Y\n" +
                 "Z -> X [label=2]\n", graph.toGraphViz());
     }
+
+    @Test
+    public void GraphWithSomeConnections_DisconnectSomeNodes_WorksProperly() {
+        Graph<String> graph = new Graph<>();
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+
+        graph.connectMutual("A", "B", 0, 0);
+        graph.connectMutual("D", "B", 0, 0);
+        graph.connectMutual("D", "C", 0, 0);
+        graph.connectMutual("A", "C", 0, 0);
+
+        assertEquals("A -> B [label=0]\n" +
+                "A -> C [label=0]\n" +
+                "B -> A [label=0]\n" +
+                "B -> D [label=0]\n" +
+                "C -> D [label=0]\n" +
+                "C -> A [label=0]\n" +
+                "D -> B [label=0]\n" +
+                "D -> C [label=0]\n", graph.toGraphViz());
+
+        graph.disconnectMutual("A", "B");
+        System.out.println(graph.toGraphViz());
+        assertEquals("A -> C [label=0]\n" +
+                "B -> D [label=0]\n" +
+                "C -> D [label=0]\n" +
+                "C -> A [label=0]\n" +
+                "D -> B [label=0]\n" +
+                "D -> C [label=0]\n", graph.toGraphViz());
+    }
 }

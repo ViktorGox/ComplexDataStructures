@@ -17,6 +17,14 @@ public class GraphNode<T> {
         connections.add(new GraphConnection<>(node, weight));
     }
 
+    protected void removeConnection(GraphNode<T> node) {
+        for (GraphConnection<T> connection : getConnections()) {
+            if(connection.getDestination().equals(node)) {
+                connections.remove(connection);
+            }
+        }
+    }
+
     public GraphConnection<T>[] getConnections() {
         GraphConnection<T>[] array = (GraphConnection<T>[]) new GraphConnection[connections.size()];
         return connections.toArray(array);
