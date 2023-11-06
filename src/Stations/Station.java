@@ -3,13 +3,15 @@ package Stations;
 import CSVReaders.StationFromCSV;
 import Exceptions.CountryNotSupported;
 import MyCollections.Graph.Graph;
+import MyCollections.HashTable.HashMap;
+import MyCollections.LinkedList.LinkedList;
+import MyCollections.Tree.AVLTree;
 import Tracks.Track;
 import Utilities.StringModification;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Station {
+public class Station implements Comparable<Station> {
     private short id;
     private String code;
     private String name;
@@ -22,14 +24,15 @@ public class Station {
      * The list of countries, given by code, that are going to be saved in the city list.
      */
     private static final String[] allowedCountriesCodes = new String[]{"NL"};
-    private static final ArrayList<Station> stations = new ArrayList<>();
+    private static final LinkedList<Station> stationsLinkedList = new LinkedList<>();
+    private static final AVLTree<Station> stationsAVLTree = new AVLTree<>();
+    private static final HashMap<String, Station> stationsHashMap = new HashMap<>();
 
     public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) throws CountryNotSupported {
         for (String allowedCountriesCode : allowedCountriesCodes) {
-            if(country.equals(allowedCountriesCode)) continue;
+            if (country.equals(allowedCountriesCode)) continue;
             throw new CountryNotSupported("The country from the code " + country + " is not supported. Supported codes are " + Arrays.toString(allowedCountriesCodes));
         }
-
 
         setId(id);
         setCode(code);
@@ -76,12 +79,13 @@ public class Station {
     }
 
     public static void addStationToList(Station station) {
-        stations.add(station);
+        stationsLinkedList.add(station);
+        stationsAVLTree.add(station);
+        stationsHashMap.put(station.code, station);
     }
 
     public static Station[] getStations() {
-        Station[] array = new Station[stations.size()];
-        return stations.toArray(array);
+        return stationsLinkedList.convertToArray(new Station[stationsLinkedList.size()]);
     }
 
     public String getCode() {
@@ -116,5 +120,40 @@ public class Station {
             stationGraph.connectOneWay(track.getStationCodeOne(), track.getStationCodeTwo(), track.getTrackLengthOne());
         }
         return stationGraph;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Station)) return false;
+        if (this == obj) return true;
+        if (this.code.equals(((Station) obj).code)) return true;
+        return false;
+    }
+
+    public static Double calculateDistanceBetween(String one, String two) {
+        Station stationOne = stationsHashMap.get(one);
+        Station stationTwo = stationsHashMap.get(two);
+
+        double longitude = Math.abs(stationOne.geoLng - stationTwo.geoLng);
+        double latitude = Math.abs(stationOne.geoLat - stationTwo.geoLat);
+
+        double result = Math.pow(longitude,2) + Math.pow(latitude,2);
+        return Math.sqrt(result);
+    }
+
+    public static Station getStationByCode(String code) {
+        return stationsHashMap.get(code);
+    }
+
+    @Override
+    public int compareTo(Station o) {
+        int nameResult = name.compareTo(o.name);
+        if (nameResult < 0) {
+            return -1;
+        } else if (nameResult > 0) {
+            return 1;
+        } else {
+            return Short.compare(id, o.id);
+        }
     }
 }
