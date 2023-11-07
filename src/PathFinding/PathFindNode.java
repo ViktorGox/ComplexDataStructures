@@ -2,12 +2,12 @@ package PathFinding;
 
 public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
     private final T destination;
-    private final T origin;
-    private final double costF;
+    private T origin;
+    private double cost;
 
-    public PathFindNode(T origin, T destination, double costF) {
+    public PathFindNode(T origin, T destination, double cost) {
         this.destination = destination;
-        this.costF = costF;
+        this.cost = cost;
         this.origin = origin;
     }
 
@@ -15,8 +15,8 @@ public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
         return destination;
     }
 
-    public double getCostF() {
-        return costF;
+    public double getCost() {
+        return cost;
     }
 
     public T getOrigin() {
@@ -25,9 +25,9 @@ public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
 
     @Override
     public int compareTo(PathFindNode o) {
-        if (this.costF > o.costF) {
+        if (this.cost > o.cost) {
             return 1;
-        } else if (this.costF < o.costF) {
+        } else if (this.cost < o.cost) {
             return -1;
         }
         return 0;
@@ -35,6 +35,14 @@ public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
 
     @Override
     public String toString() {
-        return origin + " - " + destination + " for " + costF;
+        return origin + " - " + destination + " for " + cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public void setOrigin(T origin) {
+        this.origin = origin;
     }
 }
