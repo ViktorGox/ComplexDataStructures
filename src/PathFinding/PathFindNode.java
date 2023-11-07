@@ -1,11 +1,11 @@
 package PathFinding;
 
-public class AStarNode<T> implements Comparable<AStarNode<T>> {
+public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
     private final T destination;
     private final T origin;
     private final double costF;
 
-    public AStarNode(T origin, T destination, double costF) {
+    public PathFindNode(T origin, T destination, double costF) {
         this.destination = destination;
         this.costF = costF;
         this.origin = origin;
@@ -24,7 +24,7 @@ public class AStarNode<T> implements Comparable<AStarNode<T>> {
     }
 
     @Override
-    public int compareTo(AStarNode o) {
+    public int compareTo(PathFindNode o) {
         if (this.costF > o.costF) {
             return 1;
         } else if (this.costF < o.costF) {

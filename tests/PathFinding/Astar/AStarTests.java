@@ -1,6 +1,7 @@
-package PathFinding;
+package PathFinding.Astar;
 
 import Exceptions.DestinationNotReachable;
+import PathFinding.Astar.AStar;
 import Stations.Station;
 import org.junit.jupiter.api.Test;
 
