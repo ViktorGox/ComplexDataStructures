@@ -1,20 +1,20 @@
 package PathFinding.Prim;
 
-import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import org.junit.jupiter.api.Test;
 
 public class PrimTests {
     @Test
     public void someTestingMethod() {
-        try {
-            Prim<String> prim = new Prim<>(getPresentationGraph(), "a");
-            System.out.println(prim.calculatePath());
-        } catch (DestinationNotReachable e) {
-            throw new RuntimeException(e);
-        }
+        Prim<String> prim = new Prim<>(getPresentationGraph(), "a");
+        System.out.println(prim.calculatePath());
     }
 
+    /**
+     * The graph has 1 change from the presentation. The connection from A to H is 9, instead of 8.
+     * If I set it to 8, then my graph chooses the connection a->h, which is still correct, but
+     * causes it to be different from the solution of the presentation.
+     */
     private Graph<String> getPresentationGraph() {
         Graph<String> presentationGraph = new Graph<>();
         presentationGraph.addNode("a");
@@ -36,7 +36,7 @@ public class PrimTests {
 
         presentationGraph.connectMutual("f","g",2,2);
         presentationGraph.connectMutual("g","h",1,1);
-        presentationGraph.connectMutual("h","a",8,8);
+        presentationGraph.connectMutual("h","a",9,9);
 
         presentationGraph.connectMutual("h","i",7,7);
         presentationGraph.connectMutual("i","g",6,6);

@@ -1,6 +1,5 @@
 package PathFinding.Prim;
 
-import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
 import MyCollections.HashTable.HashMap;
@@ -9,13 +8,20 @@ import PathFinding.PathFindNode;
 
 import java.util.ArrayList;
 
-public class Prim<T> extends PathFinding<T> {
+public class Prim<T> extends PathFinding<T, Graph<T>> {
 
+    private T start;
     public Prim(Graph<T> nodeGraph, T start) {
-        super(nodeGraph, start, null);
+        super(nodeGraph);
+        this.start = start;
     }
 
-    public ArrayList<PathFindNode<T>> calculatePath(T start) throws DestinationNotReachable {
+    @Override
+    public Graph<T> calculatePath() {
+        return calculatePath(start);
+    }
+    
+    public Graph<T> calculatePath(T start) {
         traversedT.clear();
         toTraverseMinHeap.clear();
         toTraverseHashMap = new HashMap<>();
@@ -28,7 +34,6 @@ public class Prim<T> extends PathFinding<T> {
         return getResult(traversedT);
     }
 
-    @Override
     protected void calculatePathRecursive(PathFindNode<T> start) {
         traversedT.add(start.getDestination());
         toTraverseHashMap.put(start.getDestination(), start);
@@ -54,8 +59,19 @@ public class Prim<T> extends PathFinding<T> {
         calculatePathRecursive(toTraverseMinHeap.pop());
     }
 
-    @Override
-    protected ArrayList<PathFindNode<T>> getResult(ArrayList<T> toTraverse) {
-        return null;
+    protected Graph<T> getResult(ArrayList<T> toTraverse) {
+        Graph<T> resultGraph = new Graph<>();
+        if(toTraverse.size() == 0) return resultGraph;
+
+        // I add the first node here, since the first element of toTraverse always points to itself.
+        resultGraph.addNode(toTraverseHashMap.get(toTraverse.get(0)).getOrigin());
+
+        for (int i = 1; i < toTraverse.size(); i++) {
+            PathFindNode<T> node = toTraverseHashMap.get(toTraverse.get(i));
+            resultGraph.addNode(node.getDestination());
+            resultGraph.connectMutual(node.getDestination(), node.getOrigin(), node.getCost(), node.getCost());
+        }
+
+        return resultGraph;
     }
 }

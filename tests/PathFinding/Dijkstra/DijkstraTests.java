@@ -4,8 +4,6 @@ import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 public class DijkstraTests {
     @Test
     public void someTestingMethod() {
