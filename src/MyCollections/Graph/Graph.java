@@ -46,12 +46,12 @@ public class Graph<T> {
         return nodes.contains(new GraphNode<>(data));
     }
 
-    public void connectMutual(T point1, T point2, int weight1, int weight2) {
+    public void connectMutual(T point1, T point2, double weight1, double weight2) {
         connectOneWay(point1, point2, weight1);
         connectOneWay(point2, point1, weight2);
     }
 
-    public void connectOneWay(T start, T destination, int weight) {
+    public void connectOneWay(T start, T destination, double weight) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(destination);
         if (node1 == null || node2 == null) return;

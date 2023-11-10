@@ -2,9 +2,9 @@ package MyCollections.Graph;
 
 public class GraphConnection<T> {
     private final GraphNode<T> destination;
-    private final int weight;
+    private final double weight;
 
-    public GraphConnection(GraphNode<T> destination, int weight) {
+    public GraphConnection(GraphNode<T> destination, double weight) {
         this.destination = destination;
         this.weight = weight;
     }
@@ -13,7 +13,7 @@ public class GraphConnection<T> {
         return destination;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 

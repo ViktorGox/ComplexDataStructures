@@ -12,7 +12,7 @@ public class GraphNode<T> {
         this.connections = new ArrayList<>();
     }
 
-    protected void addConnection(GraphNode<T> node, int weight) {
+    protected void addConnection(GraphNode<T> node, double weight) {
         if (hasConnectionTo(node)) return;
         connections.add(new GraphConnection<>(node, weight));
     }
