@@ -5,8 +5,6 @@ import MyCollections.Graph.GraphConnection;
 import PathFinding.PathFindNode;
 import PathFinding.PathFinding;
 
-import java.util.ArrayList;
-
 public class Dijkstra<T> extends PathFinding<T> {
     public Dijkstra(Graph<T> graph, T start, T destination) {
         super(graph, start, destination);
@@ -35,15 +33,5 @@ public class Dijkstra<T> extends PathFinding<T> {
             }
         }
         calculatePathRecursive(toTraverseMinHeap.pop());
-    }
-
-    @Override
-    public ArrayList<T> traverseOrigins(ArrayList<T> toTraverseInReverse) {
-        PathFindNode<T> start = toTraverseHashMap.get(toTraverseInReverse.get(toTraverseInReverse.size() - 1));
-
-        bestPath.add(destination);
-        traverseOriginsRecursive(start);
-
-        return bestPath;
     }
 }

@@ -4,13 +4,14 @@ import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class DijkstraTests {
     @Test
     public void someTestingMethod() {
         try {
             Dijkstra<String> dijkstra = new Dijkstra<>(getPresentationGraph(), "a", "f");
-            Dijkstra<String>.DijkstraAnswer answer = dijkstra.calculatePath();
-            System.out.println(answer.getCost());
+            System.out.println(dijkstra.calculatePath());
         } catch (DestinationNotReachable e) {
             throw new RuntimeException(e);
         }

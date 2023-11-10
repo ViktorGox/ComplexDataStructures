@@ -35,7 +35,7 @@ public class PathFindNode<T> implements Comparable<PathFindNode<T>> {
 
     @Override
     public String toString() {
-        return origin + " - " + destination + " for " + cost;
+        return origin + " - " + destination + " (" + cost + ")\n";
     }
 
     public void setCost(double cost) {

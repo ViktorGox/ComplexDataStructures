@@ -12,7 +12,7 @@ public abstract class PathFinding<T> {
     protected final ArrayList<T> traversedT;
     protected final MinHeap<PathFindNode<T>> toTraverseMinHeap;
     protected HashMap<T, PathFindNode<T>> toTraverseHashMap;
-    protected final ArrayList<T> bestPath;
+    protected final ArrayList<PathFindNode<T>> bestPath;
     protected T start;
     protected T destination;
 
@@ -30,11 +30,11 @@ public abstract class PathFinding<T> {
         this.bestPath = new ArrayList<>();
     }
 
-    public ArrayList<T> calculatePath() throws DestinationNotReachable {
+    public ArrayList<PathFindNode<T>> calculatePath() throws DestinationNotReachable {
         return calculatePath(start, destination);
     }
 
-    public ArrayList<T> calculatePath(T start, T destination) throws DestinationNotReachable {
+    public ArrayList<PathFindNode<T>> calculatePath(T start, T destination) throws DestinationNotReachable {
         traversedT.clear();
         toTraverseMinHeap.clear();
         toTraverseHashMap = new HashMap<>();
@@ -52,10 +52,9 @@ public abstract class PathFinding<T> {
 
     protected abstract void calculatePathRecursive(PathFindNode<T> start);
 
-    public ArrayList<T> traverseOrigins(ArrayList<T> toTraverseInReverse) {
+    public ArrayList<PathFindNode<T>> traverseOrigins(ArrayList<T> toTraverseInReverse) {
         PathFindNode<T> start = toTraverseHashMap.get(toTraverseInReverse.get(toTraverseInReverse.size() - 1));
 
-        bestPath.add(destination);
         traverseOriginsRecursive(start);
 
         return bestPath;
@@ -63,7 +62,7 @@ public abstract class PathFinding<T> {
 
     public void traverseOriginsRecursive(PathFindNode<T> start) {
         if (start.getDestination().equals(start.getOrigin())) return;
-        bestPath.add(start.getOrigin());
+        bestPath.add(start);
         traverseOriginsRecursive(toTraverseHashMap.get(start.getOrigin()));
     }
 }
