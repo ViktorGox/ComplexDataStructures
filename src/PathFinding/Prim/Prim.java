@@ -25,7 +25,7 @@ public class Prim<T> extends PathFinding<T> {
 
         calculatePathRecursive(new PathFindNode<>(start, start, 0));
 
-        return traverseOrigins(traversedT);
+        return getResult(traversedT);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class Prim<T> extends PathFinding<T> {
             }
         }
         calculatePathRecursive(toTraverseMinHeap.pop());
+    }
+
+    @Override
+    protected ArrayList<PathFindNode<T>> getResult(ArrayList<T> toTraverse) {
+        return null;
     }
 }

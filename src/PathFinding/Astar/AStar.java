@@ -3,11 +3,11 @@ package PathFinding.Astar;
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
 import PathFinding.PathFindNode;
-import PathFinding.PathFinding;
+import PathFinding.DestinationPathFinding;
 
 import java.util.function.BiFunction;
 
-public class AStar<T extends Comparable<T>> extends PathFinding<T> {
+public class AStar<T extends Comparable<T>> extends DestinationPathFinding<T> {
     private final BiFunction<T, T, Double> distanceToTargetMethod;
 
     public AStar(Graph<T> graph, T start, T destination, BiFunction<T, T, Double> distanceToTargetMethod) {
@@ -26,8 +26,8 @@ public class AStar<T extends Comparable<T>> extends PathFinding<T> {
             if (traversedT.contains(connection.getDestination().getData())) continue;
 
             Double currentConnectionToDestination = distanceToTargetMethod.apply(connection.getDestination().getData(), destination);
-            Double currentConnectionToStart = distanceToTargetMethod.apply(connection.getDestination().getData(), this.start);
-            double costF = currentConnectionToStart + currentConnectionToDestination;
+            Double currentConnectionToCurrent = distanceToTargetMethod.apply(connection.getDestination().getData(), this.start);
+            double costF = currentConnectionToCurrent + currentConnectionToDestination;
 
             toTraverseMinHeap.push(new PathFindNode<>(start.getDestination(), connection.getDestination().getData(), costF));
         }

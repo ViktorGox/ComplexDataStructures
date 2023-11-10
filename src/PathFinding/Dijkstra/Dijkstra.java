@@ -3,9 +3,9 @@ package PathFinding.Dijkstra;
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
 import PathFinding.PathFindNode;
-import PathFinding.PathFinding;
+import PathFinding.DestinationPathFinding;
 
-public class Dijkstra<T> extends PathFinding<T> {
+public class Dijkstra<T> extends DestinationPathFinding<T> {
     public Dijkstra(Graph<T> graph, T start, T destination) {
         super(graph, start, destination);
     }

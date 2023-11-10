@@ -47,22 +47,9 @@ public abstract class PathFinding<T> {
 
         if (!traversedT.contains(destination))
             throw new DestinationNotReachable("There was no path found to the destination " + start + " -> " + destination);
-        return traverseOrigins(traversedT);
+        return getResult(traversedT);
     }
 
     protected abstract void calculatePathRecursive(PathFindNode<T> start);
-
-    public ArrayList<PathFindNode<T>> traverseOrigins(ArrayList<T> toTraverseInReverse) {
-        PathFindNode<T> start = toTraverseHashMap.get(toTraverseInReverse.get(toTraverseInReverse.size() - 1));
-
-        traverseOriginsRecursive(start);
-
-        return bestPath;
-    }
-
-    public void traverseOriginsRecursive(PathFindNode<T> start) {
-        if (start.getDestination().equals(start.getOrigin())) return;
-        bestPath.add(start);
-        traverseOriginsRecursive(toTraverseHashMap.get(start.getOrigin()));
-    }
+    protected abstract ArrayList<PathFindNode<T>> getResult(ArrayList<T> toTraverse);
 }
