@@ -157,4 +157,20 @@ public class Station implements Comparable<Station> {
             return Short.compare(id, o.id);
         }
     }
+
+    public static double getGeoLat(String code) {
+        return getStationByCode(code).getGeoLat();
+    }
+
+    public static double getGeoLng(String code) {
+        return getStationByCode(code).getGeoLng();
+    }
+
+    public double getGeoLat() {
+        return geoLat;
+    }
+
+    public double getGeoLng() {
+        return geoLng;
+    }
 }

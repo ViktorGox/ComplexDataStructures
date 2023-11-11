@@ -9,7 +9,7 @@ import PathFinding.PathFindNode;
 import java.util.ArrayList;
 
 public class Prim<T> extends PathFinding<T, Graph<T>> {
-
+    // Result gprah doesn't work fully.
     private T start;
     public Prim(Graph<T> nodeGraph, T start) {
         super(nodeGraph);

@@ -11,6 +11,12 @@ public class Graph<T> {
         nodes = new ArrayList<>();
     }
 
+    /**
+     * <b>BEWARE! ALSO ADDS ITS CONNECTIONS! You might accidentally add an entire other graph!</b>
+     * <p></p>
+     * Add a new node to this current node.
+     * <p></p>
+     */
     public boolean addNode(GraphNode<T> node) {
         if (node == null) return false;
         if (nodes.contains(node)) return false;
@@ -119,5 +125,11 @@ public class Graph<T> {
             changed = true;
         }
         return changed;
+    }
+
+    public void copyNodeData(Graph<T> graphWithNodes) {
+        for (GraphNode<T> node : graphWithNodes.getNodes()) {
+            addNode(node.getData());
+        }
     }
 }
