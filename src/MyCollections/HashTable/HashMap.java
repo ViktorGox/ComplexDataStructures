@@ -3,7 +3,8 @@ package MyCollections.HashTable;
 import MyCollections.IArray;
 
 // TODO: partly chat gpt generated https://chat.openai.com/share/103bd1d9-fc0e-439e-962c-7f3b580a3410
-public class HashMap<K, V> implements IArray,IHashMap<K,V> {
+// If you resize() is removed the .next works. but it always resizes before an element goes into next???
+public class HashMap<K, V> implements IArray, IHashMap<K, V> {
     private static final int INITIAL_CAPACITY = 10;
     private Entry<K, V>[] entryTable;
     private double resizeCountRequirement;
@@ -16,7 +17,12 @@ public class HashMap<K, V> implements IArray,IHashMap<K,V> {
     }
 
     public void put(K key, V value) {
-        if(get(key) != null) return;
+        if (key == null || value == null) {
+            return;
+        }
+        if (get(key) != null) {
+            return;
+        }
         int index = hash(key) % entryTable.length;
         if (entryTable[index] == null) {
             entryTable[index] = new Entry<>(key, value);
@@ -37,16 +43,25 @@ public class HashMap<K, V> implements IArray,IHashMap<K,V> {
 
     @Override
     public boolean contains(K key) {
+        if(key == null) {
+            return false;
+        }
         V result = get(key);
         return result != null;
     }
 
     public V get(K key) {
+        if(key == null) {
+            return null;
+        }
         Entry<K, V> entry = getEntry(key);
         return (entry == null) ? null : entry.value;
     }
 
     private Entry<K, V> getEntry(K key) {
+        if(key == null) {
+            return null;
+        }
         int index = hash(key) % entryTable.length;
         Entry<K, V> entry = entryTable[index];
         while (entry != null) {
@@ -60,6 +75,9 @@ public class HashMap<K, V> implements IArray,IHashMap<K,V> {
 
     @Override
     public V remove(K key) {
+        if(key == null) {
+            return null;
+        }
         Entry<K, V> entryToDelete = getEntry(key);
         assert entryToDelete != null;
         entryToDelete.isDeleted = true;
