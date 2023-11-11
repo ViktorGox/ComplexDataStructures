@@ -15,7 +15,9 @@ public class LinkedList<T> implements IList<T>, IArray {
      */
     @Override
     public void add(T data) {
-        if (data == null) throw new IllegalArgumentException("Provided data must not be null!");
+        if (data == null) {
+            throw new IllegalArgumentException("Provided data must not be null!");
+        }
         Node<T> node = new Node<>(data);
         if (head == null) {
             head = node;
@@ -142,7 +144,9 @@ public class LinkedList<T> implements IList<T>, IArray {
      */
     @Override
     public boolean contains(T data) {
-        if (data == null) return false;
+        if (data == null) {
+            return false;
+        }
         return indexOf(data) >= 0;
     }
 
@@ -154,7 +158,9 @@ public class LinkedList<T> implements IList<T>, IArray {
      */
     @Override
     public void set(int index, T data) {
-        if (data == null) return;
+        if (data == null) {
+            return;
+        }
         Node<T> oldNode = getNodeAt(index);
         Node<T> newNode = new Node<>(data);
 
@@ -198,7 +204,9 @@ public class LinkedList<T> implements IList<T>, IArray {
 
     @Override
     public T remove(T data) {
-        if (!contains(data)) return null;
+        if (!contains(data)) {
+            return null;
+        }
         return remove(indexOf(data));
     }
 
@@ -263,7 +271,9 @@ public class LinkedList<T> implements IList<T>, IArray {
 
     @Override
     public String toString() {
-        if (head == null) return "List is empty!";
+        if (head == null) {
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
 
         Node<T> current = head;

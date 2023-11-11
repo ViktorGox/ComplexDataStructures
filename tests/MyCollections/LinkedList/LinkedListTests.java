@@ -1,5 +1,6 @@
 package MyCollections.LinkedList;
 
+import Sorting.InsertionSort;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -654,5 +655,26 @@ public class LinkedListTests {
                 , list.toString());
     }
 
+    @Test
+    public void EmptyList_toString_ReturnsNull() {
+        LinkedList<String> list = new LinkedList<String>();
+        assertNull(list.toString());
+    }
     //endregion
+
+    @Test
+    public void LinkedListWithSomeElements_TestSorting_WorksCorrectly() {
+        LinkedList<String> list = new LinkedList<String>();
+        list.add("b");
+        list.add("a");
+        list.add("d");
+        list.add("c");
+
+        String[] temp = new String[4];
+        LinkedList<String> newList = LinkedList.sort(list, InsertionSort::insertionSort, temp);
+        assertEquals("a", newList.get(0));
+        assertEquals("b", newList.get(1));
+        assertEquals("c", newList.get(2));
+        assertEquals("d", newList.get(3));
+    }
 }
