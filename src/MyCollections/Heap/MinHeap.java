@@ -12,14 +12,18 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     private final Class<T> classT;
 
     public MinHeap(Class<T> classT) {
-        if (classT == null) throw new IllegalArgumentException("classT cannot be null!");
+        if (classT == null) {
+            throw new IllegalArgumentException("classT cannot be null!");
+        }
         this.classT = classT;
         array = (T[]) Array.newInstance(classT, 1); // Not using resize because at first it's not initialised, so it throws nullException
     }
 
     @Override
     public void push(T value) {
-        if (value == null) throw new IllegalArgumentException("Null values are not accepted!");
+        if (value == null) {
+            throw new IllegalArgumentException("Null values are not accepted!");
+        }
         int size = sizeResize(true);
         array[size] = value;
     }
@@ -27,7 +31,9 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     @Override
     public T peek() {
         buildHeap();
-        if (array[0] == null) return null;
+        if (array[0] == null) {
+            return null;
+        }
         return array[0];
     }
 
@@ -35,7 +41,9 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     public T pop() {
         buildHeap();
         T top = array[0];
-        if (array[0] == null) return null;
+        if (array[0] == null) {
+            return null;
+        }
         int lastIndex = size() - 1;
         array[0] = array[lastIndex];
         array[lastIndex] = null;
@@ -51,13 +59,17 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
     }
 
     private void flipRecursive(int start) {
-        if (array[start] == null) return;
+        if (array[start] == null) {
+            return;
+        }
         int leftI = leftOf(start);
         int rightI = rightOf(start);
 
         int toCheck;
 
-        if (leftI >= array.length) return;
+        if (leftI >= array.length) {
+            return;
+        }
 
         if (array[leftI] == null && array[rightI] == null)
             return;
@@ -130,16 +142,18 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     private void tryDownScale() {
         int half = (int) Math.floor((double) array.length / 2.0);
-        if (half == 0) return;
+        if (half == 0) {
+            return;
+        }
         if (array[half - 1] == null) {
             resize(half);
         }
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(array);
-    }
+//    @Override
+//    public String toString() {
+//        return Arrays.toString(array);
+//    }
 
     private int leftOf(int index) {
         return 2 * index + 1;
