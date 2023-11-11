@@ -3,7 +3,6 @@ package MyCollections.LinkedList;
 import MyCollections.IArray;
 import Sorting.ISortMethod;
 
-//TODO: some code taken from last years W5 exercise. Check what exactly UwU
 public class LinkedList<T> implements IList<T>, IArray {
     private Node<T> head = null; // 0 element
     private int size;
@@ -253,8 +252,6 @@ public class LinkedList<T> implements IList<T>, IArray {
         return newArray;
     }
 
-    // TODO: got the static <E> from ChatGPT: how to make a static method work in generic class in java? (misunderstood me)
-    // TODO: Sorry, I meant that I want to make a static method also use the generics. https://chat.openai.com/share/fef20673-4f2e-45c5-b996-40aff725fd58
     public static <E> LinkedList<E> convertFromArray(E[] existingArray) {
         if (existingArray.length == 0) {
             throw new IllegalStateException("Cannot convert because array is empty");

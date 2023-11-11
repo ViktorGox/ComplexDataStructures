@@ -5,7 +5,6 @@ import MyCollections.Traversable;
 
 public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>, Traversable {
     protected TreeNode<T> root;
-
     protected TreeNode<T> removeMethodNode;
     protected boolean hasRemovedNode;
 
@@ -104,6 +103,7 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
         return sb.toString();
     }
 
+    //TODO: to graphViz here.
     @Override
     public String graphViz() {
         return null;

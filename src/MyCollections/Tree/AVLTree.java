@@ -1,14 +1,5 @@
 package MyCollections.Tree;
 
-// TODO: https://www.happycoders.eu/algorithms/avl-tree-java/ for the rotate
-//TODO: I tried to make it so that you find the parent, in the add, to avoid duplication of get and the add,
-// I made a tuple to save the parent, of the new nodes location. But I realized it wont work this way. Because if I cant
-// fix the tree upwards, as I only have the parent. I'd have to do extra work to go up the parents. This way ends up better.
-
-//https://github.com/geekific-official/geekific-youtube/blob/main/tree-implementations/avl-tree/src/main/java/com/youtube/geekific/AVLTree.java
-//https://www.youtube.com/watch?v=Jj9Mit24CWk
-
-//https://chat.openai.com/c/5a1f96e7-e9fe-4ac2-82d1-7c1e7e128a29
 public class AVLTree<T extends Comparable<T>> extends Tree<T> {
 
     @Override
@@ -32,15 +23,10 @@ public class AVLTree<T extends Comparable<T>> extends Tree<T> {
 
     @Override
     public boolean contains(T data) {
-        return get(data) != null;
+        return getNode(data) != null;
     }
 
-    @Override
-    public T get(T data) {
-        return getNode(data).getData();
-    }
-
-    private TreeNode<T> getNode(T data) {
+    public TreeNode<T> getNode(T data) {
         return getNodeRecursive(root, data);
     }
 

@@ -1,7 +1,5 @@
 package MyCollections.Tree;
 
-//TODO: https://chat.openai.com/share/9e5f87a0-4f03-46a7-a412-00039970dc17
-//TODO: why i made the delete they way it is.
 public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
 
     public void add(T data) {
@@ -64,12 +62,6 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
             }
         }
         return currentNode;
-    }
-
-    public T get(T data) {
-        TreeNode<T> foundData = internalGetNode(data);
-        if (foundData == null) return null;
-        return foundData.getData();
     }
 
     public T remove(T data) {
