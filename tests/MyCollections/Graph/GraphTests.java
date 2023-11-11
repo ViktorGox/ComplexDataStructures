@@ -56,6 +56,8 @@ public class GraphTests {
         Graph<String> graph = new Graph<>();
         graph.addNode("One");
 
+        assertNull(graph.getNode(null));
+        assertNull(graph.getNode("A"));
         assertEquals(new GraphNode<>("One"), graph.getNode("One"));
     }
 
@@ -138,7 +140,7 @@ public class GraphTests {
         graph.addNode("Z");
 
         // Some connection that is not connected to "A".
-        graph.connectMutual("X", "Z",2,2);
+        graph.connectMutual("X", "Z", 2, 2);
 
         graph.connectMutual("A", "B", 0, 0);
         graph.connectMutual("B", "D", 0, 0);
@@ -182,7 +184,7 @@ public class GraphTests {
         graph.addNode("Z");
 
         // Some connection that is not connected to "A".
-        graph.connectMutual("X", "Z",2,2);
+        graph.connectMutual("X", "Z", 2, 2);
 
         graph.connectMutual("A", "B", 0, 0);
         graph.connectMutual("B", "D", 0, 0);
@@ -192,23 +194,23 @@ public class GraphTests {
         graph.connectMutual("C", "G", 0, 0);
         graph.connectMutual("A", "E", 0, 0);
 
-        assertEquals("A -> B [label=0]\n" +
-                "A -> C [label=0]\n" +
-                "A -> E [label=0]\n" +
-                "B -> A [label=0]\n" +
-                "B -> D [label=0]\n" +
-                "B -> F [label=0]\n" +
-                "C -> A [label=0]\n" +
-                "C -> G [label=0]\n" +
-                "D -> B [label=0]\n" +
-                "E -> F [label=0]\n" +
-                "E -> A [label=0]\n" +
-                "F -> B [label=0]\n" +
-                "F -> E [label=0]\n" +
-                "G -> C [label=0]\n" +
-                "X -> Z [label=2]\n" +
+        assertEquals("A -> B [label=0.0]\n" +
+                "A -> C [label=0.0]\n" +
+                "A -> E [label=0.0]\n" +
+                "B -> A [label=0.0]\n" +
+                "B -> D [label=0.0]\n" +
+                "B -> F [label=0.0]\n" +
+                "C -> A [label=0.0]\n" +
+                "C -> G [label=0.0]\n" +
+                "D -> B [label=0.0]\n" +
+                "E -> F [label=0.0]\n" +
+                "E -> A [label=0.0]\n" +
+                "F -> B [label=0.0]\n" +
+                "F -> E [label=0.0]\n" +
+                "G -> C [label=0.0]\n" +
+                "X -> Z [label=2.0]\n" +
                 "Y\n" +
-                "Z -> X [label=2]\n", graph.toGraphViz());
+                "Z -> X [label=2.0]\n", graph.toGraphViz());
     }
 
     @Test
@@ -224,22 +226,65 @@ public class GraphTests {
         graph.connectMutual("D", "C", 0, 0);
         graph.connectMutual("A", "C", 0, 0);
 
-        assertEquals("A -> B [label=0]\n" +
-                "A -> C [label=0]\n" +
-                "B -> A [label=0]\n" +
-                "B -> D [label=0]\n" +
-                "C -> D [label=0]\n" +
-                "C -> A [label=0]\n" +
-                "D -> B [label=0]\n" +
-                "D -> C [label=0]\n", graph.toGraphViz());
+        assertEquals("A -> B [label=0.0]\n" +
+                "A -> C [label=0.0]\n" +
+                "B -> A [label=0.0]\n" +
+                "B -> D [label=0.0]\n" +
+                "C -> D [label=0.0]\n" +
+                "C -> A [label=0.0]\n" +
+                "D -> B [label=0.0]\n" +
+                "D -> C [label=0.0]\n", graph.toGraphViz());
 
         graph.disconnectMutual("A", "B");
         System.out.println(graph.toGraphViz());
-        assertEquals("A -> C [label=0]\n" +
-                "B -> D [label=0]\n" +
-                "C -> D [label=0]\n" +
-                "C -> A [label=0]\n" +
-                "D -> B [label=0]\n" +
-                "D -> C [label=0]\n", graph.toGraphViz());
+        assertEquals("A -> C [label=0.0]\n" +
+                "B -> D [label=0.0]\n" +
+                "C -> D [label=0.0]\n" +
+                "C -> A [label=0.0]\n" +
+                "D -> B [label=0.0]\n" +
+                "D -> C [label=0.0]\n", graph.toGraphViz());
+    }
+
+    @Test
+    public void GraphWithSomeNodes_CopyNodesAsData_CorrectlyCopiesOnlyTheData() {
+        Graph<String> graph = new Graph<>();
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+
+        graph.connectMutual("A", "B", 0, 0);
+        graph.connectMutual("D", "B", 0, 0);
+        graph.connectMutual("D", "C", 0, 0);
+        graph.connectMutual("A", "C", 0, 0);
+
+        Graph<String> newGraph = new Graph<>();
+        newGraph.copyNodeData(graph);
+        assertTrue(newGraph.contains("A"));
+        assertTrue(newGraph.contains("B"));
+        assertTrue(newGraph.contains("C"));
+        assertTrue(newGraph.contains("D"));
+        assertEquals(4, newGraph.getNodes().length);
+        assertEquals(0, newGraph.getNode("A").getConnections().length);
+        assertEquals(0, newGraph.getNode("B").getConnections().length);
+        assertEquals(0, newGraph.getNode("C").getConnections().length);
+        assertEquals(0, newGraph.getNode("D").getConnections().length);
+    }
+
+    @Test
+    public void GraphWithSomeNodes_toString_PrintsCorrectly() {
+        Graph<String> graph = new Graph<>();
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+
+        graph.connectMutual("A", "B", 1, 3);
+        graph.connectMutual("A", "C", 4, 5);
+
+
+        assertEquals("[A, B, C, D]", graph.toString());
+        assertEquals("[{dest:B w:1.0}, {dest:C w:4.0}]", Arrays.toString(graph.getNode("A").getConnections()));
+        assertEquals("B", graph.getNode("B").toString());
     }
 }

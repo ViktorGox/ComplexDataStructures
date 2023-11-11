@@ -2,25 +2,26 @@ package MyCollections.Graph;
 
 import java.util.ArrayList;
 
-//https://stackoverflow.com/questions/2419353/make-arraylist-read-only
-// SETS? INSTEAD OF ARRAYLIST?
+// TODO: https://stackoverflow.com/questions/2419353/make-arraylist-read-only
+// TODO: Does not contain check for adding null ement becasue you cant add it becasue of the ambiguity call same for contains
 public class Graph<T> {
     private final ArrayList<GraphNode<T>> nodes;
-
     public Graph() {
         nodes = new ArrayList<>();
     }
 
     /**
-     * <b>BEWARE! ALSO ADDS ITS CONNECTIONS! You might accidentally add an entire other graph!</b>
+     * <b>BEWARE! ALSO ADDS ITS CONNECTIONS! You might accidentally add an entire other graph!
+     * Use addNode(T data) instead if you want to add only the data.</b>
      * <p></p>
      * Add a new node to this current node.
      * <p></p>
      */
     public boolean addNode(GraphNode<T> node) {
-        if (node == null) return false;
-        if (nodes.contains(node)) return false;
-        if (!nodes.add(node)) return false;
+        if (nodes.contains(node)) {
+            return false;
+        }
+        nodes.add(node);
         return true;
     }
 
@@ -38,9 +39,14 @@ public class Graph<T> {
     }
 
     public GraphNode<T> getNode(T data) {
+        if (data == null) {
+            return null;
+        }
         GraphNode<T> searchedNode = new GraphNode<>(data);
         int indexOfNode = nodes.indexOf(searchedNode);
-        if (indexOfNode == -1) return null;
+        if (indexOfNode == -1) {
+            return null;
+        }
         return nodes.get(indexOfNode);
     }
 
@@ -60,7 +66,9 @@ public class Graph<T> {
     public void connectOneWay(T start, T destination, double weight) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(destination);
-        if (node1 == null || node2 == null) return;
+        if (node1 == null || node2 == null) {
+            return;
+        }
         node1.addConnection(node2, weight);
     }
 
@@ -72,7 +80,9 @@ public class Graph<T> {
     public void disconnectOneWay(T start, T destination) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(destination);
-        if (node1 == null || node2 == null) return;
+        if (node1 == null || node2 == null) {
+            return;
+        }
         node1.removeConnection(node2);
     }
 
