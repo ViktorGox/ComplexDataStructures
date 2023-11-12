@@ -1,12 +1,11 @@
 package PathFinding;
 
-import Exceptions.CountryNotSupported;
 import MyCollections.Graph.Graph;
 import Stations.Station;
 import Tracks.Track;
 
 public class DummyStations {
-    public static Graph<String> getDummyStationGraphForAStar() throws CountryNotSupported {
+    public static Graph<String> getDummyStationGraphForAStar() {
         Station.addStationToList(new Station((short) 1, "F1", "dummyName", "NL", "type", 6.0, 1.0));
         Station.addStationToList(new Station((short) 1, "F6", "dummyName", "NL", "type", 6.0, 6.0));
 
@@ -77,7 +76,7 @@ public class DummyStations {
         return Station.generateStationGraph();
     }
 
-    public static Graph<String> getDummyStationGraphForKruskal() throws CountryNotSupported {
+    public static Graph<String> getDummyStationGraphForKruskal(){
         Station.addStationToList(new Station((short) 1, "A", "dummyName", "NL", "type", 5.0, 1.0));
         Station.addStationToList(new Station((short) 1, "B", "dummyName", "NL", "type", 4.0, 2.0));
         Station.addStationToList(new Station((short) 1, "C", "dummyName", "NL", "type", 4.0, 4.0));

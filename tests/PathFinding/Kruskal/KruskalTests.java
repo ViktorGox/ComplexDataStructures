@@ -1,6 +1,5 @@
 package PathFinding.Kruskal;
 
-import Exceptions.CountryNotSupported;
 import MyCollections.Graph.Graph;
 import PathFinding.DummyStations;
 import Stations.Station;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class KruskalTests {
 
     @Test
-    public void GetLatTest() throws CountryNotSupported {
+    public void GetLatTest() {
         Kruskal<String> kruskal = new Kruskal<>(DummyStations.getDummyStationGraphForKruskal(), Station::getGeoLat, Station::getGeoLng, "K", "L");
         System.out.println(kruskal.calculatePath().toGraphViz());
     }

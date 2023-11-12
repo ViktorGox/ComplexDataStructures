@@ -1,6 +1,5 @@
 package PathFinding.Astar;
 
-import Exceptions.CountryNotSupported;
 import Exceptions.DestinationNotReachable;
 import PathFinding.DummyStations;
 import PathFinding.PathFindNode;
@@ -34,8 +33,6 @@ public class AStarTests {
 
         } catch (DestinationNotReachable e) {
             System.err.println(e);
-        } catch (CountryNotSupported e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -89,20 +86,18 @@ public class AStarTests {
 
         } catch (DestinationNotReachable e) {
             System.err.println(e);
-        } catch (CountryNotSupported e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void AStarWithDummyStations_PathFindToNodeThatIsNotConnected_ReturnsUnreachableDestination() throws CountryNotSupported {
+    public void AStarWithDummyStations_PathFindToNodeThatIsNotConnected_ReturnsUnreachableDestination(){
         AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "F6", "B6", Station::calculateDistanceBetween);
 
         assertThrows(DestinationNotReachable.class, aStar::calculatePath);
     }
 
     @Test
-    public void AStarWithDummyStations_PathFindFromOrToNonExistantNode_ReturnsNull() throws CountryNotSupported, DestinationNotReachable {
+    public void AStarWithDummyStations_PathFindFromOrToNonExistantNode_ReturnsNull() throws DestinationNotReachable {
         AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "A0", "F6", Station::calculateDistanceBetween);
         assertNull(aStar.calculatePath());
         assertNull(aStar.calculatePath("A1", "F0"));

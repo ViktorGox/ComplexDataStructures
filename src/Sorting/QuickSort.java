@@ -1,5 +1,4 @@
 package Sorting;
-//TODO: https://chat.openai.com/share/08b07dd7-6c6f-482a-bc95-4fbad9b539fe last part
 public class QuickSort<T extends Comparable<T>> implements ISortMethod<T> {
 
     @Override

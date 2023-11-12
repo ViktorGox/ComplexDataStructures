@@ -1,7 +1,6 @@
 package Stations;
 
 import CSVReaders.StationFromCSV;
-import Exceptions.CountryNotSupported;
 import MyCollections.Graph.Graph;
 import MyCollections.HashTable.HashMap;
 import MyCollections.LinkedList.LinkedList;
@@ -20,21 +19,11 @@ public class Station implements Comparable<Station> {
     private String type;
     private double geoLat;
     private double geoLng;
-
-    /**
-     * The list of countries, given by code, that are going to be saved in the city list.
-     */
-    private static final String[] allowedCountriesCodes = new String[]{"NL"};
     private static final LinkedList<Station> stationsLinkedList = new LinkedList<>();
     private static final AVLTree<Station> stationsAVLTree = new AVLTree<>();
     private static final HashMap<String, Station> stationsHashMap = new HashMap<>();
 
-    public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) throws CountryNotSupported {
-        for (String allowedCountriesCode : allowedCountriesCodes) {
-            if (country.equals(allowedCountriesCode)) continue;
-            throw new CountryNotSupported("The country from the code " + country + " is not supported. Supported codes are " + Arrays.toString(allowedCountriesCodes));
-        }
-
+    public Station(short id, String code, String name, String country, String type, double geoLat, double geoLng) {
         setId(id);
         setCode(code);
         setName(name);
@@ -209,9 +198,5 @@ public class Station implements Comparable<Station> {
             }
         }
         return null;
-    }
-
-    public static Station findStationInAvlTree(String name) {
-        return null;//stationsAVLTree.getNode()
     }
 }

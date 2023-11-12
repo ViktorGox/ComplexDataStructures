@@ -19,11 +19,10 @@ public class Main {
             "2: Search stations by name in linear list \n" +
             "3: Sort connections by using Insertion Sort\n" +
             "4: Sort connections by using Quick Sort \n" +
-            "5: Search station from AVL tree \n" +
-            "6: Search for station by code from hash map \n" +
-            "7: See list of nodes that fall in area between 2 stations \n" +
-            "8: Find path to station using A* \n" +
-            "9: Find path to station using Dijkstra \n" +
+            "5: Search for station by code from hash map \n" +
+            "6: See list of nodes that fall in area between 2 stations \n" +
+            "7: Find path to station using A* \n" +
+            "8: Find path to station using Dijkstra \n" +
             "?: This help menu \n" +
             "Q: Quit\n";
 
@@ -55,18 +54,15 @@ public class Main {
                     System.out.println(Arrays.toString(Track.sortQuick()));
                     break;
                 case "5":
-                    // get from avl tree
-                    break;
-                case "6":
                     searchInHashMapByCode();
                     break;
-                case "7":
+                case "6":
                     performKruskal();
                     break;
-                case "8":
+                case "7":
                     findPathAStar();
                     break;
-                case "9":
+                case "8":
                     findPathDijkstra();
                     break;
             }
