@@ -2,8 +2,6 @@ package MyCollections.Graph;
 
 import java.util.ArrayList;
 
-// TODO: https://stackoverflow.com/questions/2419353/make-arraylist-read-only
-// TODO: Does not contain check for adding null ement becasue you cant add it becasue of the ambiguity call same for contains
 public class Graph<T> {
     private final ArrayList<GraphNode<T>> nodes;
     public Graph() {
