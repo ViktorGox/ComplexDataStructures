@@ -12,7 +12,7 @@ public class StationFromCSV extends CSVReader {
     }
 
     Pattern patternCountry = Pattern.compile("^" + Pattern.quote("NL") + "$");
-    Pattern patternApStart = Pattern.compile("^'|-|\\/|_|\\.|,|\\?|!|\"|`|");
+    Pattern patternApStart = Pattern.compile("^'");
 
 
     @Override
