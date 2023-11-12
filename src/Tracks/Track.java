@@ -1,10 +1,12 @@
 package Tracks;
 
 import CSVReaders.TrackFromCSV;
+import Sorting.InsertionSort;
+import Sorting.QuickSort;
 
 import java.util.ArrayList;
 
-public class Track {
+public class Track implements Comparable<Track> {
     private String stationCodeOne;
     private String stationCodeTwo;
     private short trackLengthOne;
@@ -61,10 +63,6 @@ public class Track {
         return trackLengthOne;
     }
 
-    public short getTrackLengthTwo() {
-        return trackLengthTwo;
-    }
-
     public static void GenerateTrackList() {
         new TrackFromCSV("resources/tracks.csv");
     }
@@ -78,5 +76,26 @@ public class Track {
                 ", trackLengthTwo=" + trackLengthTwo +
                 ", trackType=" + trackType + ' ' +
                 '}';
+    }
+
+    public static Track[] sortInsertion() {
+        Track[] tracksArray = new Track[tracks.size()];
+        tracks.toArray(tracksArray);
+        InsertionSort<Track> tracks = new InsertionSort<>();
+        tracks.sort(tracksArray);
+        return tracksArray;
+    }
+
+    public static Track[] sortQuick() {
+        Track[] tracksArray = new Track[tracks.size()];
+        tracks.toArray(tracksArray);
+        QuickSort<Track> tracks = new QuickSort<>();
+        tracks.sort(tracksArray);
+        return tracksArray;
+    }
+
+    @Override
+    public int compareTo(Track o) {
+        return Short.compare(trackLengthOne, o.trackLengthOne);
     }
 }

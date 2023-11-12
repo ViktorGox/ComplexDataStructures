@@ -125,7 +125,7 @@ public class Station implements Comparable<Station> {
     public boolean equals(Object obj) {
         if (!(obj instanceof Station)) return false;
         if (this == obj) return true;
-        if (this.code.equals(((Station) obj).code)) return true;
+        if (this.name.equals(((Station) obj).name)) return true;
         return false;
     }
 
@@ -204,10 +204,14 @@ public class Station implements Comparable<Station> {
         Station[] stationArray = new Station[stationsLinkedList.size()];
         stationsLinkedList.convertToArray(stationArray);
         for (Station station : stationArray) {
-            if(station.name.equals(name)) {
+            if (station.name.equals(name)) {
                 return station;
             }
         }
         return null;
+    }
+
+    public static Station findStationInAvlTree(String name) {
+        return null;//stationsAVLTree.getNode()
     }
 }
