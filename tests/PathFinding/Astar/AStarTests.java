@@ -15,7 +15,7 @@ public class AStarTests {
     @Test
     public void AStarWithDummyStations_GoFromF6ToF1_ReturnsCorrectPath() {
         try {
-            AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraph(), "F6", "F1", Station::calculateDistanceBetween);
+            AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "F6", "F1", Station::calculateDistanceBetween);
 
             ArrayList<PathFindNode<String>> result = aStar.calculatePath();
             assertEquals("E1", result.get(0).getOrigin());
@@ -42,7 +42,7 @@ public class AStarTests {
     @Test
     public void AStarWithDummyStations_CallingMulitpleTimes_ReturnsCorrectPathAllTimes() {
         try {
-            AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraph(), "F6", "F1", Station::calculateDistanceBetween);
+            AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "F6", "F1", Station::calculateDistanceBetween);
 
             ArrayList<PathFindNode<String>> result = aStar.calculatePath();
             assertEquals("E1", result.get(0).getOrigin());
@@ -96,14 +96,14 @@ public class AStarTests {
 
     @Test
     public void AStarWithDummyStations_PathFindToNodeThatIsNotConnected_ReturnsUnreachableDestination() throws CountryNotSupported {
-        AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraph(), "F6", "B6", Station::calculateDistanceBetween);
+        AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "F6", "B6", Station::calculateDistanceBetween);
 
         assertThrows(DestinationNotReachable.class, aStar::calculatePath);
     }
 
     @Test
     public void AStarWithDummyStations_PathFindFromOrToNonExistantNode_ReturnsNull() throws CountryNotSupported, DestinationNotReachable {
-        AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraph(), "A0", "F6", Station::calculateDistanceBetween);
+        AStar<String> aStar = new AStar<>(DummyStations.getDummyStationGraphForAStar(), "A0", "F6", Station::calculateDistanceBetween);
         assertNull(aStar.calculatePath());
         assertNull(aStar.calculatePath("A1", "F0"));
     }

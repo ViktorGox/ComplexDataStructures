@@ -6,7 +6,7 @@ import Stations.Station;
 import Tracks.Track;
 
 public class DummyStations {
-    public static Graph<String> getDummyStationGraph() throws CountryNotSupported {
+    public static Graph<String> getDummyStationGraphForAStar() throws CountryNotSupported {
         Station.addStationToList(new Station((short) 1, "F1", "dummyName", "NL", "type", 6.0, 1.0));
         Station.addStationToList(new Station((short) 1, "F6", "dummyName", "NL", "type", 6.0, 6.0));
 
@@ -33,7 +33,6 @@ public class DummyStations {
         Station.addStationToList(new Station((short) 1, "A2", "dummyName", "NL", "type", 1.0, 2.0));
         Station.addStationToList(new Station((short) 1, "A3", "dummyName", "NL", "type", 1.0, 3.0));
         Station.addStationToList(new Station((short) 1, "A4", "dummyName", "NL", "type", 1.0, 4.0));
-
 
 
         Track.addTrackToList(new Track("F6", "E5", (short) 1, (short) 1, "DummyType"));
@@ -77,4 +76,34 @@ public class DummyStations {
 
         return Station.generateStationGraph();
     }
+
+//    public static Graph<String> getDummyStationGraphForDijkstra() throws CountryNotSupported {
+//        Graph<String> graphFromAStar = getDummyStationGraphForAStar();
+//
+//        Station.addStationToList(new Station((short) 1, "F2", "dummyName", "NL", "type", 6.0, 2.0));
+//        Station.addStationToList(new Station((short) 1, "F3", "dummyName", "NL", "type", 6.0, 3.0));
+//        Station.addStationToList(new Station((short) 1, "E4", "dummyName", "NL", "type", 5.0, 4.0));
+//        Station.addStationToList(new Station((short) 1, "D5", "dummyName", "NL", "type", 4.0, 5.0));
+//        Station.addStationToList(new Station((short) 1, "C5", "dummyName", "NL", "type", 3.0, 5.0));
+//
+//        Track.addTrackToList(new Track("E5", "E4", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("F3", "E4", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("F2", "F3", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("F2", "F1", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("E5", "D5", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("D5", "C5", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("C5", "B5", (short) 1, (short) 1, "DummyType"));
+//
+//
+//        Track.addTrackToList(new Track("E4", "E5", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("E4", "F3", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("F3", "F2", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("F1", "F2", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("D5", "E5", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("C5", "D5", (short) 1, (short) 1, "DummyType"));
+//        Track.addTrackToList(new Track("B5", "C5", (short) 1, (short) 1, "DummyType"));
+//
+//
+//        return graphFromAStar;
+//    }
 }

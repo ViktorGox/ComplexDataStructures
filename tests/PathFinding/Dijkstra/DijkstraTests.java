@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class DijkstraTests {
     @Test
-    public void someTestingMethod() {
+    public void Dijkstra_FindPathWithNodesFromPresentation_WorksCorrectly() {
         try {
             Dijkstra<String> dijkstra = new Dijkstra<>(getPresentationGraph(), "a", "f");
             System.out.println(dijkstra.calculatePath());
