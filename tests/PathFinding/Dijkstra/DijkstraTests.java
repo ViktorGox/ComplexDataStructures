@@ -2,14 +2,32 @@ package PathFinding.Dijkstra;
 
 import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
+import PathFinding.PathFindNode;
 import org.junit.jupiter.api.Test;
 
-public class DijkstraTests {
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class    DijkstraTests {
     @Test
     public void Dijkstra_FindPathWithNodesFromPresentation_WorksCorrectly() {
         try {
             Dijkstra<String> dijkstra = new Dijkstra<>(getPresentationGraph(), "a", "f");
-            System.out.println(dijkstra.calculatePath());
+            ArrayList<PathFindNode<String>> result = dijkstra.calculatePath();
+            System.out.println(result);
+            assertEquals("g", result.get(0).getOrigin());
+            assertEquals(10, result.get(0).getCost());
+
+            assertEquals("d", result.get(1).getOrigin());
+            assertEquals(5, result.get(1).getCost());
+
+            assertEquals("b", result.get(2).getOrigin());
+            assertEquals(4, result.get(2).getCost());
+
+            assertEquals("a", result.get(3).getOrigin());
+            assertEquals(1, result.get(3).getCost());
+
         } catch (DestinationNotReachable e) {
             throw new RuntimeException(e);
         }
