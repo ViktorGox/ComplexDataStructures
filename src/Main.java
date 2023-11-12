@@ -1,28 +1,72 @@
-import MyCollections.HashTable.HashMap;
-import MyCollections.LinkedList.LinkedList;
-import Sorting.ISortMethod;
-import Sorting.QuickSort;
 import Stations.Station;
 import Tracks.Track;
 
+import java.util.Scanner;
+
 public class Main {
+
+    private Scanner s;
+    private final String help = "Commands:\n" +
+            "\n" +
+            "1: Search stations by name with binary algorithm \n" +
+            "2: Search stations by name in linear list \n" +
+            "3: Sort connections by using Insertion Sort\n" +
+            "4: Sort connections by using Quick Sort \n" +
+            "5: Search station from AVL tree \n" +
+            "6: Search for station by code from hash map \n" +
+            "7: See list of nodes that fall in area between 2 stations \n" +
+            "8: Find path to station using A* \n" +
+            "9: Find path to station using Dijkstra \n" +
+            "?: This help menu \n" +
+            "Q: Quit\n";
+
     public static void main(String[] args) {
         Station.GenerateStationList();
         Track.GenerateTrackList();
+        new Main().commandLoop();
+    }
 
-        HashMap<String, Integer> asd = null;
-        System.out.println(asd);
+    public void commandLoop() {
+        System.out.println(help);
+        s = new Scanner(System.in);
+        String c = s.nextLine().toLowerCase();
+        while (!c.equals("q")) {
+            switch (c) {
+                case "?":
+                    System.out.println(help);
+                    break;
+                case "1":
+                    searchBinary();
+                    break;
+                case "2":
+                    searchLinear();
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    break;
+                case "7":
+                    break;
+                case "8":
+                    break;
+                case "9":
+                    break;
+            }
+            c = s.nextLine().toLowerCase();
+        }
+    }
 
-        ISortMethod<String> sortMethod = new QuickSort<>();
-        LinkedList<String> unsortedList = new LinkedList<String>();
-        unsortedList.add("2");
-        unsortedList.add("4");
-        unsortedList.add("1");
-        unsortedList.add("3");
+    private void searchBinary() {
+        String stationName = s.nextLine();
+        System.out.println(Station.searchForStationBinarySearch(stationName));
+    }
 
-        LinkedList<String> linkedList = LinkedList.sort(unsortedList, sortMethod, new String[unsortedList.size()]);
-
-        System.out.println(linkedList);
-
+    private void searchLinear() {
+        String stationName = s.nextLine();
+        System.out.println(Station.getStationLinear(stationName));
     }
 }
