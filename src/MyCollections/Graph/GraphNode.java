@@ -8,6 +8,9 @@ public class GraphNode<T> {
     private final ArrayList<GraphNode<T>> traversalArray = new ArrayList<>();
 
     public GraphNode(T data) {
+        if(data == null) {
+            throw new IllegalArgumentException("Data saved in the node cannot be null!");
+        }
         this.data = data;
         this.connections = new ArrayList<>();
     }

@@ -287,4 +287,24 @@ public class GraphTests {
         assertEquals("[{dest:B w:1.0}, {dest:C w:4.0}]", Arrays.toString(graph.getNode("A").getConnections()));
         assertEquals("B", graph.getNode("B").toString());
     }
+
+    @Test
+    public void GraphWithNoeElements_CallMethodsWithPassedNull_DoesNotCrash() {
+        Graph<Double> graph = new Graph<>();
+        Double nullInstance = null;
+        assertNull(graph.addNode(nullInstance));
+        assertEquals(0, graph.getNodes().length);
+
+        GraphNode<Double> newNode = null;
+        assertThrows(IllegalArgumentException.class, () -> new GraphNode<Double>(null));
+        assertFalse(graph.addNode(newNode));
+        assertEquals(0, graph.getNodes().length);
+
+        assertNull(graph.getNode(nullInstance));
+
+        assertFalse(graph.contains(nullInstance));
+        assertNull(graph.traverseDepthFrom(nullInstance));
+        assertNull(graph.traverseDepthFrom(newNode));
+        assertNull(graph.traverseDepthFromExcluded(nullInstance));
+    }
 }

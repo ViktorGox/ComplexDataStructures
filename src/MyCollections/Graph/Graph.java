@@ -18,6 +18,9 @@ public class Graph<T> {
      * <p></p>
      */
     public boolean addNode(GraphNode<T> node) {
+        if(node == null) {
+            return false;
+        }
         if (nodes.contains(node)) {
             return false;
         }
@@ -26,6 +29,9 @@ public class Graph<T> {
     }
 
     public GraphNode<T> addNode(T data) {
+        if(data == null) {
+            return null;
+        }
         GraphNode<T> newNode = new GraphNode<>(data);
         if (addNode(newNode)) {
             return newNode;
@@ -55,6 +61,9 @@ public class Graph<T> {
     }
 
     public boolean contains(T data) {
+        if(data == null) {
+            return false;
+        }
         return nodes.contains(new GraphNode<>(data));
     }
 
@@ -92,14 +101,23 @@ public class Graph<T> {
     }
 
     public GraphNode<T>[] traverseDepthFrom(T data) {
+        if(data == null) {
+            return null;
+        }
         return traverseDepthFrom(getNode(data));
     }
 
     public GraphNode<T>[] traverseDepthFrom(GraphNode<T> startNode) {
+        if(startNode == null) {
+            return null;
+        }
         return startNode.traverseDepth();
     }
 
     public GraphNode<T>[] traverseDepthFromExcluded(T data) {
+        if(data == null) {
+            return null;
+        }
         GraphNode<T>[] traverseResult = traverseDepthFrom(data);
         ArrayList<GraphNode<T>> traverseExcluded = new ArrayList<>(nodes);
 
@@ -138,6 +156,9 @@ public class Graph<T> {
     }
 
     public void copyNodeData(Graph<T> graphWithNodes) {
+        if(graphWithNodes == null) {
+            return;
+        }
         for (GraphNode<T> node : graphWithNodes.getNodes()) {
             addNode(node.getData());
         }
