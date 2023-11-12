@@ -5,7 +5,6 @@ import MyCollections.IArray;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-// TODO: https://chat.openai.com/share/695ffb81-d43d-409e-be1a-b56506e84cbc for the log with size
 public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
 
     private T[] array;
@@ -98,8 +97,6 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
         return sizeResize(false);
     }
 
-    // Separated because when building heap with all elements filled, it will resize it, which makes no sense to do so. I would have to down
-    // scale it right after. So I separated them to make it just not even try to scale up.
     private int sizeResize(boolean callResize) {
         int index; // Starts from the last layer instead of iterating every layer
         for (index = getSizeUpToLayer(getLayers() - 2); index < array.length; index++) {
@@ -149,11 +146,6 @@ public class MinHeap<T extends Comparable<T>> implements IHeap<T>, IArray {
             resize(half);
         }
     }
-
-//    @Override
-//    public String toString() {
-//        return Arrays.toString(array);
-//    }
 
     private int leftOf(int index) {
         return 2 * index + 1;

@@ -14,6 +14,7 @@ public class MinHeapTests {
         for (int i = 0; i < 16; i++) {
             heap.push(i);
         }
+
         assertFalse(heap.isEmpty());
         assertEquals(0, heap.peek());
         assertEquals(16, heap.size());
@@ -96,5 +97,11 @@ public class MinHeapTests {
         heap.clear();
         assertEquals(0, heap.size());
         assertNull(heap.peek());
+    }
+
+    @Test
+    public void EmptyMinHeap_PutNull_ThrowsException() {
+        MinHeap<Integer> heap = new MinHeap<>(Integer.class);
+        assertThrows(IllegalArgumentException.class, () -> heap.push(null));
     }
 }
