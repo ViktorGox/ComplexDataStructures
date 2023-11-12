@@ -1,4 +1,4 @@
-package PathFinding.Heap;
+package MyCollections.Heap;
 
 import MyCollections.Heap.MinHeap;
 import org.junit.jupiter.api.Test;

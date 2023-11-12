@@ -1,5 +1,6 @@
 package Stations;
 
+import Tracks.Track;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StationTests {
 
     @Test
-    public void TwoStationsWithSameCode_CheckEqualsResult_EqualReturnsTrue() {
+    public void TwoStationsWithSameName_CheckEqualsResult_EqualReturnsTrue() {
         Station one = new Station((byte) 2, "one", "O.N.E", "NL", "thisone", 20.0, 24.0);
-        Station two = new Station((byte) 3, "one", "W.N.O", "NL", "thatone", 21.0, 24.0);
+        Station two = new Station((byte) 3, "two", "O.N.E", "NL", "thatone", 21.0, 24.0);
         assertEquals(one, two);
     }
 
@@ -29,5 +30,26 @@ public class StationTests {
         assertEquals(14.14, Math.round(Station.calculateDistanceBetween(one.getCode(), four.getCode())),2);
         assertEquals(11.18, Math.round(Station.calculateDistanceBetween(one.getCode(), three.getCode())),2);
         assertEquals(15, Math.round(Station.calculateDistanceBetween(two.getCode(), four.getCode())),2);
+    }
+
+    @Test
+    public void GetStationByCode_ReturnsCorrectStation() {
+        Station one = new Station((byte) 2, "one", "O.N.E", "NL", "thisone", 20.0, 20.0);
+        Station.addStationToList(one);
+        assertEquals(one, Station.getStationByCode("one"));
+    }
+
+    @Test
+    public void SearchStationBinary_ReturnsCorrectStation() {
+        Station.GenerateStationList();
+        Track.GenerateTrackList();
+        assertEquals("DV", Station.searchForStationBinarySearch("Deventer").getCode());
+    }
+
+    @Test
+    public void SearchStationLinear_ReturnsCorrectStation() {
+        Station.GenerateStationList();
+        Track.GenerateTrackList();
+        assertEquals("DV", Station.getStationLinear("Deventer").getCode());
     }
 }
