@@ -2,8 +2,6 @@ package MyCollections.HashTable;
 
 import MyCollections.IArray;
 
-// TODO: partly chat gpt generated https://chat.openai.com/share/103bd1d9-fc0e-439e-962c-7f3b580a3410
-// If you resize() is removed the .next works. but it always resizes before an element goes into next???
 public class HashMap<K, V> implements IArray, IHashMap<K, V> {
     private static final int INITIAL_CAPACITY = 10;
     private Entry<K, V>[] entryTable;

@@ -6,6 +6,7 @@ import MyCollections.Graph.Graph;
 import MyCollections.HashTable.HashMap;
 import MyCollections.LinkedList.LinkedList;
 import MyCollections.Tree.AVLTree;
+import Sorting.QuickSort;
 import Tracks.Track;
 import Utilities.StringModification;
 
@@ -135,7 +136,7 @@ public class Station implements Comparable<Station> {
         double longitude = Math.abs(stationOne.geoLng - stationTwo.geoLng);
         double latitude = Math.abs(stationOne.geoLat - stationTwo.geoLat);
 
-        double result = Math.pow(longitude,2) + Math.pow(latitude,2);
+        double result = Math.pow(longitude, 2) + Math.pow(latitude, 2);
         return Math.sqrt(result);
     }
 
@@ -169,5 +170,44 @@ public class Station implements Comparable<Station> {
 
     public double getGeoLng() {
         return geoLng;
+    }
+
+    public static Station searchForStationBinarySearch(String name) {
+        Station[] stationArray = new Station[stationsLinkedList.size()];
+        stationsLinkedList.convertToArray(stationArray);
+        QuickSort<Station> quickSort = new QuickSort<>();
+        quickSort.sort(stationArray);
+        return binarySearch(stationArray, name);
+    }
+
+    private static Station binarySearch(Station[] sortedStationArray, String name) {
+        int low = 0;
+        int high = sortedStationArray.length - 1;
+
+        while (high >= low) {
+            int middle = low + (high - low) / 2;
+
+            int compareResult = sortedStationArray[middle].name.compareTo(name);
+
+            if (compareResult == 0) {
+                return sortedStationArray[middle];
+            } else if (compareResult < 0) {
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
+        }
+        return null;
+    }
+
+    public static Station getStationLinear(String name) {
+        Station[] stationArray = new Station[stationsLinkedList.size()];
+        stationsLinkedList.convertToArray(stationArray);
+        for (Station station : stationArray) {
+            if(station.name.equals(name)) {
+                return station;
+            }
+        }
+        return null;
     }
 }
