@@ -16,6 +16,9 @@ public class AStar<T extends Comparable<T>> extends DestinationPathFinding<T> {
     }
 
     protected void calculatePathRecursive(PathFindNode<T> start) {
+        if(start == null) {
+            return;
+        }
         traversedT.add(start.getDestination());
         toTraverseHashMap.put(start.getDestination(), start);
         if (start.getDestination().equals(destination)) {

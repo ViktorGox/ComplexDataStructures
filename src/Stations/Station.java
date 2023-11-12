@@ -106,9 +106,6 @@ public class Station implements Comparable<Station> {
     }
 
     public static Graph<String> generateStationGraph() {
-        Station.GenerateStationList();
-        Track.GenerateTrackList();
-
         Graph<String> stationGraph = new Graph<>();
         Station[] stations = Station.getStations();
         Track[] tracks = Track.getTracks();
