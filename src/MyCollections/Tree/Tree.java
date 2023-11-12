@@ -103,10 +103,32 @@ public abstract class Tree<T extends Comparable<T>> implements IArray, ITree<T>,
         return sb.toString();
     }
 
-    //TODO: to graphViz here.
     @Override
     public String graphViz() {
-        return null;
+        return toGraphVizRecursive(root);
+    }
+
+    private String toGraphVizRecursive(TreeNode<T> start) {
+        StringBuilder sb = new StringBuilder();
+        if(start.hasLeft()) {
+            sb.append(start.getData()).append(" -> ");
+            sb.append(start.left.getData()).append("\n");
+        }
+
+        if(start.hasRight()) {
+            sb.append(start.getData()).append(" -> ");
+            sb.append(start.right.getData()).append("\n");
+        }
+
+        if(start.hasLeft()) {
+            sb.append(toGraphVizRecursive(start.left));
+        }
+
+        if(start.hasRight()) {
+            sb.append(toGraphVizRecursive(start.right));
+        }
+
+        return sb.toString();
     }
 
     protected TreeNode<T> findMin(TreeNode<T> node) {
