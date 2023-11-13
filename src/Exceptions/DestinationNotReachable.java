@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class DestinationNotReachable extends Throwable {
+public class DestinationNotReachable extends RuntimeException {
     public DestinationNotReachable(String errorMessage) {
         super(errorMessage);
     }

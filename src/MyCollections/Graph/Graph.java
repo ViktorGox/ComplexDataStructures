@@ -65,32 +65,44 @@ public class Graph<T> {
         return nodes.contains(new GraphNode<>(data));
     }
 
-    public void connectMutual(T point1, T point2, double weight1, double weight2) {
-        connectOneWay(point1, point2, weight1);
-        connectOneWay(point2, point1, weight2);
+    public boolean connectMutual(T point1, T point2, double weight1, double weight2) {
+        boolean firstWay = connectOneWay(point1, point2, weight1);
+        if(!firstWay) return false;
+        boolean secondWay = connectOneWay(point2, point1, weight2);
+        if(!secondWay) {
+            throw new IllegalStateException("Somehow the first connection was established successfully, but the second failed.");
+        }
+        return true;
     }
 
-    public void connectOneWay(T start, T destination, double weight) {
+    public boolean connectOneWay(T start, T destination, double weight) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(destination);
         if (node1 == null || node2 == null) {
-            return;
+            return false;
         }
         node1.addConnection(node2, weight);
+        return true;
     }
 
-    public void disconnectMutual(T point1, T point2) {
-        disconnectOneWay(point1, point2);
-        disconnectOneWay(point2, point1);
+    public boolean disconnectMutual(T point1, T point2) {
+        boolean firstWay = disconnectOneWay(point1, point2);
+        if(!firstWay) return false;
+        boolean secondWay = disconnectOneWay(point2, point1);
+        if(!secondWay) {
+            throw new IllegalStateException("Somehow the first connection was removed successfully, but the second failed.");
+        }
+        return true;
     }
 
-    public void disconnectOneWay(T start, T destination) {
+    public boolean disconnectOneWay(T start, T destination) {
         GraphNode<T> node1 = getNode(start);
         GraphNode<T> node2 = getNode(destination);
         if (node1 == null || node2 == null) {
-            return;
+            return false;
         }
         node1.removeConnection(node2);
+        return true;
     }
 
     @Override

@@ -21,11 +21,11 @@ public abstract class DestinationPathFinding<T> extends PathFinding<T, ArrayList
     }
 
     @Override
-    public ArrayList<PathFindNode<T>> calculatePath() throws DestinationNotReachable {
+    public ArrayList<PathFindNode<T>> calculatePath() {
         return calculatePath(this.start, this.destination);
     }
 
-    public ArrayList<PathFindNode<T>> calculatePath(T start, T destination) throws DestinationNotReachable {
+    public ArrayList<PathFindNode<T>> calculatePath(T start, T destination) {
         if (!nodeGraph.contains(start)) {
             return null;
         }

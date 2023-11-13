@@ -1,6 +1,5 @@
 package PathFinding;
 
-import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import MyCollections.HashTable.HashMap;
 import MyCollections.Heap.MinHeap;
@@ -24,5 +23,5 @@ public abstract class PathFinding<T, R> {
         this.bestPath = new ArrayList<>();
     }
 
-    public abstract R calculatePath() throws DestinationNotReachable;
+    public abstract R calculatePath();
 }
