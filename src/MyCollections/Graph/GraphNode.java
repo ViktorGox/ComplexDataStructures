@@ -67,6 +67,7 @@ public class GraphNode<T> {
     }
 
     public GraphNode<T>[] traverseDepth() {
+        traversalArray.clear();
         traverseDepthRecursive(this);
         GraphNode<T>[] array = (GraphNode<T>[]) new GraphNode[traversalArray.size()];
         return traversalArray.toArray(array);

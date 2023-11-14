@@ -96,7 +96,7 @@ public class DummyStations {
 
 
         Track.addTrackToList(new Track("A", "B", (short) 4, (short) 4, "DummyType"));
-        Track.addTrackToList(new Track("A", "H", (short) 9, (short) 9, "DummyType"));
+        Track.addTrackToList(new Track("A", "H", (short) 7, (short) 7, "DummyType"));
         Track.addTrackToList(new Track("A", "K", (short) 13, (short) 13, "DummyType"));
         Track.addTrackToList(new Track("B", "J", (short) 1, (short) 1, "DummyType"));
         Track.addTrackToList(new Track("B", "C", (short) 8, (short) 8, "DummyType"));
@@ -118,7 +118,7 @@ public class DummyStations {
 
 
         Track.addTrackToList(new Track("B", "A", (short) 4, (short) 4, "DummyType"));
-        Track.addTrackToList(new Track("H", "A", (short) 9, (short) 9, "DummyType"));
+        Track.addTrackToList(new Track("H", "A", (short) 7, (short) 7, "DummyType"));
         Track.addTrackToList(new Track("K", "A", (short) 13, (short) 13, "DummyType"));
         Track.addTrackToList(new Track("J", "B", (short) 1, (short) 1, "DummyType"));
         Track.addTrackToList(new Track("C", "B", (short) 8, (short) 8, "DummyType"));

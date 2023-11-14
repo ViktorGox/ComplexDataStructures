@@ -3,27 +3,31 @@ package PathFinding.Kruskal;
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
 import MyCollections.Graph.GraphNode;
-import PathFinding.PathFindNode;
-import PathFinding.PathFinding;
+import MyCollections.Heap.MinHeap;
 
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public class Kruskal<T> extends PathFinding<T, Graph<T>> {
+public class Kruskal<T> {
+    protected final Graph<T> nodeGraph;
     private final Function<T, Double> getLatitude;
     private final Function<T, Double> getLongitude;
+    protected final MinHeap<KruskalConnection<T>> toTraverseMinHeap;
+    private final ArrayList<KruskalConnection<T>> knownConnections;
     private T point1;
     private T point2;
     private Graph<T> filteredGraph;
 
     public Kruskal(Graph<T> nodeGraph, Function<T, Double> getLatitude, Function<T, Double> getLongitude
             , T point1, T point2) {
-        super(nodeGraph);
+        this.nodeGraph = nodeGraph;
         this.getLatitude = getLatitude;
         this.getLongitude = getLongitude;
         this.point1 = point1;
         this.point2 = point2;
-        filteredGraph = new Graph<>();
+        this.filteredGraph = new Graph<>();
+        this.toTraverseMinHeap = (MinHeap<KruskalConnection<T>>) new MinHeap<>(new KruskalConnection<T>(null, null, 0).getClass());
+        this.knownConnections = new ArrayList<>();
     }
 
     private Graph<T> filterNodes() {
@@ -49,9 +53,13 @@ public class Kruskal<T> extends PathFinding<T, Graph<T>> {
             filteredGraph.addNode(node.getData());
         }
 
+
         for (GraphNode<T> node : filteredGraph.getNodes()) {
             exploreNodes(node.getData());
         }
+
+        moveKnownConnectionsToMinHeap();
+
         return filteredGraph;
     }
 
@@ -76,42 +84,49 @@ public class Kruskal<T> extends PathFinding<T, Graph<T>> {
     }
 
     private void exploreNodes(T data) {
-        traversedT.add(data);
         GraphNode<T> realNode = nodeGraph.getNode(data);
 
         for (GraphConnection<T> connection : realNode.getConnections()) {
-            if (traversedT.contains(connection.getDestination().getData())) continue;
-            if (!filteredGraph.contains(connection.getDestination().getData())) continue;
-
-            filteredGraph.connectMutual(data, connection.getDestination().getData(), connection.getWeight(), connection.getWeight());
-
-            toTraverseMinHeap.push(new PathFindNode<T>(data, connection.getDestination().getData(), connection.getWeight()));
-            exploreNodes(connection.getDestination().getData());
+            if (!filteredGraph.connectOneWay(data, connection.getDestination().getData(), connection.getWeight()))
+                continue;
+            addIfNotExist(new KruskalConnection<>(data, connection.getDestination().getData(), connection.getWeight()));
         }
     }
 
-    @Override
     public Graph<T> calculatePath() {
         Graph<T> result = new Graph<>();
         Graph<T> filteredGraph = filterNodes();
 
         result.copyNodeData(filteredGraph);
 
-        ArrayList<T> localTraversed = new ArrayList<>();
-        PathFindNode<T> firstNode = toTraverseMinHeap.pop();
-
-        // If it's empty, then no need to continue.
-        if (firstNode == null) return result;
-
-        result.addNode(firstNode.getDestination());
-        localTraversed.add(firstNode.getDestination());
 
         while (!toTraverseMinHeap.isEmpty()) {
-            PathFindNode<T> current = toTraverseMinHeap.pop();
-            if(localTraversed.contains(current.getDestination())) continue;
+            KruskalConnection<T> current = toTraverseMinHeap.pop();
+
+            GraphNode<T> destination = new GraphNode<>(current.getDestination());
+            GraphNode<T>[] traverseResult = result.traverseDepthFrom(current.getOrigin());
+
+            boolean loop = false;
+            for (GraphNode<T> tGraphNode : traverseResult) {
+                if (tGraphNode.equals(destination)) {
+                    loop = true;
+                    break;
+                }
+            }
+            if (loop) continue;
             result.connectMutual(current.getDestination(), current.getOrigin(), current.getCost(), current.getCost());
         }
-
         return result;
+    }
+
+    private void addIfNotExist(KruskalConnection<T> connection) {
+        if (knownConnections.contains(connection)) return;
+        knownConnections.add(connection);
+    }
+
+    private void moveKnownConnectionsToMinHeap() {
+        for (KruskalConnection<T> knownConnection : knownConnections) {
+            toTraverseMinHeap.push(knownConnection);
+        }
     }
 }
