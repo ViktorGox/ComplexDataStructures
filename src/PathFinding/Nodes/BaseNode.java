@@ -1,13 +1,13 @@
 package PathFinding.Nodes;
 
 public class BaseNode<T> {
-    protected final T destination;
     protected T origin;
+    protected final T destination;
     protected double cost;
 
-    public BaseNode(T destination, T origin, double cost) {
-        this.destination = destination;
+    public BaseNode(T origin, T destination, double cost) {
         this.origin = origin;
+        this.destination = destination;
         this.cost = cost;
     }
 

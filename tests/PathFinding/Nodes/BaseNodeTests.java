@@ -8,8 +8,8 @@ public class BaseNodeTests {
     @Test
     public void BaseNode_Getters_WorkCorrectly() {
         BaseNode<String> node1 = new BaseNode<>("a", "b", 2);
-        assertEquals("a", node1.getDestination());
-        assertEquals("b", node1.getOrigin());
+        assertEquals("a", node1.getOrigin());
+        assertEquals("b", node1.getDestination());
         assertEquals(2, node1.getCost());
     }
 
@@ -34,5 +34,11 @@ public class BaseNodeTests {
 
         BaseNode<String> node4 = new BaseNode<>("a", "a", 8);
         assertEquals(1, node4.compareTo(node2));
+    }
+
+    @Test
+    public void Node_toString_returnsCorrectly() {
+        BaseNode<String> node1 = new BaseNode<>("a", "b", 2);
+        assertEquals("a -> b (2.0)\n", node1.toString());
     }
 }
