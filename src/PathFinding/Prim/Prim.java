@@ -4,7 +4,7 @@ import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
 import MyCollections.HashTable.HashMap;
 import PathFinding.PathFinding;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 
 import java.util.ArrayList;
 

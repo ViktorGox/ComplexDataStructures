@@ -2,7 +2,7 @@ package PathFinding.Astar;
 
 import Exceptions.DestinationNotReachable;
 import PathFinding.DummyStations;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 import Stations.Station;
 import org.junit.jupiter.api.Test;
 

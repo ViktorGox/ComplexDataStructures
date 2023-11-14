@@ -2,7 +2,7 @@ import Exceptions.DestinationNotReachable;
 import PathFinding.Astar.AStar;
 import PathFinding.Dijkstra.Dijkstra;
 import PathFinding.Kruskal.Kruskal;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 import Stations.Station;
 import Tracks.Track;
 

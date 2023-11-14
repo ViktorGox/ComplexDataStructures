@@ -2,7 +2,7 @@ package PathFinding.Dijkstra;
 
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 import PathFinding.DestinationPathFinding;
 
 public class Dijkstra<T> extends DestinationPathFinding<T> {

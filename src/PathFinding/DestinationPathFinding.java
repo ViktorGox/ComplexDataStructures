@@ -3,6 +3,7 @@ package PathFinding;
 import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
 import MyCollections.HashTable.HashMap;
+import PathFinding.Nodes.PathFindNode;
 
 import java.util.ArrayList;
 

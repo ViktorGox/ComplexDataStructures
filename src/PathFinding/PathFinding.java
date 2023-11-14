@@ -3,6 +3,7 @@ package PathFinding;
 import MyCollections.Graph.Graph;
 import MyCollections.HashTable.HashMap;
 import MyCollections.Heap.MinHeap;
+import PathFinding.Nodes.PathFindNode;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,7 @@ package PathFinding.Dijkstra;
 
 import Exceptions.DestinationNotReachable;
 import MyCollections.Graph.Graph;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package PathFinding.Astar;
 
 import MyCollections.Graph.Graph;
 import MyCollections.Graph.GraphConnection;
-import PathFinding.PathFindNode;
+import PathFinding.Nodes.PathFindNode;
 import PathFinding.DestinationPathFinding;
 
 import java.util.function.BiFunction;
