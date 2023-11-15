@@ -2,6 +2,7 @@ package MyCollections.HashTable;
 
 import MyCollections.IArray;
 
+// TODO: so apparently, it was not wrong, my tests were incorrect.
 public class HashMap<K, V> implements IArray, IHashMap<K, V> {
     private static final int INITIAL_CAPACITY = 10;
     private Entry<K, V>[] entryTable;

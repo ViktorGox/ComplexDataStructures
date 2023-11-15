@@ -78,9 +78,9 @@ public class HashMapTests {
 
     @Test
     public void hashTable_TryAddElementToHitSameKey_ValueIsAddedAtTheEndCorrectly() {
-        HashMap<Integer, DummyClass> hashMap = new HashMap<>();
+        HashMap<String, DummyClass> hashMap = new HashMap<>();
         for (int i = 0; i < 100; i++) {
-            hashMap.put(i, new DummyClass("1"));
+            hashMap.put(String.valueOf(i), new DummyClass("1"));
         }
     }
 

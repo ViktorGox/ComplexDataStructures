@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class    DijkstraTests {
+public class DijkstraTests {
     @Test
     public void Dijkstra_FindPathWithNodesFromPresentation_WorksCorrectly() {
         try {
@@ -43,22 +43,22 @@ public class    DijkstraTests {
         presentationGraph.addNode("f");
         presentationGraph.addNode("g");
 
-        presentationGraph.connectMutual("a","b",1,1);
-        presentationGraph.connectMutual("a","c",4,4);
+        presentationGraph.connectMutual("a", "b", 1, 1);
+        presentationGraph.connectMutual("a", "c", 4, 4);
 
-        presentationGraph.connectMutual("b","e",10,10);
-        presentationGraph.connectMutual("b","c",2,2);
-        presentationGraph.connectMutual("b","d",3,3);
+        presentationGraph.connectMutual("b", "e", 10, 10);
+        presentationGraph.connectMutual("b", "c", 2, 2);
+        presentationGraph.connectMutual("b", "d", 3, 3);
 
-        presentationGraph.connectMutual("c","g",3,3);
-        presentationGraph.connectMutual("d","g",1,1);
-        presentationGraph.connectMutual("g","e",2,2);
+        presentationGraph.connectMutual("c", "g", 3, 3);
+        presentationGraph.connectMutual("d", "g", 1, 1);
+        presentationGraph.connectMutual("g", "e", 2, 2);
 
-        presentationGraph.connectMutual("d","c",6,6);
-        presentationGraph.connectMutual("d","e",5,5);
+        presentationGraph.connectMutual("d", "c", 6, 6);
+        presentationGraph.connectMutual("d", "e", 5, 5);
 
-        presentationGraph.connectMutual("g","f",5,5);
-        presentationGraph.connectMutual("e","f",7,7);
+        presentationGraph.connectMutual("g", "f", 5, 5);
+        presentationGraph.connectMutual("e", "f", 7, 7);
         return presentationGraph;
     }
 }
